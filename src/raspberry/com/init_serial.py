@@ -4,6 +4,7 @@ from adafruit_pca9685 import PCA9685
 from adafruit_motor import servo
 import board
 import busio
+import serial as ser
 
 from com.motor_communication import init_serial
 from com.robot import RobotSerial
@@ -14,27 +15,48 @@ def find_ports():
     context = pyudev.Context()
     sts3215_port = None
     robot_port = None
+    screen_port = None
+    lidar_port = None
+
+    CH340_port = []
+    CP210_port = []
 
     for device in context.list_devices(subsystem='tty'):
         if 'ID_VENDOR_FROM_DATABASE' in device:
             vendor = device.get('ID_VENDOR_FROM_DATABASE')
             if vendor:
                 if 'QinHeng Electronics' in vendor:
-                    sts3215_port = device.device_node
+                    CH340_port.append(device.device_node)
                 elif 'Silicon Labs' in vendor:
-                    robot_port = device.device_node
+                    CP210_port.append(device.device_node)
 
-        if not sts3215_port and 'CH340' in str(device):
-            sts3215_port = device.device_node
-        if not robot_port and 'CP210' in str(device):
-            robot_port = device.device_node
+        for port in CH340_port:
+            serial = ser.Serial(port, 115200)
+            serial.write("300\n".encode('utf-8'))
+            serial.write("S\n".encode('utf-8'))
+            reponse = serial.readline().decode('utf-8').strip()
+            if reponse == "300":
+                screen_port = port
+            else:
+                sts3215_port = port
+            serial.close()
 
-    return sts3215_port, robot_port
+        for port in CP210_port:
+            serial = ser.Serial(port, 115200)
+            serial.write("1:R\n".encode('utf-8'))
+            reponse = serial.readline().decode('utf-8').strip()
+            if reponse == "1:R:?":
+                robot_port = port
+            else:
+                lidar_port = port
+            serial.close()
+
+    return sts3215_port, robot_port, screen_port, lidar_port
 
 
 def init_coms_robot():
     
-    sts3215_port, robot_port = find_ports()
+    sts3215_port, robot_port, screen_port, lidar_port = find_ports()
     sts3215 = []
     port_handler = PortHandler(sts3215_port)
     packet_handler = PacketHandler(0)
@@ -52,6 +74,6 @@ def init_coms_robot():
     servos = [servo.Servo(pca.channels[i]) for i in range(16)]
 
 
-    return sts3215, RobotSerial(ser), Lidar(), servos
+    return sts3215, RobotSerial(ser), Lidar(lidar_port), servos
 
     
