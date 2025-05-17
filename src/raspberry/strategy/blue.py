@@ -43,7 +43,7 @@ class Strategy:
                     self.old_actual_y = self.actual_y
                     self.timeout_busy = time.time()
 
-            if time.time()-self.timeout_busy >= 10 and self.actual_x < self.old_actual_x+10 and self.actual_x > self.old_actual_x-10 and self.actual_y < self.old_actual_y+10 and self.actual_y > self.old_actual_y-10:
+            if self.robot_busy and time.time()-self.timeout_busy >= 10 and self.actual_x < self.old_actual_x+10 and self.actual_x > self.old_actual_x-10 and self.actual_y < self.old_actual_y+10 and self.actual_y > self.old_actual_y-10:
                 print("TIMEOUT : ROBOT BLOQUE")
                 self.robot_busy = False  
              
