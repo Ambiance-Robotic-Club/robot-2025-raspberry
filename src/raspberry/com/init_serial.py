@@ -39,8 +39,10 @@ def find_ports():
             except Exception as e:
                 reponse = None
             if reponse == "300":
+                print("Port screen : ", port)
                 screen_port = port
             else:
+                print("Port sts3215 : ", port)
                 sts3215_port = port
             serial.close()
 
@@ -49,11 +51,14 @@ def find_ports():
             serial.write("1:R\n".encode('utf-8'))
             try:
                 reponse = serial.readline().decode('utf-8').strip()
+            
             except Exception as e:
                 reponse = None
             if reponse == "1:R:?":
+                print("Port robot : ", port)
                 robot_port = port
             else:
+                print("Port lidar : ", port)
                 lidar_port = port
             serial.close()
 
