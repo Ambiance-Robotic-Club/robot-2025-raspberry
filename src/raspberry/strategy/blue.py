@@ -5,6 +5,8 @@ import utils.constant as constant
 def blue_strat(robot, servos):
     pass
 
+def modulo(a, b):
+    return a - int(a / b) * b
 class Strategy:
     def __init__(self, robot, servos):
 
@@ -69,7 +71,7 @@ class Strategy:
         step_consigne = self.consigne_queue[0]
 
         theta_radians = math.atan2(step_consigne[1] - self.actual_y, step_consigne[0] - self.actual_x)
-        theta_degrees = (math.degrees(theta_radians) - self.actual_theta) % 360
+        theta_degrees = modulo((math.degrees(theta_radians) - self.actual_theta), 360)
         
         if self.actual_type_consigne == 0:
 
@@ -96,7 +98,7 @@ class Strategy:
         if self.actual_type_consigne == 2:
             self.consigne_queue = self.consigne_queue[1:]
 
-            alignment_theta = (self.actual_theta - theta_degrees - step_consigne[2]) % 360
+            alignment_theta = modulo((self.actual_theta - theta_degrees - step_consigne[2]), 360)
             if alignment_theta > 180:
                 alignment_theta -= 360
             if theta_degrees < -180:
