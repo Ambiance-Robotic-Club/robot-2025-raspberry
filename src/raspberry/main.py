@@ -14,9 +14,10 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../'
 
 
 if __name__ == "__main__":
+    sts3215, robot, lidar, servos= init_coms_robot()
+
     wait_tirette()
 
-    sts3215, robot, lidar, servos= init_coms_robot()
 
     t_lidar = threading.Thread(target=lidar.read_lidar_data)
     t_lidar.start()
@@ -51,5 +52,8 @@ if __name__ == "__main__":
         print(f"Error : {e}")
 
     t_lidar.join()
-
+    lidar.serial.close()
+    robot.serial.close()
+    sts3215[0].port_handler.closePort()
+    
 

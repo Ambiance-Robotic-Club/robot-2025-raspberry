@@ -34,7 +34,10 @@ def find_ports():
             serial = ser.Serial(port, 115200)
             serial.write("300\n".encode('utf-8'))
             serial.write("S\n".encode('utf-8'))
-            reponse = serial.readline().decode('utf-8').strip()
+            try:
+                reponse = serial.readline().decode('utf-8').strip()
+            except Exception as e:
+                reponse = None
             if reponse == "300":
                 screen_port = port
             else:
@@ -44,7 +47,10 @@ def find_ports():
         for port in CP210_port:
             serial = ser.Serial(port, 115200)
             serial.write("1:R\n".encode('utf-8'))
-            reponse = serial.readline().decode('utf-8').strip()
+            try:
+                reponse = serial.readline().decode('utf-8').strip()
+            except Exception as e:
+                reponse = None
             if reponse == "1:R:?":
                 robot_port = port
             else:
@@ -75,5 +81,3 @@ def init_coms_robot():
 
 
     return sts3215, RobotSerial(ser), Lidar(lidar_port), servos
-
-    
