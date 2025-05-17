@@ -157,7 +157,7 @@ class Lidar:
                                         self.timer_free = time.time()                            
                                         if not self.is_free:
                                             self.f_stop = True
-                                elif time.time() - self.timer_free > 0.2:
+                                if time.time() - self.timer_free > 0.2:
                                     self.is_free = 5
 
                 else:
