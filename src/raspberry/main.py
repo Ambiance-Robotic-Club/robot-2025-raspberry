@@ -39,8 +39,8 @@ if __name__ == "__main__":
             print(f"Robot datas")
             print("Couleur : ", couleur)
             print("Timer : ", timer)
-            print("Position robot : ", strategy.actual_x, "x |", strategy.actual_y, "y |", strategy.actual_theta, "θ")
-            print("Consigne robot : ", strategy.consigne_queue[0], "x |", strategy.consigne_queue[1], "y |", strategy.consigne_queue[2], "θ")
+            print("Position robot : x :", strategy.actual_x, "| y :", strategy.actual_y, "| θ :", strategy.actual_theta)
+            print("Consigne robot : x :", strategy.consigne_queue[0][0], "| y :", strategy.consigne_queue[0][1], "| θ :", strategy.consigne_queue[0][2])
             print("__________________________________________")
 
             time.sleep(0.01)
