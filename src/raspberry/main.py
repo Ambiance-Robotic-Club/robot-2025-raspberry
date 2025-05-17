@@ -29,10 +29,11 @@ if __name__ == "__main__":
 
     try:
         while(True):
-            if not(lidar.is_free) and lidar.f_stop:
+            if not lidar.is_free and lidar.f_stop:
                 find_safe_place(robot)
             elif lidar.is_free and lidar.f_stop:
                 strategy.consigne_queue.insert(0,strategy.step_consigne)
+                print(strategy.consigne_queue)
                 strategy.actual_type_consigne = 0
                 lidar.f_stop = False
             else:
