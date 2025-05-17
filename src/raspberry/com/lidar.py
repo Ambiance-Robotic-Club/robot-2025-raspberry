@@ -145,7 +145,7 @@ class Lidar:
                                 obstacle_x = point.distance * math.cos(math.radians(obstacle_angle)) + self.robot_position[0]
                                 obstacle_y = point.distance * math.sin(math.radians(obstacle_angle)) + self.robot_position[1]
                                 d2 = math.sqrt(obstacle_x**2 + obstacle_y**2)
-                                if obstacle_x < 3000 and obstacle_y < 2000:
+                                if obstacle_x > 0 and obstacle_y > 0 and obstacle_x < 3000 and obstacle_y < 2000:
                                     print("__________________________________________")
                                     print(f"Lidar obstacle : ({obstacle_x}, {obstacle_y})")
                                     print("__________________________________________")

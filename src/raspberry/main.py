@@ -38,7 +38,7 @@ if __name__ == "__main__":
             timer = time.time() - timerStart
 
             lidar.robot_position = [strategy.actual_x, strategy.actual_y, strategy.actual_theta]
-            
+
             print("__________________________________________")
             print(f"Robot datas")
             print("Couleur : ", couleur)
@@ -52,6 +52,8 @@ if __name__ == "__main__":
 
     except KeyboardInterrupt:
         print("Stop")
+        t_lidar.join()
+
     except Exception as e:
         print(f"Error : {e}")
 
