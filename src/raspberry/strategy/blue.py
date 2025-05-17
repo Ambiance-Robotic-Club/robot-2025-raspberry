@@ -22,6 +22,8 @@ class Strategy:
         self.actual_y = 0
         self.actual_theta = 0
 
+        self.theta_degrees = 0
+
         self.old_actual_x = 0
         self.old_actual_y = 0
         self.timeout_busy = 0
@@ -75,15 +77,15 @@ class Strategy:
         if self.actual_type_consigne == 0:
 
             theta_radians = math.atan2(step_consigne[1] - self.actual_y, step_consigne[0] - self.actual_x)
-            theta_degrees = modulo((math.degrees(theta_radians) - self.actual_theta), 360)
-            
-            if theta_degrees > 180:
-                theta_degrees -= 360
-            if theta_degrees < -180:
-                theta_degrees += 360
+            self.theta_degrees = modulo((math.degrees(theta_radians) - self.actual_theta), 360)
 
-            if theta_degrees > constant.CONSIGNE_MIN_THETA or theta_degrees < -constant.CONSIGNE_MIN_THETA:
-                self.consigne = theta_degrees
+            if self.theta_degrees > 180:
+                self.theta_degrees -= 360
+            if self.theta_degrees < -180:
+                self.theta_degrees += 360
+
+            if self.theta_degrees > constant.CONSIGNE_MIN_THETA or self.theta_degrees < -constant.CONSIGNE_MIN_THETA:
+                self.consigne = self.theta_degrees
                 self.is_consigne = True
             else:
                 self.actual_type_consigne = 1
@@ -100,11 +102,11 @@ class Strategy:
         if self.actual_type_consigne == 2:
             self.consigne_queue = self.consigne_queue[1:]
 
-            alignment_theta = modulo((step_consigne[2] - self.actual_theta - theta_degrees), 360)
+            alignment_theta = modulo((step_consigne[2] - self.actual_theta - self.theta_degrees), 360)
             if alignment_theta > 180:
                 alignment_theta -= 360
-            if theta_degrees < -180:
-                theta_degrees += 360
+            if self.theta_degrees < -180:
+                self.theta_degrees += 360
 
             if alignment_theta > constant.CONSIGNE_MIN_THETA or alignment_theta < -constant.CONSIGNE_MIN_THETA:
                 self.consigne = alignment_theta
