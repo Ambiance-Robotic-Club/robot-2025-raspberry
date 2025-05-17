@@ -39,17 +39,18 @@ if __name__ == "__main__":
             timer = time.time() - timerStart
 
             lidar.robot_position = [strategy.actual_x, strategy.actual_y, strategy.actual_theta]
-
-            print("__________________________________________")
-            print(f"Robot datas")
-            print("Couleur : ", couleur)
-            print("Timer : ", timer)
-            print("Position robot : x :", strategy.actual_x, "| y :", strategy.actual_y, "| θ :", strategy.actual_theta - int(strategy.actual_theta/360)*360)
-            print("Consigne robot : x :", strategy.step_consigne[0], "| y :", strategy.step_consigne[1], "| θ :", strategy.step_consigne[2])
-            print("Obstacle : ", "Oui" if not lidar.is_free else "Non", "| Bloqué : ", "Oui" if lidar.f_stop else "Non",)
-            print("Consigne actuelle (position / rotation) :", strategy.consigne)
-            print("__________________________________________")
-
+            try:
+                print("__________________________________________")
+                print(f"Robot datas")
+                print("Couleur : ", couleur)
+                print("Timer : ", timer)
+                print("Position robot : x :", strategy.actual_x, "| y :", strategy.actual_y, "| θ :", strategy.actual_theta - int(strategy.actual_theta/360)*360)
+                print("Consigne robot : x :", strategy.step_consigne[0], "| y :", strategy.step_consigne[1], "| θ :", strategy.step_consigne[2])
+                print("Obstacle : ", "Oui" if not lidar.is_free else "Non", "| Bloqué : ", "Oui" if lidar.f_stop else "Non",)
+                print("Consigne actuelle (position / rotation) :", strategy.consigne)
+                print("__________________________________________")
+            except Exception as e:
+                pass
             time.sleep(0.01)
 
     except KeyboardInterrupt:
