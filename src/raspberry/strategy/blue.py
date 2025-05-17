@@ -43,7 +43,7 @@ class Strategy:
                     self.old_actual_y = self.actual_y
                     self.timeout_busy = time.time()
 
-            if time.time()-self.timeout_busy >= 5 and self.actual_x < self.old_actual_x+10 and self.actual_x > self.old_actual_x-10 and self.actual_y < self.old_actual_y+10 and self.actual_y > self.old_actual_y-10:
+            if time.time()-self.timeout_busy >= 10 and self.actual_x < self.old_actual_x+10 and self.actual_x > self.old_actual_x-10 and self.actual_y < self.old_actual_y+10 and self.actual_y > self.old_actual_y-10:
                 print("TIMEOUT : ROBOT BLOQUE")
                 self.robot_busy = False  
              
@@ -57,7 +57,7 @@ class Strategy:
                     self.robot.send_position_consigne(self.consigne)
                 else:
                     self.robot.send_rotation_consigne(self.consigne)
-    
+                print(self.consigne)
                 self.actual_type_consigne = (self.actual_type_consigne + 1) % 3
                 self.is_consigne = False
     
@@ -90,7 +90,7 @@ class Strategy:
         if self.actual_type_consigne == 2:
             self.consigne_queue = self.consigne_queue[1:]
 
-            alignment_theta = (self.actual_theta - theta_degrees - step_consigne[2]) % 360
+            alignment_theta = (self.actual_theta - step_consigne[2]) % 360
             if alignment_theta > 180:
                 alignment_theta -= 360
 
