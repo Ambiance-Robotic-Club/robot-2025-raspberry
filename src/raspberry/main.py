@@ -23,6 +23,10 @@ if __name__ == "__main__":
 
     strategy = Strategy(robot, sts3215)
 
+    couleur = None
+    timerStart = time.time()
+
+
     try:
         while(True):
             if lidar.f_stop:
@@ -30,6 +34,15 @@ if __name__ == "__main__":
             else:
                 strategy.update_robot()
             
+            timer = time.time() - timerStart
+            print("__________________________________________")
+            print(f"Robot datas")
+            print("Couleur : ", couleur)
+            print("Timer : ", timer)
+            print("Position robot : ", strategy.actual_x, "x |", strategy.actual_y, "y |", strategy.actual_theta, "θ")
+            print("Consigne robot : ", strategy.consigne_queue[0], "x |", strategy.consigne_queue[1], "y |", strategy.consigne_queue[2], "θ")
+            print("__________________________________________")
+
             time.sleep(0.01)
 
     except KeyboardInterrupt:
