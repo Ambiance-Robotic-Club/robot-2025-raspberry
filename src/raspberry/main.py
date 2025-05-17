@@ -24,7 +24,7 @@ if __name__ == "__main__":
 
     strategy = Strategy(robot, sts3215)
 
-    couleur = screen.get_color()
+    zone_start = screen.get_zone()
 
     robot.set_theta(0)
     robot.set_x(0)
@@ -52,7 +52,7 @@ if __name__ == "__main__":
             try:
                 print("__________________________________________")
                 print(f"Robot datas")
-                print("Couleur : ", couleur)
+                print("Zone de départ : ", zone_start)
                 print("Timer : ", timer)
                 print("Position robot : x :", strategy.actual_x, "| y :", strategy.actual_y, "| θ :", strategy.actual_theta - int(strategy.actual_theta/360)*360)
                 print("Consigne robot : x :", strategy.step_consigne[0], "| y :", strategy.step_consigne[1], "| θ :", strategy.step_consigne[2])
@@ -62,6 +62,12 @@ if __name__ == "__main__":
                 print("__________________________________________")
             except Exception as e:
                 print(f"Error : {e}")
+
+            if timer >= 97:
+                # TO DO (1 ligne par pami avec adresse mac en argument)
+                screen.send_stop_pami(0)
+
+
 
             time.sleep(0.01)
 
