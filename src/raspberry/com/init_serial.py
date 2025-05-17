@@ -1,5 +1,9 @@
 import pyudev
 from scservo_sdk import *
+from adafruit_pca9685 import PCA9685
+from adafruit_motor import servo
+import board
+import busio
 
 from com.motor_communication import init_serial
 from com.robot import RobotSerial
@@ -31,7 +35,7 @@ def find_ports():
 def init_coms_robot():
     
     sts3215_port, robot_port = find_ports()
-    servos = []
+    sts3215 = []
     port_handler = PortHandler(sts3215_port)
     packet_handler = PacketHandler(0)
 
@@ -39,10 +43,15 @@ def init_coms_robot():
     port_handler.setBaudRate(1000000)
 
     ser = init_serial(robot_port, 115200)
-    servos.append(STS3215Servo(port_handler, packet_handler, servo_id=1))
-    servos.append(STS3215Servo(port_handler, packet_handler, servo_id=2))
+    sts3215.append(STS3215Servo(port_handler, packet_handler, servo_id=1))
+    sts3215.append(STS3215Servo(port_handler, packet_handler, servo_id=2))
+
+    i2c = busio.I2C(board.SCL, board.SDA)
+    pca = PCA9685(i2c)
+    pca.frequency = 50
+    servos = [servo.Servo(pca.channels[i]) for i in range(16)]
 
 
-    return servos, RobotSerial(ser), Lidar()
+    return sts3215, RobotSerial(ser), Lidar(), servos
 
     
