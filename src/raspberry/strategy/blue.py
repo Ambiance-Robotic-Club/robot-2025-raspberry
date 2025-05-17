@@ -76,6 +76,8 @@ class Strategy:
             if theta_degrees > constant.CONSIGNE_MIN_THETA or theta_degrees < -constant.CONSIGNE_MIN_THETA:
                 self.consigne = theta_degrees
                 self.is_consigne = True
+            else:
+                self.actual_type_consigne = 1
 
         if self.actual_type_consigne == 1:
             distance = math.sqrt((self.actual_x - step_consigne[0]) ** 2 + (self.actual_y - step_consigne[1]) ** 2)
@@ -83,6 +85,8 @@ class Strategy:
             if distance > constant.CONSIGNE_MIN_POS:
                 self.consigne = distance
                 self.is_consigne = True
+            else:
+                self.actual_type_consigne = 2
 
         if self.actual_type_consigne == 2:
             self.consigne_queue = self.consigne_queue[1:]
@@ -94,3 +98,5 @@ class Strategy:
             if alignment_theta > constant.CONSIGNE_MIN_THETA or alignment_theta < -constant.CONSIGNE_MIN_THETA:
                 self.consigne = alignment_theta
                 self.is_consigne = True
+            else:
+                self.actual_type_consigne = 0
