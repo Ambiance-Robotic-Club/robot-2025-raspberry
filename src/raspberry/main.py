@@ -14,7 +14,7 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../'
 
 
 if __name__ == "__main__":
-    sts3215, robot, lidar, servos= init_coms_robot()
+    sts3215, robot, lidar, servos, screen = init_coms_robot()
 
     wait_tirette()
 
@@ -24,7 +24,12 @@ if __name__ == "__main__":
 
     strategy = Strategy(robot, sts3215)
 
-    couleur = None
+    couleur = screen.get_color()
+
+    robot.set_theta(0)
+    robot.set_x(0)
+    robot.set_y(0)
+
     timerStart = time.time()
 
     try:

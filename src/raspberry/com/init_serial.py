@@ -10,6 +10,7 @@ from com.motor_communication import init_serial
 from com.robot import RobotSerial
 from com.STS3215 import STS3215Servo
 from com.lidar import Lidar
+from com.screen import Screen
 
 def find_ports():
     context = pyudev.Context()
@@ -38,6 +39,7 @@ def find_ports():
             reponse = serial.readline().decode('utf-8').strip()
         except Exception as e:
             reponse = None
+
         if reponse == "300":
             print("Port screen : ", port)
             screen_port = port
@@ -54,6 +56,7 @@ def find_ports():
         
         except Exception as e:
             reponse = None
+
         if reponse == "1:R:?":
             print("Port robot : ", port)
             robot_port = port
@@ -84,5 +87,6 @@ def init_coms_robot():
     pca.frequency = 50
     servos = [servo.Servo(pca.channels[i]) for i in range(16)]
 
+    
 
-    return sts3215, RobotSerial(ser), Lidar(lidar_port), servos
+    return sts3215, RobotSerial(ser), Lidar(lidar_port), servos, Screen(screen_port)

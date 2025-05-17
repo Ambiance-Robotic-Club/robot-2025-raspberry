@@ -940,18 +940,17 @@ class RobotSerial:
         else:
             return constant.SUCCES
            
-    def send_left_position_consigne(self, consigne):
-        pass
-    def send_right_position_consigne(self, consigne):
-        pass
-    def send_speed_consigne(self, consigne):
-        pass
-    def send_left_speed_consigne(self, consigne):
-        pass
-    def send_right_speed_consigne(self, consigne):
-        pass
-    def get_position(self):
-        pass
+    def set_x(self, value):
+        motor_communication.send_write_command(self.serial, 0, "X", value)
+        return motor_communication.rcv_write_command(self.serial, 0, "X", value)
+
+    def set_y(self, value):
+        motor_communication.send_write_command(self.serial, 0, "Y", value)
+        return motor_communication.rcv_write_command(self.serial, 0, "Y", value)
+    
+    def set_theta(self, value):
+        motor_communication.send_write_command(self.serial, 0, "THETA", value)
+        return motor_communication.rcv_write_command(self.serial, 0, "THETA", value)
       
     def send_rotation_consigne(self, value):
         """

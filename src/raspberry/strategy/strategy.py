@@ -2,11 +2,9 @@ import math
 import time
 import utils.constant as constant
 
-def blue_strat(robot, servos):
-    pass
-
 def modulo(a, b):
     return a - int(a / b) * b
+
 class Strategy:
     def __init__(self, robot, servos):
 
