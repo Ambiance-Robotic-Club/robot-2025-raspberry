@@ -30,37 +30,37 @@ def find_ports():
                 elif 'Silicon Labs' in vendor:
                     CP210_port.append(device.device_node)
 
-        for port in CH340_port:
-            serial = ser.Serial(port, 115200)
-            serial.write("300\n".encode('utf-8'))
-            serial.write("S\n".encode('utf-8'))
-            try:
-                reponse = serial.readline().decode('utf-8').strip()
-            except Exception as e:
-                reponse = None
-            if reponse == "300":
-                print("Port screen : ", port)
-                screen_port = port
-            else:
-                print("Port sts3215 : ", port)
-                sts3215_port = port
-            serial.close()
+    for port in CH340_port:
+        serial = ser.Serial(port, 115200)
+        serial.write("300\n".encode('utf-8'))
+        serial.write("S\n".encode('utf-8'))
+        try:
+            reponse = serial.readline().decode('utf-8').strip()
+        except Exception as e:
+            reponse = None
+        if reponse == "300":
+            print("Port screen : ", port)
+            screen_port = port
+        else:
+            print("Port sts3215 : ", port)
+            sts3215_port = port
+        serial.close()
 
-        for port in CP210_port:
-            serial = ser.Serial(port, 115200)
-            serial.write("1:R\n".encode('utf-8'))
-            try:
-                reponse = serial.readline().decode('utf-8').strip()
-            
-            except Exception as e:
-                reponse = None
-            if reponse == "1:R:?":
-                print("Port robot : ", port)
-                robot_port = port
-            else:
-                print("Port lidar : ", port)
-                lidar_port = port
-            serial.close()
+    for port in CP210_port:
+        serial = ser.Serial(port, 115200)
+        serial.write("1:R\n".encode('utf-8'))
+        try:
+            reponse = serial.readline().decode('utf-8').strip()
+        
+        except Exception as e:
+            reponse = None
+        if reponse == "1:R:?":
+            print("Port robot : ", port)
+            robot_port = port
+        else:
+            print("Port lidar : ", port)
+            lidar_port = port
+        serial.close()
 
     return sts3215_port, robot_port, screen_port, lidar_port
 
