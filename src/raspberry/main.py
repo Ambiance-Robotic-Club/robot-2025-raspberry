@@ -36,6 +36,9 @@ if __name__ == "__main__":
                 strategy.update_robot()
             
             timer = time.time() - timerStart
+
+            lidar.robot_position = [strategy.actual_x, strategy.actual_y, strategy.actual_theta]
+            
             print("__________________________________________")
             print(f"Robot datas")
             print("Couleur : ", couleur)
