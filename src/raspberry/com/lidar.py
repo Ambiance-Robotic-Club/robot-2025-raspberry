@@ -1,6 +1,6 @@
 import serial
 import math
-
+import time
 
 DETECT_OBSTACLE = 500 # 3600
 STOP_DISTANCE = 100
@@ -55,7 +55,9 @@ class Lidar:
         self.baudrate = baudrate
         self.serial = serial.Serial(port, baudrate, timeout=1)
         self.lidar_offset = 270
-        self.robot_position = [0, 0, 0]  
+        self.robot_position = [0, 0, 0]
+        self.is_free = 5
+        self.timer_free = 0
         self.f_stop = False
 
     def calculate_crc8(self, data):
@@ -146,14 +148,17 @@ class Lidar:
                                 obstacle_y = point.distance * math.sin(math.radians(obstacle_angle)) + self.robot_position[1]
                                 d2 = math.sqrt(obstacle_x**2 + obstacle_y**2)
                                 if obstacle_x > 0 and obstacle_y > 0 and obstacle_x < 3000 and obstacle_y < 2000:
-                                    print("__________________________________________")
-                                    print(f"Lidar obstacle : ({obstacle_x}, {obstacle_y})")
-                                    print("__________________________________________")
-
+                                    # print("__________________________________________")
+                                    # print(f"Lidar obstacle : ({obstacle_x}, {obstacle_y})")
+                                    # print("__________________________________________")
                                     if point.distance < STOP_DISTANCE:
-                                        self.f_stop = True
-                        else:
-                            self.f_stop = False        
+                                        self.is_free -= 1 
+                                        self.timer_free = time.time()                            
+                                        if not self.is_free:
+                                            self.f_stop = True
+                                    elif time.time() - self.timer_free > 0.2:
+                                        self.is_free = 5
+
                 else:
                     buffer = buffer[1:]  # Supprimer un octet pour resynchroniser
 
