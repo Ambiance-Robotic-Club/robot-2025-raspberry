@@ -42,6 +42,7 @@ if __name__ == "__main__":
             print("Timer : ", timer)
             print("Position robot : x :", strategy.actual_x, "| y :", strategy.actual_y, "| θ :", strategy.actual_theta)
             print("Consigne robot : x :", strategy.consigne_queue[0][0], "| y :", strategy.consigne_queue[0][1], "| θ :", strategy.consigne_queue[0][2])
+            print("Consigne actuelle (position / rotation) :", strategy.consigne)
             print("__________________________________________")
 
             time.sleep(0.01)
