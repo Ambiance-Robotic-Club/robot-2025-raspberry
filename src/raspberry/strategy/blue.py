@@ -14,7 +14,7 @@ class Strategy:
         self.servos = servos
 
         self.consigne_queue = [(100,0,90), (100,200,0)]
-        self.step_consigne = None
+        self.step_consigne = [0,0,0]
         self.actual_type_consigne = 0
         self.consigne = 0
 
