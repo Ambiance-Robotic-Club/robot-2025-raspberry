@@ -55,10 +55,12 @@ class Strategy:
             if not self.robot_busy and self.is_consigne:
                 if self.actual_type_consigne == 1:
                     self.robot.send_position_consigne(self.consigne)
+                    print("Consigne en position : ", self.consigne)
+
                 else:
                     self.robot.send_rotation_consigne(self.consigne)
-            
-                print(self.consigne)
+                    print("Consigne en rotation : ", self.consigne)
+          
                 self.actual_type_consigne = (self.actual_type_consigne + 1) % 3
                 self.is_consigne = False
     
