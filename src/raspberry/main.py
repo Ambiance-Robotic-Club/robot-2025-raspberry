@@ -35,6 +35,7 @@ if __name__ == "__main__":
 
                 strategy.consigne_queue.insert(0,strategy.step_consigne)
                 strategy.actual_type_consigne = 0
+                strategy.robot_busy = False
                 strategy.process_step()
                 lidar.f_stop = False
             else:
