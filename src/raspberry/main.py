@@ -27,13 +27,15 @@ if __name__ == "__main__":
     couleur = None
     timerStart = time.time()
 
-
+    is_blocked = False
     try:
         while(True):
             if lidar.f_stop:
                 find_safe_place(robot)
+                is_blocked = True
             else:
                 strategy.update_robot()
+                is_blocked = False
             
             timer = time.time() - timerStart
 
@@ -45,6 +47,7 @@ if __name__ == "__main__":
             print("Timer : ", timer)
             print("Position robot : x :", strategy.actual_x, "| y :", strategy.actual_y, "| θ :", strategy.actual_theta - int(strategy.actual_theta/360)*360)
             print("Consigne robot : x :", strategy.step_consigne[0], "| y :", strategy.step_consigne[1], "| θ :", strategy.step_consigne[2])
+            print("Obstacle : ", "Oui" if is_blocked else "Non")
             print("Consigne actuelle (position / rotation) :", strategy.consigne)
             print("__________________________________________")
 
