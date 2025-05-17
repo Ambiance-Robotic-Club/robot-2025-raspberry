@@ -74,6 +74,8 @@ class Strategy:
             theta_degrees = (math.degrees(theta_radians) - self.actual_theta) % 360
             if theta_degrees > 180:
                 theta_degrees -= 360
+            if theta_degrees < -180:
+                theta_degrees += 360
 
             if theta_degrees > constant.CONSIGNE_MIN_THETA or theta_degrees < -constant.CONSIGNE_MIN_THETA:
                 self.consigne = theta_degrees
@@ -93,9 +95,11 @@ class Strategy:
         if self.actual_type_consigne == 2:
             self.consigne_queue = self.consigne_queue[1:]
 
-            alignment_theta = (self.actual_theta - step_consigne[2]) % 360
+            alignment_theta = (step_consigne[2] - self.actual_theta) % 360
             if alignment_theta > 180:
                 alignment_theta -= 360
+            if theta_degrees < -180:
+                theta_degrees += 360
 
             if alignment_theta > constant.CONSIGNE_MIN_THETA or alignment_theta < -constant.CONSIGNE_MIN_THETA:
                 self.consigne = alignment_theta
