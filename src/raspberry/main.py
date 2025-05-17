@@ -1,9 +1,17 @@
 from com.init_serial import init_coms_robot
 from com.tirette import wait_tirette
 from strategy.obstacle import find_safe_place
-from strategy.blue import blue_strat
+from strategy.blue import Strategy
 
 import threading
+import time
+
+import sys
+import os
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '.')))
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../..')))
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../')))
+
 
 if __name__ == "__main__":
     wait_tirette()
@@ -13,12 +21,16 @@ if __name__ == "__main__":
     t_lidar = threading.Thread(target=lidar.read_lidar_data)
     t_lidar.start()
 
+    strategy = Strategy(robot, servos)
+
     try:
         while(True):
             if lidar.f_stop:
                 find_safe_place(robot)
             else:
-                blue_strat(robot, servos)
+                strategy.update_robot()
+            
+            time.sleep(0.01)
 
     except KeyboardInterrupt:
         print("Stop")
