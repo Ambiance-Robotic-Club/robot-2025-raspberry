@@ -32,8 +32,10 @@ if __name__ == "__main__":
             if not lidar.is_free and lidar.f_stop:
                 find_safe_place(robot)
             elif lidar.is_free and lidar.f_stop:
+
                 strategy.consigne_queue.insert(0,strategy.step_consigne)
                 strategy.actual_type_consigne = 0
+                strategy.process_step()
                 lidar.f_stop = False
             else:
                 strategy.update_robot()
