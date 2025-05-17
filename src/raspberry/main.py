@@ -40,7 +40,7 @@ if __name__ == "__main__":
             print(f"Robot datas")
             print("Couleur : ", couleur)
             print("Timer : ", timer)
-            print("Position robot : x :", strategy.actual_x, "| y :", strategy.actual_y, "| θ :", strategy.actual_theta)
+            print("Position robot : x :", strategy.actual_x, "| y :", strategy.actual_y, "| θ :", strategy.actual_theta - int(strategy.actual_theta/360)*360)
             print("Consigne robot : x :", strategy.consigne_queue[0][0], "| y :", strategy.consigne_queue[0][1], "| θ :", strategy.consigne_queue[0][2])
             print("Consigne actuelle (position / rotation) :", strategy.consigne)
             print("__________________________________________")
