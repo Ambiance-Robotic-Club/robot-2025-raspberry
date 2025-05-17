@@ -46,7 +46,7 @@ class LidarPoint:
 
 class Lidar:
 
-    def __init__(self, port="/dev/ttyUSB0", baudrate=230400):
+    def __init__(self, port="/dev/ttyUSB3", baudrate=230400):
         self.port = port
         self.baudrate = baudrate
         self.serial = serial.Serial(port, baudrate, timeout=1)
