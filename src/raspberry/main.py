@@ -52,7 +52,8 @@ if __name__ == "__main__":
                 print("Consigne actuelle (position / rotation) :", strategy.consigne)
                 print("__________________________________________")
             except Exception as e:
-                pass
+                print(f"Error : {e}")
+
             time.sleep(0.01)
 
     except KeyboardInterrupt:
