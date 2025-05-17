@@ -95,6 +95,9 @@ class Strategy:
         if self.actual_type_consigne == 2:
             self.consigne_queue = self.consigne_queue[1:]
 
+            theta_radians = math.atan2(step_consigne[1] - self.actual_y, step_consigne[0] - self.actual_x)
+            theta_degrees = (math.degrees(theta_radians) - self.actual_theta) % 360
+            
             alignment_theta = (step_consigne[2] - self.actual_theta) % 360
             if alignment_theta > 180:
                 alignment_theta -= 360
