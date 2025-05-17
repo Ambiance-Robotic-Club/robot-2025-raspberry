@@ -41,7 +41,7 @@ if __name__ == "__main__":
             print("Couleur : ", couleur)
             print("Timer : ", timer)
             print("Position robot : x :", strategy.actual_x, "| y :", strategy.actual_y, "| θ :", strategy.actual_theta - int(strategy.actual_theta/360)*360)
-            print("Consigne robot : x :", strategy.consigne_queue[0][0], "| y :", strategy.consigne_queue[0][1], "| θ :", strategy.consigne_queue[0][2])
+            print("Consigne robot : x :", strategy.step_consigne[0], "| y :", strategy.step_consigne[1], "| θ :", strategy.step_consigne[2])
             print("Consigne actuelle (position / rotation) :", strategy.consigne)
             print("__________________________________________")
 

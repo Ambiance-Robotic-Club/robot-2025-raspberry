@@ -14,6 +14,7 @@ class Strategy:
         self.servos = servos
 
         self.consigne_queue = [(100,0,90), (100,200,0)]
+        self.step_consigne = None
         self.actual_type_consigne = 0
         self.consigne = 0
 
@@ -70,13 +71,13 @@ class Strategy:
     
     def process_step(self):
 
-        step_consigne = self.consigne_queue[0]
+        self.step_consigne = self.consigne_queue[0]
 
 
         
         if self.actual_type_consigne == 0:
 
-            theta_radians = math.atan2(step_consigne[1] - self.actual_y, step_consigne[0] - self.actual_x)
+            theta_radians = math.atan2(self.step_consigne[1] - self.actual_y, self.step_consigne[0] - self.actual_x)
             self.theta_degrees = modulo((math.degrees(theta_radians) - self.actual_theta), 360)
 
             if self.theta_degrees > 180:
@@ -91,7 +92,7 @@ class Strategy:
                 self.actual_type_consigne = 1
 
         if self.actual_type_consigne == 1:
-            distance = math.sqrt((self.actual_x - step_consigne[0]) ** 2 + (self.actual_y - step_consigne[1]) ** 2)
+            distance = math.sqrt((self.actual_x - self.step_consigne[0]) ** 2 + (self.actual_y - self.step_consigne[1]) ** 2)
 
             if distance > constant.CONSIGNE_MIN_POS:
                 self.consigne = distance
@@ -102,7 +103,7 @@ class Strategy:
         if self.actual_type_consigne == 2:
             self.consigne_queue = self.consigne_queue[1:]
 
-            alignment_theta = modulo((step_consigne[2] - self.actual_theta), 360)
+            alignment_theta = modulo((self.step_consigne[2] - self.actual_theta), 360)
             if alignment_theta > 180:
                 alignment_theta -= 360
             if alignment_theta < -180:
