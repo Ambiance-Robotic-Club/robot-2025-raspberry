@@ -31,7 +31,7 @@ def find_ports():
                     CP210_port.append(device.device_node)
 
     for port in CH340_port:
-        serial = ser.Serial(port, 115200)
+        serial = ser.Serial(port, 115200, timeout=1)
         serial.write("300\n".encode('utf-8'))
         serial.write("S\n".encode('utf-8'))
         try:
@@ -47,7 +47,7 @@ def find_ports():
         serial.close()
 
     for port in CP210_port:
-        serial = ser.Serial(port, 115200)
+        serial = ser.Serial(port, 115200, timeout=1)
         serial.write("1:R\n".encode('utf-8'))
         try:
             reponse = serial.readline().decode('utf-8').strip()
