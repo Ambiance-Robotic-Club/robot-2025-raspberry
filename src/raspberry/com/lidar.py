@@ -155,7 +155,7 @@ class Lidar:
 
 if __name__ == "__main__":
     try:
-        lidar = Lidar(port="/dev/ttyUSB2", baudrate=230400)
+        lidar = Lidar(port="/dev/ttyUSB3", baudrate=230400)
         lidar.read_lidar_data()
     except KeyboardInterrupt:
         print("Arrêt de la lecture LiDAR")
