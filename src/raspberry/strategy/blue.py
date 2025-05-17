@@ -105,8 +105,8 @@ class Strategy:
             alignment_theta = modulo((step_consigne[2] - self.actual_theta), 360)
             if alignment_theta > 180:
                 alignment_theta -= 360
-            if self.alignment_theta < -180:
-                self.alignment_theta += 360
+            if alignment_theta < -180:
+                alignment_theta += 360
 
             if alignment_theta > constant.CONSIGNE_MIN_THETA or alignment_theta < -constant.CONSIGNE_MIN_THETA:
                 self.consigne = alignment_theta
