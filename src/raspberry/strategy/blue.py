@@ -70,12 +70,10 @@ class Strategy:
                 self.is_consigne = False
     
     def process_step(self):
-
-        self.step_consigne = self.consigne_queue[0]
-
-
         
         if self.actual_type_consigne == 0:
+            self.step_consigne = self.consigne_queue[0]
+            self.consigne_queue = self.consigne_queue[1:]
 
             theta_radians = math.atan2(self.step_consigne[1] - self.actual_y, self.step_consigne[0] - self.actual_x)
             self.theta_degrees = modulo((math.degrees(theta_radians) - self.actual_theta), 360)
@@ -101,7 +99,6 @@ class Strategy:
                 self.actual_type_consigne = 2
 
         if self.actual_type_consigne == 2:
-            self.consigne_queue = self.consigne_queue[1:]
 
             alignment_theta = modulo((self.step_consigne[2] - self.actual_theta), 360)
             if alignment_theta > 180:

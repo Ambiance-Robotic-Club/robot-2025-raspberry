@@ -152,7 +152,8 @@ class Lidar:
                                     # print(f"Lidar obstacle : ({obstacle_x}, {obstacle_y})")
                                     # print("__________________________________________")
                                     if point.distance < STOP_DISTANCE:
-                                        self.is_free -= 1 
+                                        if self.is_free:
+                                            self.is_free -= 1 
                                         self.timer_free = time.time()                            
                                         if not self.is_free:
                                             self.f_stop = True
