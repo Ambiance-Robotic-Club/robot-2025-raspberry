@@ -1,7 +1,7 @@
 from com.init_serial import init_coms_robot
 from com.tirette import wait_tirette
 from strategy.obstacle import find_safe_place
-from raspberry.strategy.strategy import Strategy
+from strategy.strategy import Strategy
 
 import threading
 import time
