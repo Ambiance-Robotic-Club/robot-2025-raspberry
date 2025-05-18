@@ -137,7 +137,36 @@ def accept_rcv(serial):
         print("\033[91mError split rcv: \033[0m", e)
         return None
 
+def accept_rcv_pami(serial):
+    """ 
+    Function to verify a receive message.
+    
+    Accepted message : X:X:X:X:X (X can be anything)
 
+    Parameters
+    ----------
+        serial : ? 
+            Initialized serial
+
+    Return
+    ------ 
+        Splited message
+        None
+    """
+
+    try:
+        frame = read_serial(serial)
+        frame_split = frame[:17] + frame[20:].split(":")
+        frame_split[-1] = re.sub(r'\r\n', '', frame_split[-1])
+
+        if len(frame_split)  != 5:
+            return None
+        else:
+            return frame_split
+    except Exception as e:
+        print("\033[91mError split rcv: \033[0m", e)
+        return None
+    
 def read_serial(serial):
     """ 
     Function to read a line of a serial UART.
@@ -250,7 +279,64 @@ def rcv_read_command(serial, num_motor, command_send):
     
     return float(frame[3])
 
+def rcv_read_command_pami(serial, num_motor, command_send):
+    """ 
+    Function to receive result of read command of serial UART.
+    
+    Command receive read protocol : MOTOR:R:COMMAND:VALUE:OK (refer to the protocol description)
+        
+    Parameters
+    ----------
+        serial : ?
+            Initialized serial
+        num_motor : int
+            target motor
+        command_send : ?
+            target command
+
+    Return
+    ------
+        value
+        np.nan
+    """
+    
+    frame = accept_rcv(serial)
+    if frame == None or frame[0] != str(num_motor) or frame[1] != "R" or frame[2] != command_send or frame[4] != "OK":
+        return np.nan
+    
+    return float(frame[3])
+
 def rcv_write_command(serial, num_motor, command_send, value): 
+    """ 
+    Function to receive result of write command of serial UART
+    
+    Command receive read protocol : MOTOR:R:VALUE:COMMAND:OK (refer to the protocol description)
+
+    Parameters
+    ----------
+        serial : ?
+            Initialized serial
+        num_motor : int
+            target motor
+        command_send : ? 
+            target command
+        value : ?
+            value set 
+
+    Return
+    ------
+        True
+        False
+    """
+
+    frame = accept_rcv(serial)
+
+    if frame == None or frame[0] != str(num_motor) or frame[1] != "W" or frame[3] != str(value) or frame[2] != command_send or frame[4] != "OK":
+        return False
+    
+    return True
+
+def rcv_write_command_pami(serial, num_motor, command_send, value): 
     """ 
     Function to receive result of write command of serial UART
     

@@ -11,6 +11,7 @@ from com.robot import RobotSerial
 from com.STS3215 import STS3215Servo
 from com.lidar import Lidar
 from com.screen import Screen
+from com.pami import Pami
 
 def find_ports():
     context = pyudev.Context()
@@ -87,6 +88,7 @@ def init_coms_robot():
     pca.frequency = 50
     servos = [servo.Servo(pca.channels[i]) for i in range(16)]
 
+    screen = Screen(screen_port)
     
 
-    return sts3215, RobotSerial(ser), Lidar(lidar_port), servos, Screen(screen_port)
+    return sts3215, RobotSerial(ser), Lidar(lidar_port), servos, screen, Pami(screen.serial)

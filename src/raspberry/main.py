@@ -14,7 +14,7 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../'
 
 
 if __name__ == "__main__":
-    sts3215, robot, lidar, servos, screen = init_coms_robot()
+    sts3215, robot, lidar, servos, screen, pami = init_coms_robot()
 
     wait_tirette()
 
@@ -65,7 +65,7 @@ if __name__ == "__main__":
 
             if timer >= 97:
                 # TO DO (1 ligne par pami avec adresse mac en argument)
-                screen.send_stop_pami(0)
+                pami.send_stop_pami(0)
 
 
 
