@@ -34,14 +34,13 @@ def find_ports():
 
     for port in CH340_port:
         serial = ser.Serial(port, 115200, timeout=1)
-        serial.write("300\n".encode('utf-8'))
-        serial.write("S\n".encode('utf-8'))
+        serial.write("Screen:R:S\n".encode('utf-8'))
         try:
             reponse = serial.readline().decode('utf-8').strip()
         except Exception as e:
             reponse = None
 
-        if reponse == "300":
+        if reponse == "Screen:R:S:0:OK":
             print("Port screen : ", port)
             screen_port = port
         else:
