@@ -68,44 +68,67 @@ class Strategy:
                 self.is_consigne = False
     
     def process_step(self):
-        
         if self.actual_type_consigne == 0:
             self.step_consigne = self.consigne_queue[0]
             self.consigne_queue = self.consigne_queue[1:]
 
-            theta_radians = math.atan2(self.step_consigne[1] - self.actual_y, self.step_consigne[0] - self.actual_x)
-            self.theta_degrees = modulo((math.degrees(theta_radians) - self.actual_theta), 360)
+            dx = self.step_consigne[0] - self.actual_x
+            dy = self.step_consigne[1] - self.actual_y
+            theta_target = math.degrees(math.atan2(dy, dx))
 
-            if self.theta_degrees > 180:
-                self.theta_degrees -= 360
-            if self.theta_degrees < -180:
-                self.theta_degrees += 360
+            # Marche avant
+            forward_rot1 = modulo(theta_target - self.actual_theta, 360)
+            if forward_rot1 > 180:
+                forward_rot1 -= 360
+            theta_after_forward = modulo(self.step_consigne[2] - theta_target, 360)
+            if theta_after_forward > 180:
+                theta_after_forward -= 360
+            total_forward = abs(forward_rot1) + abs(theta_after_forward)
 
-            if self.theta_degrees > constant.CONSIGNE_MIN_THETA or self.theta_degrees < -constant.CONSIGNE_MIN_THETA:
+            # Marche arrière
+            theta_backward_target = modulo(theta_target + 180, 360)
+            backward_rot1 = modulo(theta_backward_target - self.actual_theta, 360)
+            if backward_rot1 > 180:
+                backward_rot1 -= 360
+            theta_after_backward = modulo(self.step_consigne[2] - theta_backward_target, 360)
+            if theta_after_backward > 180:
+                theta_after_backward -= 360
+            total_backward = abs(backward_rot1) + abs(theta_after_backward)
+
+            # Choix optimal
+            if total_forward <= total_backward:
+                self.theta_degrees = forward_rot1
+                self.forward = True
+            else:
+                self.theta_degrees = backward_rot1
+                self.forward = False
+
+            if abs(self.theta_degrees) > constant.CONSIGNE_MIN_THETA:
                 self.consigne = self.theta_degrees
                 self.is_consigne = True
             else:
                 self.actual_type_consigne = 1
 
         if self.actual_type_consigne == 1:
-            distance = math.sqrt((self.actual_x - self.step_consigne[0]) ** 2 + (self.actual_y - self.step_consigne[1]) ** 2)
+            distance = math.sqrt((self.actual_x - self.step_consigne[0]) ** 2 +
+                                (self.actual_y - self.step_consigne[1]) ** 2)
 
             if distance > constant.CONSIGNE_MIN_POS:
-                self.consigne = distance
+                self.consigne = distance if self.forward else -distance
                 self.is_consigne = True
             else:
                 self.actual_type_consigne = 2
 
         if self.actual_type_consigne == 2:
-
-            alignment_theta = modulo((self.step_consigne[2] - self.actual_theta), 360)
+            alignment_theta = modulo(self.step_consigne[2] - self.actual_theta, 360)
             if alignment_theta > 180:
                 alignment_theta -= 360
             if alignment_theta < -180:
                 alignment_theta += 360
 
-            if alignment_theta > constant.CONSIGNE_MIN_THETA or alignment_theta < -constant.CONSIGNE_MIN_THETA:
+            if abs(alignment_theta) > constant.CONSIGNE_MIN_THETA:
                 self.consigne = alignment_theta
                 self.is_consigne = True
             else:
                 self.actual_type_consigne = 0
+
