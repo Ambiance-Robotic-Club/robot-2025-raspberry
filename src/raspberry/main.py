@@ -55,7 +55,8 @@ if __name__ == "__main__":
                 print("Zone de départ : ", zone_start)
                 print("Timer : ", timer)
                 print("Position robot : x :", strategy.actual_x, "| y :", strategy.actual_y, "| θ :", strategy.actual_theta - int(strategy.actual_theta/360)*360)
-                print("Consigne robot : x :", strategy.step_consigne[0], "| y :", strategy.step_consigne[1], "| θ :", strategy.step_consigne[2])
+                if strategy.step_consigne != None :
+                    print("Consigne robot : x :", strategy.step_consigne[0], "| y :", strategy.step_consigne[1], "| θ :", strategy.step_consigne[2])
                 print("Obstacle : ", "Oui" if not lidar.is_free else "Non", "| Bloqué : ", "Oui" if lidar.f_stop else "Non")
                 print("Busy : ", "Oui" if strategy.robot_busy else "Non")
                 print("Consigne actuelle (position / rotation) :", strategy.consigne)

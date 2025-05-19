@@ -12,7 +12,7 @@ class Strategy:
         self.servos = servos
 
         self.consigne_queue = [(100,0,90), (100,200,0)]
-        self.step_consigne = []
+        self.step_consigne = None
         self.actual_type_consigne = 0
         self.consigne = 0
 
@@ -36,7 +36,7 @@ class Strategy:
             self.actual_x = self.robot.get_actual_x()
             self.actual_y = self.robot.get_actual_y()
             self.actual_theta = self.robot.get_actual_theta()
-            self.robot_busy = self.robot.get_busy(10)
+            self.robot_busy = self.robot.get_busy(10) if self.actual_theta != 0 or self.actual_x != 0 or self.actual_y != 0 else False
             
             # Timeout part
             if self.robot_busy != self.old_robot_busy:
@@ -46,7 +46,7 @@ class Strategy:
                     self.old_actual_y = self.actual_y
                     self.timeout_busy = time.time()
 
-            if self.robot_busy and time.time()-self.timeout_busy >= 10 and self.actual_x < self.old_actual_x+10 and self.actual_x > self.old_actual_x-10 and self.actual_y < self.old_actual_y+10 and self.actual_y > self.old_actual_y-10:
+            if self.robot_busy and time.time()-self.timeout_busy >= 5 and self.actual_x < self.old_actual_x+10 and self.actual_x > self.old_actual_x-10 and self.actual_y < self.old_actual_y+10 and self.actual_y > self.old_actual_y-10:
                 print("TIMEOUT : ROBOT BLOQUE")
                 self.robot_busy = False  
              
