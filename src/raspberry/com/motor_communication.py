@@ -77,7 +77,6 @@ def init_serial(port, baudrate):
 
         print("Serial Init Success")
         serial.timeout = 0.5
-        print(read_serial(serial))
 
         return serial
     except Exception as e:
@@ -274,6 +273,7 @@ def rcv_read_command(serial, num_motor, command_send):
     """
     
     frame = accept_rcv(serial)
+    print("Frame : ",frame)
     if frame == None or frame[0] != str(num_motor) or frame[1] != "R" or frame[2] != command_send or frame[4] != "OK":
         return np.nan
     
