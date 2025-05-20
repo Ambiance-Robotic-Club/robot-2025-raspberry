@@ -884,7 +884,7 @@ class PositionMotorSerial:
 
 class RobotSerial:
     """Create a class to control 2 DC motors robot."""
-    def __init__(self, serial, p_self.p_error=3):
+    def __init__(self, serial, p_error=3):
         """
         Parameters
         ----------
@@ -901,7 +901,7 @@ class RobotSerial:
         self.actual_y = 0
         self.actual_theta = 0
 
-        self.p_self.p_error = p_self.p_error
+        self.p_error = p_error
         self.isUsed = False
 
     def send_stop(self):
