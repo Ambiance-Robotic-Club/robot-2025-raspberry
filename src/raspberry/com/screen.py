@@ -39,15 +39,15 @@ class Screen:
         return motor_communication.rcv_read_command(self.serial, self.id, "I")
     
     def set_score(self, value):
-        motor_communication.send_write_command(self.serial, 0, "S", value)
-        if not(motor_communication.rcv_write_command(self.serial, 0, "S", value)):
+        motor_communication.send_write_command(self.serial, self.id, "S", value)
+        if not(motor_communication.rcv_write_command(self.serial, self.id, "S", value)):
             return constant.ERROR
         else:
             return constant.SUCCES
 
     def set_timer(self, value):
-        motor_communication.send_write_command(self.serial, 0, "T", value)
-        if not(motor_communication.rcv_write_command(self.serial, 0, "T", value)):
+        motor_communication.send_write_command(self.serial, self.id, "T", value)
+        if not(motor_communication.rcv_write_command(self.serial, self.id, "T", value)):
             return constant.ERROR
         else:
             return constant.SUCCES
