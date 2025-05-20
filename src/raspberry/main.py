@@ -30,7 +30,8 @@ if __name__ == "__main__":
     robot.init_zone_start(zone_start)
 
     timerStart = time.time()
-
+    timer = 0
+    
     try:
         while(timer < 100):
             if not lidar.is_free and lidar.f_stop:
