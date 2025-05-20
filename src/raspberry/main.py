@@ -68,7 +68,7 @@ if __name__ == "__main__":
                 # TO DO (1 ligne par pami avec adresse mac en argument)
                 pami.send_stop_pami(0)
 
-
+            screen.set_timer(int(timer))
 
             time.sleep(0.01)
 
