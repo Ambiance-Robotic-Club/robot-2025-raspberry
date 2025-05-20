@@ -209,7 +209,6 @@ def send_read_command(serial, num_motor, command):
     """
 
     frame = str(num_motor) + ":R:" + command + "\n"
-    print("Frame send : ", frame)
     frame_byte = frame.encode('utf-8')
     try :
         serial.write(frame_byte)
@@ -270,13 +269,13 @@ def rcv_read_command(serial, num_motor, command_send):
     Return
     ------
         value
-        np.nan
+        0
     """
     
     frame = accept_rcv(serial)
     
     if frame == None or frame[0] != str(num_motor) or frame[1] != "R" or frame[2] != command_send or frame[4] != "OK":
-        return np.nan
+        return 0
     
     return float(frame[3])
 
@@ -298,12 +297,12 @@ def rcv_read_command_pami(serial, num_motor, command_send):
     Return
     ------
         value
-        np.nan
+        0
     """
     
     frame = accept_rcv(serial)
     if frame == None or frame[0] != str(num_motor) or frame[1] != "R" or frame[2] != command_send or frame[4] != "OK":
-        return np.nan
+        return 0
     
     return float(frame[3])
 
