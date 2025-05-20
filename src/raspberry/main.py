@@ -59,6 +59,7 @@ if __name__ == "__main__":
                     print("Consigne robot : x :", strategy.step_consigne[0], "| y :", strategy.step_consigne[1], "| θ :", strategy.step_consigne[2])
                 print("Obstacle : ", "Oui" if not lidar.is_free else "Non", "| Bloqué : ", "Oui" if lidar.f_stop else "Non")
                 print("Busy : ", "Oui" if strategy.robot_busy else "Non")
+                print("Etape consigne : ", strategy.actual_type_consigne)
                 print("Consigne actuelle (position / rotation) :", strategy.consigne)
                 print("__________________________________________")
             except Exception as e:
