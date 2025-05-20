@@ -8,6 +8,7 @@ def modulo(a, b):
 class Strategy:
     def __init__(self, robot, servos):
 
+        self.init = True
         self.robot = robot
         self.servos = servos
 
@@ -36,7 +37,9 @@ class Strategy:
             self.actual_x = self.robot.get_actual_x()
             self.actual_y = self.robot.get_actual_y()
             self.actual_theta = self.robot.get_actual_theta()
-            self.robot_busy = self.robot.get_busy(10) if self.actual_theta != 0 or self.actual_x != 0 or self.actual_y != 0 else False
+            self.robot_busy = self.robot.get_busy(10) if not(self.init) else False
+
+            self.init = False
             
             # Timeout part
             if self.robot_busy != self.old_robot_busy:
