@@ -32,7 +32,7 @@ if __name__ == "__main__":
     timerStart = time.time()
 
     try:
-        while(True):
+        while(timer < 100):
             if not lidar.is_free and lidar.f_stop:
                 find_safe_place(robot)
             elif lidar.is_free and lidar.f_stop:
@@ -64,7 +64,7 @@ if __name__ == "__main__":
             except Exception as e:
                 print(f"Error : {e}")
 
-            if timer >= 15:
+            if timer >= 97:
                 screen.set_score(999)
                 # TO DO (1 ligne par pami avec adresse mac en argument)
                 pami.send_stop_pami(0)
@@ -84,6 +84,8 @@ if __name__ == "__main__":
     t_lidar.join()
     lidar.serial.close()
     robot.serial.close()
+    screen.serial.close()
     sts3215[0].port_handler.closePort()
+    sts3215[1].port_handler.closePort()
     
 
