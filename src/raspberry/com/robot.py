@@ -17,6 +17,7 @@ Presentation
     This module regroup all utility function of the backend of the project.
 
 """
+
 import serial.tools.list_ports
 import serial
 
@@ -60,13 +61,13 @@ class DCMotorSerial:
         
         Return
         ------
-            constant.ERROR
+            constant.self.p_error
             constant.SUCCES
         """
 
         motor_communication.send_write_command(self.serial, self.id, "KIS", value)
         if not(motor_communication.rcv_write_command(self.serial, self.id, "KIS", value)):
-            return constant.ERROR
+            return constant.self.p_error
         else:
             return constant.SUCCES
 
@@ -81,13 +82,13 @@ class DCMotorSerial:
         
         Return
         ------
-            constant.ERROR
+            constant.self.p_error
             constant.SUCCES
         """ 
     
         motor_communication.send_write_command(self.serial, self.id, "KPS", value)
         if not(motor_communication.rcv_write_command(self.serial, self.id, "KPS", value)):
-            return constant.ERROR
+            return constant.self.p_error
         else:
             return constant.SUCCES
 
@@ -102,13 +103,13 @@ class DCMotorSerial:
         
         Return
         ------
-            constant.ERROR
+            constant.self.p_error
             constant.SUCCES
         """
      
         motor_communication.send_write_command(self.serial, self.id, "KDS", value)
         if not(motor_communication.rcv_write_command(self.serial, self.id, "KDS", value)):
-            return constant.ERROR
+            return constant.self.p_error
         else:
             return constant.SUCCES
 
@@ -123,13 +124,13 @@ class DCMotorSerial:
         
         Return
         ------
-            constant.ERROR
+            constant.self.p_error
             constant.SUCCES
         """
 
         motor_communication.send_write_command(self.serial, self.id, "CS", value)
         if not(motor_communication.rcv_write_command(self.serial, self.id, "CS", value)):
-            return constant.ERROR
+            return constant.self.p_error
         else:
             return constant.SUCCES
 
@@ -144,13 +145,13 @@ class DCMotorSerial:
         
         Return
         ------
-            constant.ERROR
+            constant.self.p_error
             constant.SUCCES
         """
 
         motor_communication.send_write_command(self.serial, self.id, "TPR", value)
         if not(motor_communication.rcv_write_command(self.serial, self.id, "TPR", value)):
-            return constant.ERROR
+            return constant.self.p_error
         else:
             return constant.SUCCES
 
@@ -165,13 +166,13 @@ class DCMotorSerial:
         
         Return
         ------
-            constant.ERROR
+            constant.self.p_error
             constant.SUCCES
         """
 
         motor_communication.send_write_command(self.serial, self.id, "R", value)
         if not(motor_communication.rcv_write_command(self.serial, self.id, "R", value)):
-            return constant.ERROR
+            return constant.self.p_error
         else:
             return constant.SUCCES
 
@@ -183,13 +184,13 @@ class DCMotorSerial:
         
         Return
         ------
-            constant.ERROR
+            constant.self.p_error
             constant.SUCCES
         """
 
         motor_communication.send_write_command(self.serial, self.id, "FL", None)
         if not(motor_communication.rcv_write_command(self.serial, self.id, "FL", None)):
-            return constant.ERROR
+            return constant.self.p_error
         else:
             return constant.SUCCES
         
@@ -201,13 +202,13 @@ class DCMotorSerial:
         
         Return
         ------
-            constant.ERROR
+            constant.self.p_error
             constant.SUCCES
         """
 
         motor_communication.send_write_command(self.serial, self.id, "STOP", None)
         if not(motor_communication.rcv_write_command(self.serial, self.id, "STOP", None)):
-            return constant.ERROR
+            return constant.self.p_error
         else:
             return constant.SUCCES
 
@@ -220,13 +221,13 @@ class DCMotorSerial:
         
         Return
         ------
-            constant.ERROR
+            constant.self.p_error
             constant.SUCCES
         """
 
         motor_communication.send_write_command(self.serial, self.id, "RST", None)
         if not(motor_communication.rcv_write_command(self.serial, self.id, "RST", None)):
-            return constant.ERROR
+            return constant.self.p_error
         else:
             return constant.SUCCES
 
@@ -241,13 +242,13 @@ class DCMotorSerial:
             
         Return
         ------
-            constant.ERROR
+            constant.self.p_error
             constant.SUCCES
         """
 
         motor_communication.send_write_command(self.serial, self.id, "POL", value)
         if not(motor_communication.rcv_write_command(self.serial, self.id, "POL", value)):
-            return constant.ERROR
+            return constant.self.p_error
         else:
             return constant.SUCCES
 
@@ -262,13 +263,13 @@ class DCMotorSerial:
         
         Return
         ------
-            constant.ERROR
+            constant.self.p_error
             constant.SUCCES
         """
 
         motor_communication.send_write_command(self.serial, self.id, "KIP", value)
         if not(motor_communication.rcv_write_command(self.serial, self.id, "KIP", value)):
-            return constant.ERROR
+            return constant.self.p_error
         else:
             return constant.SUCCES
 
@@ -283,13 +284,13 @@ class DCMotorSerial:
         
         Return
         ------
-            constant.ERROR
+            constant.self.p_error
             constant.SUCCES
         """ 
     
         motor_communication.send_write_command(self.serial, self.id, "KPP", value)
         if not(motor_communication.rcv_write_command(self.serial, self.id, "KPP", value)):
-            return constant.ERROR
+            return constant.self.p_error
         else:
             return constant.SUCCES
 
@@ -304,13 +305,13 @@ class DCMotorSerial:
         
         Return
         ------
-            constant.ERROR
+            constant.self.p_error
             constant.SUCCES
         """ 
     
         motor_communication.send_write_command(self.serial, self.id, "KDP", value)
         if not(motor_communication.rcv_write_command(self.serial, self.id, "KDP", value)):
-            return constant.ERROR
+            return constant.self.p_error
         else:
             return constant.SUCCES
 
@@ -325,13 +326,13 @@ class DCMotorSerial:
         
         Return
         ------
-            constant.ERROR
+            constant.self.p_error
             constant.SUCCES
         """
 
         motor_communication.send_write_command(self.serial, self.id, "WD", value)
         if not(motor_communication.rcv_write_command(self.serial, self.id, "WD", value)):
-            return constant.ERROR
+            return constant.self.p_error
         else:
             return constant.SUCCES
 
@@ -346,13 +347,13 @@ class DCMotorSerial:
         
         Return
         ------
-            constant.ERROR
+            constant.self.p_error
             constant.SUCCES
         """
 
         motor_communication.send_write_command(self.serial, self.id, "MC", value)
         if not(motor_communication.rcv_write_command(self.serial, self.id, "MC", value)):
-            return constant.ERROR
+            return constant.self.p_error
         else:
             return constant.SUCCES
 
@@ -367,13 +368,13 @@ class DCMotorSerial:
         
         Return
         ------
-            constant.ERROR
+            constant.self.p_error
             constant.SUCCES
         """
 
         motor_communication.send_write_command(self.serial, self.id, "OC", value)
         if not(motor_communication.rcv_write_command(self.serial, self.id, "OC", value)):
-            return constant.ERROR
+            return constant.self.p_error
         else:
             return constant.SUCCES
 
@@ -388,13 +389,13 @@ class DCMotorSerial:
         
         Return
         ------
-            constant.ERROR
+            constant.self.p_error
             constant.SUCCES
         """
 
         motor_communication.send_write_command(self.serial, self.id, "MS", value)
         if not(motor_communication.rcv_write_command(self.serial, self.id, "MS", value)):
-            return constant.ERROR
+            return constant.self.p_error
         else:
             return constant.SUCCES
 
@@ -409,13 +410,13 @@ class DCMotorSerial:
         
         Return
         ------
-            constant.ERROR
+            constant.self.p_error
             constant.SUCCES
         """
 
         motor_communication.send_write_command(self.serial, self.id, "OS", value)
         if not(motor_communication.rcv_write_command(self.serial, self.id, "OS", value)):
-            return constant.ERROR
+            return constant.self.p_error
         else:
             return constant.SUCCES
 
@@ -430,13 +431,13 @@ class DCMotorSerial:
         
         Return
         ------
-            constant.ERROR
+            constant.self.p_error
             constant.SUCCES
         """
 
         motor_communication.send_write_command(self.serial, self.id, "WO", value)
         if not(motor_communication.rcv_write_command(self.serial, self.id, "WO", value)):
-            return constant.ERROR
+            return constant.self.p_error
         else:
             return constant.SUCCES
 
@@ -669,13 +670,13 @@ class PositionMotorSerial:
         
         Return
         ------
-            constant.ERROR
+            constant.self.p_error
             constant.SUCCES
         """
 
         motor_communication.send_write_command(self.serial, self.id, "KIP", value)
         if not(motor_communication.rcv_write_command(self.serial, self.id, "KIP", value)):
-            return constant.ERROR
+            return constant.self.p_error
         else:
             return constant.SUCCES
 
@@ -690,13 +691,13 @@ class PositionMotorSerial:
         
         Return
         ------
-            constant.ERROR
+            constant.self.p_error
             constant.SUCCES
         """ 
     
         motor_communication.send_write_command(self.serial, self.id, "KPP", value)
         if not(motor_communication.rcv_write_command(self.serial, self.id, "KPP", value)):
-            return constant.ERROR
+            return constant.self.p_error
         else:
             return constant.SUCCES
 
@@ -711,13 +712,13 @@ class PositionMotorSerial:
         
         Return
         ------
-            constant.ERROR
+            constant.self.p_error
             constant.SUCCES
         """
      
         motor_communication.send_write_command(self.serial, self.id, "KDP", value)
         if not(motor_communication.rcv_write_command(self.serial, self.id, "KDP", value)):
-            return constant.ERROR
+            return constant.self.p_error
         else:
             return constant.SUCCES
 
@@ -732,13 +733,13 @@ class PositionMotorSerial:
         
         Return
         ------
-            constant.ERROR
+            constant.self.p_error
             constant.SUCCES
         """
 
         motor_communication.send_write_command(self.serial, self.id, "WD", value)
         if not(motor_communication.rcv_write_command(self.serial, self.id, "WD", value)):
-            return constant.ERROR
+            return constant.self.p_error
         else:
             return constant.SUCCES
 
@@ -753,12 +754,12 @@ class PositionMotorSerial:
         
         Return
         ------
-            constant.ERROR
+            constant.self.p_error
             constant.SUCCES
         """
         motor_communication.send_write_command(self.serial, self.id, "CPA", value)
         if not(motor_communication.rcv_write_command(self.serial, self.id, "CPA", value)):
-            return constant.ERROR
+            return constant.self.p_error
         else:
             return constant.SUCCES
 
@@ -773,12 +774,12 @@ class PositionMotorSerial:
         
         Return
         ------
-            constant.ERROR
+            constant.self.p_error
             constant.SUCCES
         """
         motor_communication.send_write_command(self.serial, self.id, "CP", value)
         if not(motor_communication.rcv_write_command(self.serial, self.id, "CP", value)):
-            return constant.ERROR
+            return constant.self.p_error
         else:
             return constant.SUCCES
 
@@ -793,12 +794,12 @@ class PositionMotorSerial:
         
         Return
         ------
-            constant.ERROR
+            constant.self.p_error
             constant.SUCCES
         """
         motor_communication.send_write_command(self.serial, self.id, "CPR", value)
         if not(motor_communication.rcv_write_command(self.serial, self.id, "CPR", value)):
-            return constant.ERROR
+            return constant.self.p_error
         else:
             return constant.SUCCES
 
@@ -871,19 +872,19 @@ class PositionMotorSerial:
         
         Return
         ------
-            constant.ERROR
+            constant.self.p_error
             constant.SUCCES
         """
 
         motor_communication.send_write_command(self.serial, self.id, "RST", None)
         if not(motor_communication.rcv_write_command(self.serial, self.id, "RST", None)):
-            return constant.ERROR
+            return constant.self.p_error
         else:
             return constant.SUCCES
 
 class RobotSerial:
     """Create a class to control 2 DC motors robot."""
-    def __init__(self, serial):
+    def __init__(self, serial, p_self.p_error=3):
         """
         Parameters
         ----------
@@ -900,6 +901,7 @@ class RobotSerial:
         self.actual_y = 0
         self.actual_theta = 0
 
+        self.p_self.p_error = p_self.p_error
         self.isUsed = False
 
     def send_stop(self):
@@ -910,13 +912,13 @@ class RobotSerial:
         
         Return
         ------
-            constant.ERROR
+            constant.self.p_error
             constant.SUCCES
         """
 
         motor_communication.send_write_command(self.serial, self.id, "STOP", None)
         if not(motor_communication.rcv_write_command(self.serial, self.id, "STOP", None)):
-            return constant.ERROR
+            return constant.self.p_error
         else:
             return constant.SUCCES
 
@@ -931,12 +933,12 @@ class RobotSerial:
         
         Return
         ------
-            constant.ERROR
+            constant.self.p_error
             constant.SUCCES
         """
         motor_communication.send_write_command(self.serial, self.id, "CP", value)
         if not(motor_communication.rcv_write_command(self.serial, self.id, "CP", value)):
-            return constant.ERROR
+            return constant.self.p_error
         else:
             return constant.SUCCES
            
@@ -963,12 +965,12 @@ class RobotSerial:
         
         Return
         ------
-            constant.ERROR
+            constant.self.p_error
             constant.SUCCES
         """
         motor_communication.send_write_command(self.serial, 0, "CPR", value)
         if not(motor_communication.rcv_write_command(self.serial, 0, "CPR", value)):
-            return constant.ERROR
+            return constant.self.p_error
         else:
             return constant.SUCCES
     
@@ -996,7 +998,7 @@ class RobotSerial:
             motor_communication.send_read_command(self.serial, 2, "PERR")
             perr_2 = motor_communication.rcv_read_command(self.serial, 2, "PERR")
 
-            if (perr_1 <= -5 or perr_1 >= 5) or (perr_2 <= -5 or perr_2 >= 5):
+            if (perr_1 <= -self.p_error or perr_1 >= self.p_error) or (perr_2 <= -self.p_error or perr_2 >= self.p_error):
                 counter += 1
 
         return nb == counter
