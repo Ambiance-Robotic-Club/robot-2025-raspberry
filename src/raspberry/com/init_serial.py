@@ -79,6 +79,10 @@ def init_coms_robot():
     port_handler.setBaudRate(1000000)
 
     ser = init_serial(robot_port, 115200)
+
+    robot = RobotSerial(ser)
+    robot.get_actual_x()
+
     sts3215.append(STS3215Servo(port_handler, packet_handler, servo_id=1))
     sts3215.append(STS3215Servo(port_handler, packet_handler, servo_id=2))
 
@@ -90,4 +94,4 @@ def init_coms_robot():
     screen = Screen(screen_port)
     
 
-    return sts3215, RobotSerial(ser), Lidar(lidar_port), servos, screen, Pami(screen.serial)
+    return sts3215, robot, Lidar(lidar_port), servos, screen, Pami(screen.serial)
