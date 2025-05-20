@@ -26,9 +26,7 @@ if __name__ == "__main__":
 
     zone_start = screen.get_zone()
 
-    robot.set_theta(0)
-    robot.set_x(0)
-    robot.set_y(0)
+    robot.init_zone_start(zone_start)
 
     timerStart = time.time()
 
