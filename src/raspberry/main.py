@@ -64,9 +64,11 @@ if __name__ == "__main__":
             except Exception as e:
                 print(f"Error : {e}")
 
-            if timer >= 97:
+            if timer >= 15:
+                screen.set_score(999)
                 # TO DO (1 ligne par pami avec adresse mac en argument)
                 pami.send_stop_pami(0)
+                
 
             screen.set_timer(int(timer))
 
