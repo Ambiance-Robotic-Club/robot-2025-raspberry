@@ -26,6 +26,7 @@ class Strategy:
 
         self.old_actual_x = 0
         self.old_actual_y = 0
+        self.old_actual_theta = 0
         self.timeout_busy = 0
 
         self.robot_busy = False
@@ -47,9 +48,10 @@ class Strategy:
                 if self.robot_busy:
                     self.old_actual_x = self.actual_x
                     self.old_actual_y = self.actual_y
+                    self.old_actual_theta = self.actual_theta
                     self.timeout_busy = time.time()
 
-            if self.robot_busy and time.time()-self.timeout_busy >= 5 and self.actual_x < self.old_actual_x+10 and self.actual_x > self.old_actual_x-10 and self.actual_y < self.old_actual_y+10 and self.actual_y > self.old_actual_y-10:
+            if self.robot_busy and time.time()-self.timeout_busy >= 5 and self.actual_x < self.old_actual_x+10 and self.actual_x > self.old_actual_x-10 and self.actual_y < self.old_actual_y+10 and self.actual_y > self.old_actual_y-10 and self.actual_theta < self.old_actual_theta+5 and self.actual_theta > self.old_actual_theta-5:
                 print("TIMEOUT : ROBOT BLOQUE")
                 self.robot_busy = False  
              
