@@ -25,6 +25,7 @@ if __name__ == "__main__":
     strategy = Strategy(robot, sts3215)
 
     zone_start = screen.get_zone()
+    color = screen.get_color()
 
     robot.init_zone_start(zone_start)
 
@@ -50,7 +51,7 @@ if __name__ == "__main__":
             try:
                 print("__________________________________________")
                 print(f"Robot datas")
-                print("Zone de départ : ", zone_start)
+                print("Zone de départ : ", zone_start, "| Couleur : ", color)
                 print("Timer : ", timer)
                 print("Position robot : x :", strategy.actual_x, "| y :", strategy.actual_y, "| θ :", strategy.actual_theta - int(strategy.actual_theta/360)*360)
                 if strategy.step_consigne != None :
