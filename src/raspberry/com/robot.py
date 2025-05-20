@@ -1004,6 +1004,7 @@ class RobotSerial:
         return nb == counter
 
     def init_zone_start(self, zone):
+        zone = int(zone)
         pos_zone = [
                     [100,0,0],
                     [0,100,0],
