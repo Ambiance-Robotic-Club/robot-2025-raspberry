@@ -1,9 +1,7 @@
 import serial
 import math
 import time
-
-DETECT_OBSTACLE = 3600
-STOP_DISTANCE = 100
+import utils.constant as constant
 
 CRC_TABLE = [
     0x00, 0x4d, 0x9a, 0xd7, 0x79, 0x34, 0xe3, 0xae, 0xf2, 0xbf, 0x68, 0x25, 0x8b, 0xc6, 0x11, 0x5c, 0xa9,
@@ -59,6 +57,7 @@ class Lidar:
         self.is_free = 5
         self.timer_free = 0
         self.f_stop = False
+        self.direction = constant.IDLE
 
     def calculate_crc8(self, data):
         crc = 0
@@ -136,9 +135,9 @@ class Lidar:
                     points = self.parse_lidar_frame(frame)
 
                     for point in points:
-                        if point.distance < DETECT_OBSTACLE and point.intensity > 0:
+                        if point.distance < constant.DETECT_OBSTACLE and point.intensity > 0:
                             if (point.angle > 340 or point.angle < 20 or (point.angle > 160 and point.angle < 200)):
-                                pass
+                                pass                            
                             else:
                                 obstacle_angle = point.angle - self.lidar_offset
                                 obstacle_angle = (obstacle_angle + 360) % 360
@@ -151,7 +150,21 @@ class Lidar:
                                     # print("__________________________________________")
                                     # print(f"Lidar obstacle : ({obstacle_x}, {obstacle_y})")
                                     # print("__________________________________________")
-                                    if point.distance < STOP_DISTANCE:
+                                    if point.angle < 0 and point.angle > 180 and self.direction == constant.FORWARD:
+                                        stop_distance = constant.STOP_DISTANCE_DISABLE
+                                    elif point.angle > 0 and point.angle < 180 and self.direction == constant.FORWARD:
+                                        stop_distance = constant.STOP_DISTANCE_FORWARD
+                                    elif point.angle > 0 and point.angle < 180 and self.direction == constant.BACKWARD:
+                                        stop_distance = constant.STOP_DISTANCE_DISABLE
+                                    elif point.angle > 0 and point.angle > 180 and self.direction == constant.BACKWARD:
+                                        stop_distance = constant.STOP_DISTANCE_BACKWARD
+                                    elif point.angle < 0 and point.angle > 180 and (self.direction == constant.ROTATION_L or self.direction == constant.ROTATION_R):
+                                        stop_distance = constant.STOP_DISTANCE_DISABLE
+                                    elif point.angle > 0 and point.angle < 180 and (self.direction == constant.ROTATION_L or self.direction == constant.ROTATION_R):
+                                        stop_distance = constant.STOP_DISTANCE_ROTATION
+                                    else:
+                                        stop_distance = constant.STOP_DISTANCE_IDLE
+                                    if point.distance < stop_distance:
                                         if self.is_free:
                                             #print(self.is_free)
                                             self.is_free -= 1 
