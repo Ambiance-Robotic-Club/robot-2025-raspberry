@@ -95,7 +95,7 @@ class Strategy:
                 if self.theta_degrees <= 0:
                     self.theta_degrees += 180
                 else:
-                    self.theta_degrees += 180
+                    self.theta_degrees -= 180
             else:
                 self.direction = constant.FORWARD
 
@@ -109,7 +109,7 @@ class Strategy:
             distance = math.sqrt((self.actual_x - self.step_consigne[0]) ** 2 + (self.actual_y - self.step_consigne[1]) ** 2)
             if self.direction == constant.BACKWARD:
                 distance = - distance
-            if distance > constant.CONSIGNE_MIN_POS:
+            if abs(distance) > constant.CONSIGNE_MIN_POS:
                 self.consigne = distance
                 self.is_consigne = True
             else:
