@@ -26,6 +26,9 @@ if __name__ == "__main__":
     strategy = Strategy(robot, sts3215)
 
     zone_start = screen.get_zone()
+    while(zone_start == "0"):
+        zone_start = screen.get_zone()
+        time.sleep(0.1)
     color = screen.get_color()
 
     robot.init_zone_start(zone_start)
