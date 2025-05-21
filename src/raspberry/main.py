@@ -50,6 +50,7 @@ if __name__ == "__main__":
             timer = time.time() - timerStart
 
             lidar.robot_position = [strategy.actual_x, strategy.actual_y, strategy.actual_theta]
+            lidar.direction = robot.direction
             try:
                 print("__________________________________________")
                 print(f"Robot datas")
