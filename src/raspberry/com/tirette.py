@@ -29,5 +29,6 @@ def wait_tirette(pin, screen, servos, sts3215):
             while(sts3215[0].read_speed() > 10 or sts3215[1].read_speed() > 10):
                     pass
             init = False
+        time.sleep(0.1)
 
     return 1
