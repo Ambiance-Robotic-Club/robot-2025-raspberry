@@ -12,7 +12,7 @@ class Strategy:
         self.robot = robot
         self.servos = servos
 
-        self.consigne_queue = [(100,0,90), (100,200,0)]
+        self.consigne_queue = [(200,0,90), (200,200,0), (0,200,0)]
         self.step_consigne = None
         self.actual_type_consigne = 0
         self.consigne = 0
@@ -23,6 +23,7 @@ class Strategy:
         self.actual_theta = 0
 
         self.theta_degrees = 0
+        self.direction = constant.IDLE
 
         self.old_actual_x = 0
         self.old_actual_y = 0
@@ -87,6 +88,17 @@ class Strategy:
             if self.theta_degrees < -180:
                 self.theta_degrees += 360
 
+            #Choice forward/backward
+            alignment_theta = modulo((self.step_consigne[2] - self.theta_degrees), 360)
+            if abs(alignment_theta) > 90:
+                self.direction = constant.BACKWARD
+                if self.theta_degrees <= 0:
+                    self.theta_degrees += 180
+                else:
+                    self.theta_degrees += 180
+            else:
+                self.direction = constant.FORWARD
+
             if self.theta_degrees > constant.CONSIGNE_MIN_THETA or self.theta_degrees < -constant.CONSIGNE_MIN_THETA:
                 self.consigne = self.theta_degrees
                 self.is_consigne = True
@@ -95,7 +107,8 @@ class Strategy:
 
         if self.actual_type_consigne == 1:
             distance = math.sqrt((self.actual_x - self.step_consigne[0]) ** 2 + (self.actual_y - self.step_consigne[1]) ** 2)
-
+            if self.direction == constant.BACKWARD:
+                distance = - distance
             if distance > constant.CONSIGNE_MIN_POS:
                 self.consigne = distance
                 self.is_consigne = True
@@ -103,7 +116,7 @@ class Strategy:
                 self.actual_type_consigne = 2
 
         if self.actual_type_consigne == 2:
-
+            self.direction = constant.IDLE
             alignment_theta = modulo((self.step_consigne[2] - self.actual_theta), 360)
             if alignment_theta > 180:
                 alignment_theta -= 360
