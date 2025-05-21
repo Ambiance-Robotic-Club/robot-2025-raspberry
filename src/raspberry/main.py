@@ -50,8 +50,6 @@ if __name__ == "__main__":
             timer = time.time() - timerStart
 
             lidar.robot_position = [strategy.actual_x, strategy.actual_y, strategy.actual_theta]
-            if not strategy.robot_busy:
-                robot.direction = constant.IDLE
             lidar.direction = robot.direction
             try:
                 print("__________________________________________")
