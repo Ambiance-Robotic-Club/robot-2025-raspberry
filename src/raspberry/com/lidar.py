@@ -150,15 +150,15 @@ class Lidar:
                                     # print("__________________________________________")
                                     # print(f"Lidar obstacle : ({obstacle_x}, {obstacle_y})")
                                     # print("__________________________________________")
-                                    if point.angle < 0 and point.angle > 180 and self.direction == constant.FORWARD:
+                                    if (point.angle < 0 or point.angle > 180) and self.direction == constant.FORWARD:
                                         stop_distance = constant.STOP_DISTANCE_DISABLE
                                     elif point.angle > 0 and point.angle < 180 and self.direction == constant.FORWARD:
                                         stop_distance = constant.STOP_DISTANCE_FORWARD
                                     elif point.angle > 0 and point.angle < 180 and self.direction == constant.BACKWARD:
                                         stop_distance = constant.STOP_DISTANCE_DISABLE
-                                    elif point.angle > 0 and point.angle > 180 and self.direction == constant.BACKWARD:
+                                    elif (point.angle < 0 or point.angle > 180) and self.direction == constant.BACKWARD:
                                         stop_distance = constant.STOP_DISTANCE_BACKWARD
-                                    elif point.angle < 0 and point.angle > 180 and (self.direction == constant.ROTATION_L or self.direction == constant.ROTATION_R):
+                                    elif (point.angle < 0 or point.angle > 180) and (self.direction == constant.ROTATION_L or self.direction == constant.ROTATION_R):
                                         stop_distance = constant.STOP_DISTANCE_DISABLE
                                     elif point.angle > 0 and point.angle < 180 and (self.direction == constant.ROTATION_L or self.direction == constant.ROTATION_R):
                                         stop_distance = constant.STOP_DISTANCE_ROTATION
