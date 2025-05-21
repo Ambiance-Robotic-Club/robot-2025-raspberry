@@ -1020,16 +1020,10 @@ class RobotSerial:
 
     def init_zone_start(self, zone):
         zone = int(zone)
-        pos_zone = [
-                    [100,0,0],
-                    [0,100,0],
-                    [0,0,100],
-                    [100,100,0],
-                    [100,0,100],
-                    [0,100,100]]
         
-        self.set_x(pos_zone[zone-1][0])
-        self.set_y(pos_zone[zone-1][1])
-        self.set_theta(pos_zone[zone-1][2])
+        
+        self.set_x(constant.pos_zone[zone-1][0])
+        self.set_y(constant.pos_zone[zone-1][1])
+        self.set_theta(constant.pos_zone[zone-1][2])
     
   

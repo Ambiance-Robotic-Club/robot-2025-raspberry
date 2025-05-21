@@ -35,3 +35,12 @@ BAUDRATE_DEFAULT = 115200
 
 TIMEOUT = 3
 
+#Init Zone positions
+pos_zone = [
+            [100,0,0],
+            [0,100,0],
+            [0,0,100],
+            [100,100,0],
+            [100,0,100],
+            [0,100,100]]
+
