@@ -2,8 +2,8 @@ import RPi.GPIO as GPIO
 import time
 
 servo_positions_init = [
-    [30, 120, 55, 180, 155, 0, 0, 0, 0, 0,  0, 30, 0, 140, 55, 125, 0],  
-    [30, 120, 55, 90, 155, 0, 0, 0, 0, 0, 0, 30, 90, 140, 55, 125, 0]]
+    [10, 120, 55, 180, 155, 0, 0, 0, 0, 0,  0, 30, 0, 140, 55, 140],  
+    [30, 120, 55, 90, 155, 0, 0, 0, 0, 0, 0, 30, 90, 140, 55, 140]]
 
 def wait_tirette(pin, screen, servos, sts3215):
     init = True
@@ -14,7 +14,7 @@ def wait_tirette(pin, screen, servos, sts3215):
         if init and screen.get_init_act() == 1:
             for servo_id in range(16):
                 servos[servo_id].angle = servo_positions_init[0][servo_id]
-            time.sleep(0.5)
+            time.sleep(1)
     
             for servo_id in range(16):
                 servos[servo_id].angle = servo_positions_init[1][servo_id]
