@@ -900,6 +900,7 @@ class RobotSerial:
         self.actual_x = 0
         self.actual_y = 0
         self.actual_theta = 0
+        self.direction = constant.IDLE
 
         self.p_error = p_error
         self.isUsed = False
@@ -938,8 +939,15 @@ class RobotSerial:
         """
         motor_communication.send_write_command(self.serial, self.id, "CP", value)
         if not(motor_communication.rcv_write_command(self.serial, self.id, "CP", value)):
+            self.direction = constant.IDLE
             return constant.ERROR
         else:
+            if(value > 0):
+                self.direction = constant.FORWARD
+            elif(value < 0):
+                self.direction = constant.BACKWARD
+            else:
+                self.direction = constant.IDLE
             return constant.SUCCES
            
     def set_x(self, value):
@@ -970,8 +978,15 @@ class RobotSerial:
         """
         motor_communication.send_write_command(self.serial, 0, "CPR", value)
         if not(motor_communication.rcv_write_command(self.serial, 0, "CPR", value)):
+            self.direction = constant.IDLE
             return constant.ERROR
         else:
+            if(value > 0):
+                self.direction = constant.ROTATION_R
+            elif(value < 0):
+                self.direction = constant.ROTATION_L
+            else:
+                self.direction = constant.IDLE
             return constant.SUCCES
     
     def update_diff_position(self):
