@@ -2,6 +2,7 @@ from com.init_serial import init_coms_robot
 from com.tirette import wait_tirette
 from strategy.obstacle import find_safe_place
 from strategy.strategy import Strategy
+import utils.constant as constant
 
 import threading
 import time
@@ -58,7 +59,17 @@ if __name__ == "__main__":
                 if strategy.step_consigne != None :
                     print("Consigne robot : x :", strategy.step_consigne[0], "| y :", strategy.step_consigne[1], "| θ :", strategy.step_consigne[2])
                 print("Obstacle : ", "Oui" if not lidar.is_free else "Non", "| Bloqué : ", "Oui" if lidar.f_stop else "Non")
-                print("Busy : ", "Oui" if strategy.robot_busy else "Non")
+                if robot.direction ==  constant.FORWARD:
+                    direction = "FORWARD"
+                elif robot.direction ==  constant.BACKWARD:
+                    direction = "BACKWARD"
+                elif robot.direction ==  constant.ROTATION_L:
+                    direction = "ROTATION_L"
+                elif robot.direction ==  constant.ROTATION_R:
+                    direction = "ROTATION_R"
+                else:
+                    direction = "IDLE"
+                print("Busy : ", "Oui" if strategy.robot_busy else "Non", " | Direction : ", direction)
                 print("Etape consigne : ", strategy.actual_type_consigne)
                 print("Consigne actuelle (position / rotation) :", strategy.consigne)
                 print("__________________________________________")
