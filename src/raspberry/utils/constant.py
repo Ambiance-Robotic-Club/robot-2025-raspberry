@@ -46,7 +46,7 @@ STOP_DISTANCE_IDLE = 100
 
 #Init Zone positions
 pos_zone = [
-            [100,0,0],
+            [0,0,0],
             [0,100,0],
             [0,0,100],
             [100,100,0],
