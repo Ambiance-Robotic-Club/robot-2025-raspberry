@@ -52,14 +52,6 @@ if __name__ == "__main__":
             lidar.robot_position = [strategy.actual_x, strategy.actual_y, strategy.actual_theta]
             lidar.direction = robot.direction
             try:
-                print("__________________________________________")
-                print(f"Robot datas")
-                print("Zone de départ : ", zone_start, "| Couleur : ", color)
-                print("Timer : ", timer)
-                print("Position robot : x :", strategy.actual_x, "| y :", strategy.actual_y, "| θ :", strategy.actual_theta - int(strategy.actual_theta/360)*360)
-                if strategy.step_consigne != None :
-                    print("Consigne robot : x :", strategy.step_consigne[0], "| y :", strategy.step_consigne[1], "| θ :", strategy.step_consigne[2])
-                print("Obstacle : ", "Oui" if not lidar.is_free else "Non", "| Bloqué : ", "Oui" if lidar.f_stop else "Non")
                 if robot.direction ==  constant.FORWARD:
                     direction = "FORWARD"
                 elif robot.direction ==  constant.BACKWARD:
@@ -70,6 +62,15 @@ if __name__ == "__main__":
                     direction = "ROTATION_R"
                 else:
                     direction = "IDLE"
+
+                print("__________________________________________")
+                print(f"Robot datas")
+                print("Zone de départ : ", zone_start, "| Couleur : ", color)
+                print("Timer : ", timer)
+                print("Position robot : x :", strategy.actual_x, "| y :", strategy.actual_y, "| θ :", strategy.actual_theta - int(strategy.actual_theta/360)*360)
+                if strategy.step_consigne != None :
+                    print("Consigne robot : x :", strategy.step_consigne[0], "| y :", strategy.step_consigne[1], "| θ :", strategy.step_consigne[2])
+                print("Obstacle : ", "Oui" if not lidar.is_free else "Non", "| Bloqué : ", "Oui" if lidar.f_stop else "Non")
                 print("Busy : ", "Oui" if strategy.robot_busy else "Non", " | Direction : ", direction)
                 print("Etape consigne : ", strategy.actual_type_consigne)
                 print("Consigne actuelle (position / rotation) :", strategy.consigne)
@@ -82,7 +83,14 @@ if __name__ == "__main__":
                 # TO DO (1 ligne par pami avec adresse mac en argument)
                 pami.send_stop_pami(0)
                 
-
+            if timer >= 90:
+                # TO DO : mettre position finale (x,y,O) du robot
+                robot.send_stop()
+                strategy.consigne_queue = [0,0,0]
+                strategy.actual_type_consigne = 0
+                strategy.robot_busy = False
+                strategy.update_robot()
+                
             screen.set_timer(int(timer))
 
             time.sleep(0.01)
