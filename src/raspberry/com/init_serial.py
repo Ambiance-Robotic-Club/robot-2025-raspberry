@@ -94,4 +94,4 @@ def init_coms_robot():
     screen = Screen(screen_port)
     
 
-    return sts3215, robot, Lidar(lidar_port), servos, screen, Pami(screen.serial)
+    return sts3215, robot, Lidar(lidar_port), servos, screen, Pami(screen.serial), pca

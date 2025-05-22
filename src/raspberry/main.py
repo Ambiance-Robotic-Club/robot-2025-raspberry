@@ -15,7 +15,7 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../'
 
 
 if __name__ == "__main__":
-    sts3215, robot, lidar, servos, screen, pami = init_coms_robot()
+    sts3215, robot, lidar, servos, screen, pami, pca = init_coms_robot()
 
     wait_tirette(17, screen, servos, sts3215)
 
@@ -87,18 +87,12 @@ if __name__ == "__main__":
 
             time.sleep(0.01)
 
-    except KeyboardInterrupt:
+    finally:
         print("Stop")
         t_lidar.join()
-
-    except Exception as e:
-        print(f"Error : {e}")
-
-    t_lidar.join()
-    lidar.serial.close()
-    robot.serial.close()
-    screen.serial.close()
-    sts3215[0].port_handler.closePort()
-    sts3215[1].port_handler.closePort()
-    
-
+        lidar.serial.close()
+        robot.serial.close()
+        screen.serial.close()
+        sts3215[0].port_handler.closePort()
+        sts3215[1].port_handler.closePort()
+        pca.deinit()  
