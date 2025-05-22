@@ -923,6 +923,25 @@ class RobotSerial:
         else:
             return constant.SUCCES
 
+    def send_reset(self):
+        """
+        Method that send reset to the physical motor.
+
+        No parameter, motor card wait Na value.
+        Used after STOP command to restore consigne.
+        
+        Return
+        ------
+            constant.ERROR
+            constant.SUCCES
+        """
+
+        motor_communication.send_write_command(self.serial, self.id, "RST", None)
+        if not(motor_communication.rcv_write_command(self.serial, self.id, "RST", None)):
+            return constant.ERROR
+        else:
+            return constant.SUCCES
+
     def send_position_consigne(self, value):
         """
         Method that send position consigne to the physical motor.
