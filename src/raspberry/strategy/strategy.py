@@ -1,6 +1,7 @@
 import math
 import time
 import utils.constant as constant
+import numpy as np
 
 def modulo(a, b):
     return a - int(a / b) * b
@@ -21,6 +22,10 @@ class Strategy:
         self.actual_x = 0
         self.actual_y = 0
         self.actual_theta = 0
+
+        self.theoric_line = None
+        self.theoric_actual_x = 0
+        self.theoric_actual_y = 0
 
         self.theta_degrees = 0
         self.direction = constant.IDLE
@@ -72,6 +77,8 @@ class Strategy:
           
                 self.actual_type_consigne = (self.actual_type_consigne + 1) % 3
                 self.is_consigne = False
+            
+            self.path_correction()
     
     def process_step(self):
         if self.actual_type_consigne == 0:
@@ -106,6 +113,13 @@ class Strategy:
                 self.actual_type_consigne = 1
 
         if self.actual_type_consigne == 1:
+            ####### Correction path part (in 1 because for line trajectory)
+            x = np.linspace(self.actual_x, self.step_consigne[0], 300)
+            y = np.linspace(self.actual_y, self.step_consigne[1], 300)
+
+            self.theoric_line = np.column_stack((x, y))
+            #######
+
             distance = math.sqrt((self.actual_x - self.step_consigne[0]) ** 2 + (self.actual_y - self.step_consigne[1]) ** 2)
             if self.direction == constant.BACKWARD:
                 distance = - distance
@@ -128,4 +142,19 @@ class Strategy:
                 self.is_consigne = True
             else:
                 self.actual_type_consigne = 0
+
+    def path_correction(self):
+        if self.actual_type_consigne == 1:
+            ref_point = np.array([self.actual_x, self.actual_y])
+
+            dist = np.linalg.norm(self.theoric_line - ref_point, axis=1)
+
+            closest_index = np.argmin(dist)
+
+            self.theoric_actual_x = self.theoric_line[closest_index][0]
+            self.theoric_actual_y = self.theoric_line[closest_index][1]
+
+        else:
+            self.theoric_actual_x = None
+            self.theoric_actual_y = None
 
