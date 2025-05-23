@@ -23,10 +23,11 @@ class Strategy:
         self.actual_y = 0
         self.actual_theta = 0
 
-        self.theoric_line = None
-        self.theoric_actual_x = 0
-        self.theoric_actual_y = 0
-
+        self.error_line = None
+        self.line_start_x = 0
+        self.line_start_y = 0
+        self.theoric_theta = 0
+        self.theta_error = 0
         self.theta_degrees = 0
         self.direction = constant.IDLE
 
@@ -46,6 +47,8 @@ class Strategy:
             self.actual_theta = self.robot.get_actual_theta()
             self.robot_busy = self.robot.get_busy(10) if not(self.init) else False
 
+            line = math.sqrt((self.actual_x - self.line_start_x) ** 2 + (self.actual_y - self.line_start_y) ** 2)
+            self.error_line = abs(math.sin(self.theoric_theta - self.actual_theta)*line)
             self.init = False
             
             # Timeout part
@@ -77,9 +80,6 @@ class Strategy:
           
                 self.actual_type_consigne = (self.actual_type_consigne + 1) % 3
                 self.is_consigne = False
-                
-            if self.theoric_line != None:
-                self.path_correction()
     
     def process_step(self):
         if self.actual_type_consigne == 0:
@@ -114,20 +114,16 @@ class Strategy:
                 self.actual_type_consigne = 1
 
         if self.actual_type_consigne == 1:
-            ####### Correction path part (in 1 because for line trajectory)
-            x = np.linspace(self.actual_x, self.step_consigne[0], 20)
-            y = np.linspace(self.actual_y, self.step_consigne[1], 20)
-            self.theoric_line = np.column_stack((x, y))
-            print(self.theoric_line)
-
-            #######
-
             distance = math.sqrt((self.actual_x - self.step_consigne[0]) ** 2 + (self.actual_y - self.step_consigne[1]) ** 2)
             if self.direction == constant.BACKWARD:
                 distance = - distance
             if abs(distance) > constant.CONSIGNE_MIN_POS:
                 self.consigne = distance
                 self.is_consigne = True
+
+                self.line_start_x = self.actual_x
+                self.line_start_y = self.actual_y
+                self.theoric_theta = self.actual_theta + self.theta_degrees
             else:
                 self.actual_type_consigne = 2
 
@@ -144,6 +140,8 @@ class Strategy:
                 self.is_consigne = True
             else:
                 self.actual_type_consigne = 0
+
+            
 
     def path_correction(self):
         if self.actual_type_consigne == 1:
