@@ -77,8 +77,8 @@ class Strategy:
           
                 self.actual_type_consigne = (self.actual_type_consigne + 1) % 3
                 self.is_consigne = False
-            
-            self.path_correction()
+            if self.theoric_line != None:
+                self.path_correction()
     
     def process_step(self):
         if self.actual_type_consigne == 0:
