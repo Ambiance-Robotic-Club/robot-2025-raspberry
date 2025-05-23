@@ -58,6 +58,8 @@ class Lidar:
         self.timer_free = 0
         self.f_stop = False
         self.direction = constant.IDLE
+        self.robot_adv_point = []
+        self.robot_adv_positions = []
 
     def calculate_crc8(self, data):
         crc = 0
@@ -133,6 +135,7 @@ class Lidar:
                     buffer = buffer[47:]  # Supprimer la trame consommée
 
                     points = self.parse_lidar_frame(frame)
+                    self.robot_adv_point = []
 
                     for point in points:
                         if point.distance < constant.DETECT_OBSTACLE and point.intensity > 0:
@@ -172,11 +175,15 @@ class Lidar:
                                         if not self.is_free:
                                             self.f_stop = True
 
+                                    self.robot_adv_point.append((obstacle_x, obstacle_y))
+
                         if time.time() - self.timer_free > 0.2:
                             self.is_free = 5
 
                 else:
                     buffer = buffer[1:]  # Supprimer un octet pour resynchroniser
+
+            self.robot_adv_positions.append(self.robot_adv_point[int(len(self.robot_adv_point/2))])
 
 
 if __name__ == "__main__":
