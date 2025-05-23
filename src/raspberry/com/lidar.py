@@ -176,7 +176,7 @@ class Lidar:
                                             self.f_stop = True
 
                                     self.robot_adv_point.append((obstacle_x, obstacle_y))
-                                    print(len(self.robot_adv_point))
+                                    print(self.robot_adv_point[int(len(self.robot_adv_point)/2)])
 
                         if time.time() - self.timer_free > 0.2:
                             self.is_free = 5
