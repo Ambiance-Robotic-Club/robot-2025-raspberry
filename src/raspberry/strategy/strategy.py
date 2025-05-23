@@ -145,14 +145,18 @@ class Strategy:
 
     def path_correction(self):
         if self.actual_type_consigne == 1:
-            ref_point = np.array([self.actual_x, self.actual_y])
+            try:
+                    
+                ref_point = np.array([self.actual_x, self.actual_y])
+                dist = np.linalg.norm(self.theoric_line - ref_point, axis=1)
 
-            dist = np.linalg.norm(self.theoric_line - ref_point, axis=1)
+                closest_index = np.argmin(dist)
 
-            closest_index = np.argmin(dist)
+                self.theoric_actual_x = self.theoric_line[closest_index][0]
+                self.theoric_actual_y = self.theoric_line[closest_index][1]
+            except Exception as e:
+                print("Erreur path correction : ", e)
 
-            self.theoric_actual_x = self.theoric_line[closest_index][0]
-            self.theoric_actual_y = self.theoric_line[closest_index][1]
 
         else:
             self.theoric_actual_x = None
