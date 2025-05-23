@@ -149,7 +149,7 @@ class Strategy:
                     
                 ref_point = np.array([self.actual_x, self.actual_y])
                 dist = np.linalg.norm(self.theoric_line - ref_point, axis=1)
-
+                print("OK")
                 closest_index = np.argmin(dist)
 
                 self.theoric_actual_x = self.theoric_line[closest_index][0]
