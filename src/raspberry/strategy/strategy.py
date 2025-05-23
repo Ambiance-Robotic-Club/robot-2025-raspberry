@@ -13,7 +13,7 @@ class Strategy:
         self.robot = robot
         self.servos = servos
 
-        self.consigne_queue = [(200,0,90), (200,200,0), (0,200,0)]
+        self.consigne_queue = [(200,0,90), (200,200,0), (0,500,0)]
         self.step_consigne = None
         self.actual_type_consigne = 0
         self.consigne = 0
