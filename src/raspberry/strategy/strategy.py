@@ -47,8 +47,14 @@ class Strategy:
             self.actual_theta = self.robot.get_actual_theta()
             self.robot_busy = self.robot.get_busy(10) if not(self.init) else False
 
-            line = math.sqrt((self.actual_x - self.line_start_x) ** 2 + (self.actual_y - self.line_start_y) ** 2)
-            self.error_line = abs(math.sin(self.theoric_theta - self.actual_theta)*line)
+            #### Path correction ####
+            if self.actual_type_consigne == 1:
+                line = math.sqrt((self.actual_x - self.line_start_x) ** 2 + (self.actual_y - self.line_start_y) ** 2)
+                self.error_line = abs(math.sin(self.theoric_theta - self.actual_theta)*line)
+            else:
+                self.error_line = 0
+            #########################
+            
             self.init = False
             
             # Timeout part
@@ -80,6 +86,14 @@ class Strategy:
           
                 self.actual_type_consigne = (self.actual_type_consigne + 1) % 3
                 self.is_consigne = False
+        
+            if self.error_line > 100:
+                self.robot.stop()
+                self.consigne_queue.insert(0,self.step_consigne)
+                self.actual_type_consigne = 0
+                self.robot_busy = False
+                self.update_robot()
+                print("------- Recalcul consigne -------")
     
     def process_step(self):
         if self.actual_type_consigne == 0:
@@ -121,9 +135,11 @@ class Strategy:
                 self.consigne = distance
                 self.is_consigne = True
 
+                #### Path correction ####
                 self.line_start_x = self.actual_x
                 self.line_start_y = self.actual_y
                 self.theoric_theta = self.actual_theta + self.theta_degrees
+                #########################
             else:
                 self.actual_type_consigne = 2
 
