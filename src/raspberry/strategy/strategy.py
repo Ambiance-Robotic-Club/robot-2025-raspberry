@@ -115,10 +115,11 @@ class Strategy:
 
         if self.actual_type_consigne == 1:
             ####### Correction path part (in 1 because for line trajectory)
-            x = np.linspace(self.actual_x, self.step_consigne[0], 300)
-            y = np.linspace(self.actual_y, self.step_consigne[1], 300)
-            print(x, y)
+            x = np.linspace(self.actual_x, self.step_consigne[0], 20)
+            y = np.linspace(self.actual_y, self.step_consigne[1], 20)
             self.theoric_line = np.column_stack((x, y))
+            print(self.theoric_line)
+
             #######
 
             distance = math.sqrt((self.actual_x - self.step_consigne[0]) ** 2 + (self.actual_y - self.step_consigne[1]) ** 2)
