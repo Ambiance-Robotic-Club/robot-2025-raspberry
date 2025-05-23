@@ -88,7 +88,7 @@ class Strategy:
                 self.is_consigne = False
         
             if self.error_line > 100:
-                self.robot.stop()
+                self.robot.send_stop()
                 self.consigne_queue.insert(0,self.step_consigne)
                 self.actual_type_consigne = 0
                 self.robot_busy = False
