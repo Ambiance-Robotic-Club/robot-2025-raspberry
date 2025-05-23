@@ -176,7 +176,6 @@ class Lidar:
                                             self.f_stop = True
 
                                     self.robot_adv_point.append((obstacle_x, obstacle_y))
-                                    print(self.robot_adv_point[int(len(self.robot_adv_point)/2)])
 
                         if time.time() - self.timer_free > 0.2:
                             self.is_free = 5
@@ -185,7 +184,8 @@ class Lidar:
                     buffer = buffer[1:]  # Supprimer un octet pour resynchroniser
 
             if self.robot_adv_point:
-                self.robot_adv_positions.append(self.robot_adv_point[int(len(self.robot_adv_point)/2)])
+                colonnes = list(zip(*self.robot_adv_point))
+                self.robot_adv_positions.append([sum(col) / len(col) for col in colonnes])
 
 
 if __name__ == "__main__":
