@@ -70,7 +70,7 @@ if __name__ == "__main__":
                 print("Position robot : x :", strategy.actual_x, "| y :", strategy.actual_y, "| θ :", strategy.actual_theta - int(strategy.actual_theta/360)*360)
                 if strategy.step_consigne != None :
                     print("Consigne robot : x :", strategy.step_consigne[0], "| y :", strategy.step_consigne[1], "| θ :", strategy.step_consigne[2])
-                print("Position théorique robot : x :", strategy.theoric_x, "| y :", strategy.theoric_y)
+                print("Position théorique robot : x :", strategy.theoric_actual_x, "| y :", strategy.theoric_actual_y)
                 print("\nObstacle : ", "Oui" if not lidar.is_free else "Non", "| Bloqué : ", "Oui" if lidar.f_stop else "Non")
                 print("Busy : ", "Oui" if strategy.robot_busy else "Non", " | Direction : ", direction)
                 print("Etape consigne : ", strategy.actual_type_consigne)
