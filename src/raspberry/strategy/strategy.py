@@ -106,7 +106,7 @@ class Strategy:
             else:
                 self.direction = constant.FORWARD
 
-            if self.theta_degrees > constant.CONSIGNE_MIN_THETA or self.theta_degrees < -constant.CONSIGNE_MIN_THETA:
+            if abs(self.theta_degrees) > constant.CONSIGNE_MIN_THETA:
                 self.consigne = self.theta_degrees
                 self.is_consigne = True
             else:
@@ -137,7 +137,7 @@ class Strategy:
             if alignment_theta < -180:
                 alignment_theta += 360
 
-            if alignment_theta > constant.CONSIGNE_MIN_THETA or alignment_theta < -constant.CONSIGNE_MIN_THETA:
+            if abs(alignment_theta) > constant.CONSIGNE_MIN_THETA:
                 self.consigne = alignment_theta
                 self.is_consigne = True
             else:
