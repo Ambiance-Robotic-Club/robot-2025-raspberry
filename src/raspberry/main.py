@@ -2,6 +2,7 @@ from com.init_serial import init_coms_robot
 from com.tirette import wait_tirette
 from strategy.obstacle import find_safe_place
 from strategy.strategy import Strategy
+from strategy.map import Map
 import utils.constant as constant
 
 import threading
@@ -30,6 +31,8 @@ if __name__ == "__main__":
 
     robot.init_zone_start(zone_start)
 
+    map = Map(color)
+    
     timerStart = time.time()
     timer = 0
     
