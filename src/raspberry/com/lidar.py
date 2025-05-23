@@ -183,7 +183,7 @@ class Lidar:
                 else:
                     buffer = buffer[1:]  # Supprimer un octet pour resynchroniser
 
-            self.robot_adv_positions.append(self.robot_adv_point[int(len(self.robot_adv_point/2))])
+            self.robot_adv_positions.append(self.robot_adv_point[int(len(self.robot_adv_point)/2)])
 
 
 if __name__ == "__main__":
