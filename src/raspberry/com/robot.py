@@ -1045,7 +1045,7 @@ class RobotSerial:
             motor_communication.send_read_command(self.serial, 2, "PERR")
             perr_2 = motor_communication.rcv_read_command(self.serial, 2, "PERR")
 
-            if abs(perr_1) < constant.PERROR and abs(perr_2) < constant.PERROR and abs(int(self.get_speed(1))) < 1 and abs(int(self.get_speed(2)) < 1):
+            if abs(perr_1) < constant.PERROR and abs(perr_2) < constant.PERROR and abs(self.get_speed(1)) < 1 and abs(self.get_speed(2)) < 1:
                 counter += 1
 
         return not(nb == counter)
