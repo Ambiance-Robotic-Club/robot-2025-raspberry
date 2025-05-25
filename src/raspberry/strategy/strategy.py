@@ -47,12 +47,11 @@ class Strategy:
 
             #### Path correction ####
             if self.actual_type_consigne == 2:
-                line = get_distance(self.actual_x, self.actual_y, self.line_start_x , self.line_start_y)
-                self.error_line += math.sin(math.radians(self.theoric_theta - self.actual_theta))*line
-
-                self.line_start_x = self.actual_x
-                self.line_start_y = self.actual_y
-                self.theoric_theta = self.actual_theta
+                dx = self.step_consigne[0]  - self.line_start_x
+                dy = self.step_consigne[1]  - self.line_start_y
+                numerator = dx * (self.line_start_y - self.actual_y) - (self.line_start_x - self.actual_x) * dy
+                denominator = math.sqrt(dx**2 + dy**2)
+                self.error_line = numerator / denominator 
             else:
                 self.error_line = 0
             #########################
