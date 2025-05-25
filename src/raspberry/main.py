@@ -94,7 +94,7 @@ if __name__ == "__main__":
                 robot.stop()
                 map.objects = []
                 strategy.consigne_queue = []
-                strategy.consigne_queue.insert(0,map.zone_end[0])
+                strategy.consigne_queue.insert(0,map.zone_end)
                 strategy.actual_type_consigne = 0
                 strategy.update_robot()
 
