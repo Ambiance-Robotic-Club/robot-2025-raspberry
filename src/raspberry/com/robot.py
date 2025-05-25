@@ -1060,7 +1060,16 @@ class RobotSerial:
 
 
     def stop(self):
-        self.send_position_consigne(constant.STOP_DISTANCE)
-    
+        if self.direction == constant.FORWARD:
+            self.send_position_consigne(constant.STOP_DISTANCE)
+        elif self.direction == constant.BACKWARD:
+            self.send_position_consigne(-constant.STOP_DISTANCE)
+        elif self.direction == constant.ROTATION_L:
+            self.send_rotation_consigne(-constant.STOP_ANGLE)
+        elif self.direction == constant.ROTATION_R:
+            self.send_rotation_consigne(constant.STOP_ANGLE)
+        else:
+            self.send_stop()
+        
 
   

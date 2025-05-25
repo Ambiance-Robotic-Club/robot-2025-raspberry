@@ -98,72 +98,22 @@ class Strategy:
     
     def process_step(self):
         if self.actual_type_consigne == 0:
+
             self.step_consigne = self.consigne_queue[0]
             self.consigne_queue = self.consigne_queue[1:]
 
-            theta_radians = math.atan2(self.step_consigne[1] - self.actual_y, self.step_consigne[0] - self.actual_x)
-            if math.isnan(theta_radians):
-                theta_radians = 0
-            self.theta_degrees = modulo((math.degrees(theta_radians) - self.actual_theta), 360)
-
-            if self.theta_degrees > 180:
-                self.theta_degrees -= 360
-            if self.theta_degrees < -180:
-                self.theta_degrees += 360
-
-            #Choice forward/backward
-            alignment_theta = modulo((self.step_consigne[2] - self.theta_degrees), 360)
-            if abs(alignment_theta) > 90:
-                if abs(self.theta_degrees) < 10:
-                    pass
-                elif self.theta_degrees <= 0:
-                    self.theta_degrees += 180
-                    self.direction = constant.BACKWARD
-                else:
-                    self.theta_degrees -= 180
-                    self.direction = constant.BACKWARD
-            else:
-                self.direction = constant.FORWARD
-
-            if abs(self.theta_degrees) > constant.CONSIGNE_MIN_THETA:
-                self.consigne = self.theta_degrees
-                self.is_consigne = True
-
-                #### Path correction ####
-                self.line_start_x = self.actual_x
-                self.line_start_y = self.actual_y
-                self.theoric_theta = self.actual_theta + self.theta_degrees
-                self.error_line = 0
-                #########################
-            else:
-                self.actual_type_consigne = 1
+            if len(self.step_consigne) == 3:
+                self.robot_theta_degree()
 
         if self.actual_type_consigne == 1:
-            distance = get_distance(self.actual_x, self.actual_y, self.step_consigne[0], self.step_consigne[1])
-            if self.direction == constant.BACKWARD:
-                distance = - distance
-            if abs(distance) > constant.CONSIGNE_MIN_POS:
-                self.consigne = distance
-                self.is_consigne = True
-            else:
-                self.actual_type_consigne = 2
+            if len(self.step_consigne) == 3:
+                self.robot_distance()
 
         if self.actual_type_consigne == 2:
-            self.direction = constant.IDLE
-            alignment_theta = modulo((self.step_consigne[2] - self.actual_theta), 360)
-            if alignment_theta > 180:
-                alignment_theta -= 360
-            if alignment_theta < -180:
-                alignment_theta += 360
-
-            if abs(alignment_theta) > constant.CONSIGNE_MIN_THETA:
-                self.consigne = alignment_theta
-                self.is_consigne = True
-            else:
-                self.actual_type_consigne = 0
-
+            if len(self.step_consigne) == 3:
+                self.robot_theta_alignment()          
             
-
+        
     def path_correction(self):
         if self.actual_type_consigne == 1:
             try:
@@ -231,4 +181,64 @@ class Strategy:
             self.map.objects.remove(pos_object)
                         
 
+    def robot_theta_degree(self):
+        theta_radians = math.atan2(self.step_consigne[1] - self.actual_y, self.step_consigne[0] - self.actual_x)
+        if math.isnan(theta_radians):
+            theta_radians = 0
+        self.theta_degrees = modulo((math.degrees(theta_radians) - self.actual_theta), 360)
 
+        if self.theta_degrees > 180:
+            self.theta_degrees -= 360
+        if self.theta_degrees < -180:
+            self.theta_degrees += 360
+
+        #Choice forward/backward
+        alignment_theta = modulo((self.step_consigne[2] - self.theta_degrees), 360)
+        if abs(alignment_theta) > 90:
+            if abs(self.theta_degrees) < 10:
+                pass
+            elif self.theta_degrees <= 0:
+                self.theta_degrees += 180
+                self.direction = constant.BACKWARD
+            else:
+                self.theta_degrees -= 180
+                self.direction = constant.BACKWARD
+        else:
+            self.direction = constant.FORWARD
+
+        if abs(self.theta_degrees) > constant.CONSIGNE_MIN_THETA:
+            self.consigne = self.theta_degrees
+            self.is_consigne = True
+
+            #### Path correction ####
+            self.line_start_x = self.actual_x
+            self.line_start_y = self.actual_y
+            self.theoric_theta = self.actual_theta + self.theta_degrees
+            self.error_line = 0
+            #########################
+        else:
+            self.actual_type_consigne = 1
+
+    def robot_distance(self):
+        distance = get_distance(self.actual_x, self.actual_y, self.step_consigne[0], self.step_consigne[1])
+        if self.direction == constant.BACKWARD:
+            distance = - distance
+        if abs(distance) > constant.CONSIGNE_MIN_POS:
+            self.consigne = distance
+            self.is_consigne = True
+        else:
+            self.actual_type_consigne = 2
+
+    def robot_theta_alignment(self):
+        self.direction = constant.IDLE
+        alignment_theta = modulo((self.step_consigne[2] - self.actual_theta), 360)
+        if alignment_theta > 180:
+            alignment_theta -= 360
+        if alignment_theta < -180:
+            alignment_theta += 360
+
+        if abs(alignment_theta) > constant.CONSIGNE_MIN_THETA:
+            self.consigne = alignment_theta
+            self.is_consigne = True
+        else:
+            self.actual_type_consigne = 0
