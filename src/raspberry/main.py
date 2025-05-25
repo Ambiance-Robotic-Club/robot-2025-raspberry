@@ -96,7 +96,6 @@ if __name__ == "__main__":
                 strategy.consigne_queue = []
                 strategy.consigne_queue.insert(0,map.zone_end[0])
                 strategy.actual_type_consigne = 0
-                strategy.robot_busy = False
                 strategy.update_robot()
 
                 
