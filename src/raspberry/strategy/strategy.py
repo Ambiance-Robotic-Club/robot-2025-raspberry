@@ -73,6 +73,7 @@ class Strategy:
                 self.robot_busy = False  
              
             # Process part
+            self.process_queue()
             if not self.robot_busy and (len(self.consigne_queue) > 0 or self.actual_type_consigne != 0):
                 self.process_step()
             
@@ -186,7 +187,7 @@ class Strategy:
 
     
     def process_queue(self):
-        if self.consigne_queue == []:
+        if len(self.consigne_queue) == 0 and len(self.map.objects) > 0:
 
 
             distance, num_object = min_distance(self.actual_x, self.actual_y, self.map.objects)
