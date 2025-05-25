@@ -40,7 +40,7 @@ if __name__ == "__main__":
     pami_stop = True
     stop = True
 
-    strategy = Strategy(robot, sts3215, map)
+    strategy = Strategy(robot, servos, map)
 
     try:
         while(timer < 100):
