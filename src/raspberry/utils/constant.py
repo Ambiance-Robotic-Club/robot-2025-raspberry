@@ -57,7 +57,7 @@ STOP_DISTANCE_IDLE = 100
 STOP_DISTANCE = 30
 STOP_ANGLE = 3
 
-TIME_RETURN_ZONE = 25
+TIME_RETURN_ZONE = 90
 TIME_STOP = 97
 TIME_PAMI_GO = 90
 TIME_PAMI_STOP = 99
@@ -86,3 +86,4 @@ pos_objects = [
             [2925,1600,0],
             [2225,1750,-90]]
 
+TABLE_SERVOS = [30, 120,  55,   90,   155,   0, 0, 0, 0, 0,  0,  30,  90, 140,   55,  125,     0,     0,    0]

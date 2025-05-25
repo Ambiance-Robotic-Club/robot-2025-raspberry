@@ -104,6 +104,9 @@ class Strategy:
 
             if len(self.step_consigne) == 3:
                 self.robot_theta_degree()
+            elif len(self.step_consigne) == 16:
+                for servo_id in range(16):
+                    self.servos[servo_id].angle = self.step_consigne[servo_id]
 
         if self.actual_type_consigne == 1:
             if len(self.step_consigne) == 3:
@@ -179,6 +182,8 @@ class Strategy:
 
             self.consigne_queue.append(pos_consigne_3)
             self.map.objects.remove(pos_object)
+
+            self.consigne_queue.append(constant.TABLE_SERVOS)
                         
 
     def robot_theta_degree(self):
