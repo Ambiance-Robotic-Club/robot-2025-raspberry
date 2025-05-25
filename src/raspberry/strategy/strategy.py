@@ -85,13 +85,13 @@ class Strategy:
                 self.actual_type_consigne = (self.actual_type_consigne + 1) % 3
                 self.is_consigne = False
         
-            if self.error_line > 100:
-                self.robot.send_stop()
-                self.consigne_queue.insert(0,self.step_consigne)
-                self.actual_type_consigne = 0
-                self.robot_busy = False
-                self.update_robot()
-                print("------- Recalcul consigne -------")
+            # if self.error_line > 100:
+            #     self.robot.send_stop()
+            #     self.consigne_queue.insert(0,self.step_consigne)
+            #     self.actual_type_consigne = 0
+            #     self.robot_busy = False
+            #     self.update_robot()
+            #     print("------- Recalcul consigne -------")
     
     def process_step(self):
         if self.actual_type_consigne == 0:
