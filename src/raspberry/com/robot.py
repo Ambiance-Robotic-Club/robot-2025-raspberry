@@ -884,7 +884,7 @@ class PositionMotorSerial:
 
 class RobotSerial:
     """Create a class to control 2 DC motors robot."""
-    def __init__(self, serial, p_error=3):
+    def __init__(self, serial):
         """
         Parameters
         ----------
@@ -902,7 +902,6 @@ class RobotSerial:
         self.actual_theta = 0
         self.direction = constant.IDLE
 
-        self.p_error = p_error
         self.isUsed = False
 
     def send_stop(self):
@@ -1046,10 +1045,10 @@ class RobotSerial:
             motor_communication.send_read_command(self.serial, 2, "PERR")
             perr_2 = motor_communication.rcv_read_command(self.serial, 2, "PERR")
 
-            if ((perr_1 <= -self.p_error or perr_1 >= self.p_error) or (perr_2 <= -self.p_error or perr_2 >= self.p_error)) and (abs(int(self.get_speed(1))) < 1 or abs(int(self.get_speed(2)) < 1)):
+            if abs(perr_1) < constant.PERROR and abs(perr_2) < constant.PERROR and abs(int(self.get_speed(1))) < 1 and abs(int(self.get_speed(2)) < 1):
                 counter += 1
 
-        return nb == counter
+        return not(nb == counter)
 
     def init_zone_start(self, zone):
         zone = int(zone)
