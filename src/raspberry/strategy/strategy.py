@@ -52,7 +52,7 @@ class Strategy:
 
                 self.line_start_x = self.actual_x
                 self.line_start_y = self.actual_y
-                self.theoric_theta = self.actual_theta + self.theta_degrees
+                self.theoric_theta = self.actual_theta
             else:
                 self.error_line = 0
             #########################
@@ -89,12 +89,12 @@ class Strategy:
                 self.actual_type_consigne = (self.actual_type_consigne + 1) % 3
                 self.is_consigne = False
         
-            # if abs(self.error_line) > constant.DISTANCE_ERROR_CORRECTION:
-            #     self.consigne_queue.insert(0,self.step_consigne)                
-            #     self.robot.send_position_consigne(50)
-            #     self.actual_type_consigne = 0
-            #     self.update_robot()
-            #     print("------- Recalcul consigne -------")
+            if abs(self.error_line) > constant.DISTANCE_ERROR_CORRECTION:
+                self.consigne_queue.insert(0,self.step_consigne)                
+                self.robot.send_position_consigne(50)
+                self.actual_type_consigne = 0
+                self.update_robot()
+                print("------- Recalcul consigne -------")
     
     def process_step(self):
         if self.actual_type_consigne == 0:
@@ -112,18 +112,18 @@ class Strategy:
                 self.theta_degrees += 360
 
             #Choice forward/backward
-            # alignment_theta = modulo((self.step_consigne[2] - self.theta_degrees), 360)
-            # if abs(alignment_theta) > 90:
-            #     if abs(self.theta_degrees) < 10:
-            #         pass
-            #     elif self.theta_degrees <= 0:
-            #         self.theta_degrees += 180
-            #         self.direction = constant.BACKWARD
-            #     else:
-            #         self.theta_degrees -= 180
-            #         self.direction = constant.BACKWARD
-            # else:
-            #     self.direction = constant.FORWARD
+            alignment_theta = modulo((self.step_consigne[2] - self.theta_degrees), 360)
+            if abs(alignment_theta) > 90:
+                if abs(self.theta_degrees) < 10:
+                    pass
+                elif self.theta_degrees <= 0:
+                    self.theta_degrees += 180
+                    self.direction = constant.BACKWARD
+                else:
+                    self.theta_degrees -= 180
+                    self.direction = constant.BACKWARD
+            else:
+                self.direction = constant.FORWARD
 
             if abs(self.theta_degrees) > constant.CONSIGNE_MIN_THETA:
                 self.consigne = self.theta_degrees
