@@ -35,6 +35,11 @@ if __name__ == "__main__":
     timerStart = time.time()
     timer = 0
     
+    zone_end = True
+    pami_start = True
+    pami_stop = True
+    stop = True
+
     strategy = Strategy(robot, sts3215, map)
 
     try:
@@ -84,13 +89,15 @@ if __name__ == "__main__":
             except Exception as e:
                 print(f"Error : {e}")
 
-            if timer >= constant.TIME_STOP:
+            if stop and timer >= constant.TIME_STOP:
+                stop = False
                 screen.set_score(999)
                 # TO DO (1 ligne par pami avec adresse mac en argument)
                 pami.send_stop_pami(0)
                 robot.stop()
                 
-            if timer >= constant.TIME_RETURN_ZONE:
+            if zone_end and timer >= constant.TIME_RETURN_ZONE:
+                zone_end = False
                 robot.stop()
                 map.objects = []
                 strategy.consigne_queue = []
