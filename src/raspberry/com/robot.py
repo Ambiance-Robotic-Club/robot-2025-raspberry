@@ -923,6 +923,18 @@ class RobotSerial:
         else:
             return constant.SUCCES
 
+    def get_speed(self, motor):
+        """
+        Method that ask the actual speed value to the physical motor.
+
+        Return
+        ------
+            value : float (in rpm)
+        """
+
+        motor_communication.send_read_command(self.serial, motor, "S")
+        return motor_communication.rcv_read_command(self.serial, motor, "S")
+
     def send_reset(self):
         """
         Method that send reset to the physical motor.
@@ -1025,6 +1037,8 @@ class RobotSerial:
 
     def get_busy(self, nb):
         counter = 0
+
+        
         for _ in range(nb):
             motor_communication.send_read_command(self.serial, 1, "PERR")
             perr_1 = motor_communication.rcv_read_command(self.serial, 1, "PERR")
@@ -1032,7 +1046,7 @@ class RobotSerial:
             motor_communication.send_read_command(self.serial, 2, "PERR")
             perr_2 = motor_communication.rcv_read_command(self.serial, 2, "PERR")
 
-            if (perr_1 <= -self.p_error or perr_1 >= self.p_error) or (perr_2 <= -self.p_error or perr_2 >= self.p_error):
+            if ((perr_1 <= -self.p_error or perr_1 >= self.p_error) or (perr_2 <= -self.p_error or perr_2 >= self.p_error)) and abs(int(self.get_speed(1))) < 1 or abs(int(self.get_speed(2)) < 1):
                 counter += 1
 
         return nb == counter
