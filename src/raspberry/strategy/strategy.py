@@ -47,7 +47,7 @@ class Strategy:
 
             #### Path correction ####
             if self.actual_type_consigne == 2:
-                line = get_distance(self.actual_x, self.line_start_x, self.actual_y, self.line_start_y)
+                line = get_distance(self.actual_x, self.actual_y, self.line_start_x , self.line_start_y)
                 self.error_line = abs(math.sin(self.theoric_theta - self.actual_theta)*line)
             else:
                 self.error_line = 0
