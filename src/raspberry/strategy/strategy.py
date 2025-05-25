@@ -122,6 +122,12 @@ class Strategy:
             if abs(self.theta_degrees) > constant.CONSIGNE_MIN_THETA:
                 self.consigne = self.theta_degrees
                 self.is_consigne = True
+
+                #### Path correction ####
+                self.line_start_x = self.actual_x
+                self.line_start_y = self.actual_y
+                self.theoric_theta = self.actual_theta + self.theta_degrees
+                #########################
             else:
                 self.actual_type_consigne = 1
 
@@ -132,12 +138,6 @@ class Strategy:
             if abs(distance) > constant.CONSIGNE_MIN_POS:
                 self.consigne = distance
                 self.is_consigne = True
-
-                #### Path correction ####
-                self.line_start_x = self.actual_x
-                self.line_start_y = self.actual_y
-                self.theoric_theta = self.actual_theta + self.theta_degrees
-                #########################
             else:
                 self.actual_type_consigne = 2
 
