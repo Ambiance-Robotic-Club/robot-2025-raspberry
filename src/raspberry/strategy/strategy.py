@@ -11,7 +11,7 @@ class Strategy:
         self.servos = servos
         self.map = map
 
-        self.consigne_queue = [(200,0,90), (200,200,0), (0,500,0)]
+        self.consigne_queue = [] #[(200,0,90), (200,200,0), (0,500,0)]
         self.step_consigne = None
         self.actual_type_consigne = 0
         self.consigne = 0
@@ -188,7 +188,6 @@ class Strategy:
     
     def process_queue(self):
         if len(self.consigne_queue) == 0 and len(self.map.objects) > 0:
-
 
             distance, num_object = min_distance(self.actual_x, self.actual_y, self.map.objects)
 
