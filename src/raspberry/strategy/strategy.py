@@ -116,7 +116,7 @@ class Strategy:
             if abs(alignment_theta) > 90:
                 if abs(self.theta_degrees) < 10:
                     pass
-                if self.theta_degrees <= 0:
+                elif self.theta_degrees <= 0:
                     self.theta_degrees += 180
                     self.direction = constant.BACKWARD
                 else:
