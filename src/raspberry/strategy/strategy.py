@@ -112,18 +112,18 @@ class Strategy:
                 self.theta_degrees += 360
 
             #Choice forward/backward
-            alignment_theta = modulo((self.step_consigne[2] - self.theta_degrees), 360)
-            if abs(alignment_theta) > 90:
-                if abs(self.theta_degrees) < 10:
-                    pass
-                elif self.theta_degrees <= 0:
-                    self.theta_degrees += 180
-                    self.direction = constant.BACKWARD
-                else:
-                    self.theta_degrees -= 180
-                    self.direction = constant.BACKWARD
-            else:
-                self.direction = constant.FORWARD
+            # alignment_theta = modulo((self.step_consigne[2] - self.theta_degrees), 360)
+            # if abs(alignment_theta) > 90:
+            #     if abs(self.theta_degrees) < 10:
+            #         pass
+            #     elif self.theta_degrees <= 0:
+            #         self.theta_degrees += 180
+            #         self.direction = constant.BACKWARD
+            #     else:
+            #         self.theta_degrees -= 180
+            #         self.direction = constant.BACKWARD
+            # else:
+            #     self.direction = constant.FORWARD
 
             if abs(self.theta_degrees) > constant.CONSIGNE_MIN_THETA:
                 self.consigne = self.theta_degrees
