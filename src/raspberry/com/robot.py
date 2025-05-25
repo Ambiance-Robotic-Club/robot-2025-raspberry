@@ -1057,6 +1057,10 @@ class RobotSerial:
         self.set_x(constant.pos_zone[zone-1][0])
         self.set_y(constant.pos_zone[zone-1][1])
         self.set_theta(constant.pos_zone[zone-1][2])
+
+
+    def stop(self):
+        self.send_position_consigne(constant.STOP_DISTANCE)
     
 
   

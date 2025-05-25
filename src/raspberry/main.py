@@ -84,18 +84,22 @@ if __name__ == "__main__":
             except Exception as e:
                 print(f"Error : {e}")
 
-            if timer >= 97:
+            if timer >= constant.TIME_STOP:
                 screen.set_score(999)
                 # TO DO (1 ligne par pami avec adresse mac en argument)
                 pami.send_stop_pami(0)
+                robot.stop()
                 
-            if timer >= 90:
+            if timer >= constant.TIME_RETURN_ZONE:
                 # TO DO : mettre position finale (x,y,O) du robot
-                robot.send_stop()
-                strategy.consigne_queue = [0,0,0]
+                robot.stop()
+                map.objects = []
+                strategy.consigne_queue = []
+                strategy.consigne_queue.insert(0,map.pos_zone[0])
                 strategy.actual_type_consigne = 0
                 strategy.robot_busy = False
                 strategy.update_robot()
+                
                 
             screen.set_timer(int(timer))
 
