@@ -229,6 +229,7 @@ class Strategy:
                 pos_consigne_3 = [pos_consigne_2[0], pos_consigne_2[1]-constant.DISTANCE_FINAL_OBJECT, pos_consigne_2[2]]
 
             self.consigne_queue.append(pos_consigne_3)
+            self.map.objects.remove(pos_object)
                         
 
 
