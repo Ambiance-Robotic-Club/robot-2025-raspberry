@@ -25,8 +25,6 @@ if __name__ == "__main__":
     t_lidar = threading.Thread(target=lidar.read_lidar_data)
     t_lidar.start()
 
-    strategy = Strategy(robot, sts3215)
-
     zone_start = screen.get_zone()
     color = screen.get_color()
 
@@ -37,6 +35,8 @@ if __name__ == "__main__":
     timerStart = time.time()
     timer = 0
     
+    strategy = Strategy(robot, sts3215, map)
+
     try:
         while(timer < 100):
             if not lidar.is_free and lidar.f_stop:

@@ -2,13 +2,14 @@ import math
 import time
 import utils.constant as constant
 import numpy as np
-from utils.utils import modulo, get_distance
+from utils.utils import modulo, get_distance, min_distance
 class Strategy:
-    def __init__(self, robot, servos):
+    def __init__(self, robot, servos, map):
 
         self.init = True
         self.robot = robot
         self.servos = servos
+        self.map = map
 
         self.consigne_queue = [(200,0,90), (200,200,0), (0,500,0)]
         self.step_consigne = None
@@ -175,4 +176,52 @@ class Strategy:
         else:
             self.theoric_actual_x = None
             self.theoric_actual_y = None
+
+    
+    def process_queue(self):
+        if self.consigne_queue == []:
+
+
+            distance, num_object = min_distance(self.actual_x, self.actual_y, self.map.objects)
+
+            print("Debug distance plus court objet :  ", distance)
+            pos_object = self.map.objects[num_object]
+            if pos_object[2] == 0:
+                positions = [[pos_object[0]-constant.DISTANCE_OBJECT, pos_object[1], 0],[pos_object[0]+constant.DISTANCE_OBJECT, pos_object[1], 180]]
+            else:
+                positions = [[pos_object[0], pos_object[1]-constant.DISTANCE_OBJECT, 90],[pos_object[0], pos_object[1]+constant.DISTANCE_OBJECT, -90]]
+            
+            for pos in positions:
+                if pos[1] < 200:
+                    positions.remove(pos)
+            
+            _, index = min_distance(self.actual_x, self.actual_y, positions)
+            
+            pos_consigne_1 = positions[index]
+
+            self.consigne_queue.append(pos_consigne_1)
+
+            if pos_consigne_1[2] == 0:
+                pos_consigne_2 = [pos_consigne_1[0]+constant.DISTANCE_QUALIB_OBJECT, pos_consigne_1[1], pos_consigne_1[2]]
+            elif pos_consigne_1[2] == 180:
+                pos_consigne_2 = [pos_consigne_1[0]-constant.DISTANCE_QUALIB_OBJECT, pos_consigne_1[1], pos_consigne_1[2]]
+            elif pos_consigne_1[2] == 90:
+                pos_consigne_2 = [pos_consigne_1[0], pos_consigne_1[1]+constant.DISTANCE_QUALIB_OBJECT, pos_consigne_1[2]]
+            elif pos_consigne_1[2] == -90:
+                pos_consigne_2 = [pos_consigne_1[0], pos_consigne_1[1]-constant.DISTANCE_QUALIB_OBJECT, pos_consigne_1[2]]
+
+            self.consigne_queue.append(pos_consigne_2)
+                        
+            if pos_consigne_1[2] == 0:
+                pos_consigne_3 = [pos_consigne_2[0]+constant.DISTANCE_FINAL_OBJECT, pos_consigne_2[1], pos_consigne_2[2]]
+            elif pos_consigne_1[2] == 180:
+                pos_consigne_3 = [pos_consigne_2[0]-constant.DISTANCE_FINAL_OBJECT, pos_consigne_2[1], pos_consigne_2[2]]
+            elif pos_consigne_1[2] == 90:
+                pos_consigne_3 = [pos_consigne_2[0], pos_consigne_2[1]+constant.DISTANCE_FINAL_OBJECT, pos_consigne_2[2]]
+            elif pos_consigne_1[2] == -90:
+                pos_consigne_3 = [pos_consigne_2[0], pos_consigne_2[1]-constant.DISTANCE_FINAL_OBJECT, pos_consigne_2[2]]
+
+            self.consigne_queue.append(pos_consigne_3)
+                        
+
 
