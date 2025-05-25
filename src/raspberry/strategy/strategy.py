@@ -89,7 +89,7 @@ class Strategy:
                 self.actual_type_consigne = (self.actual_type_consigne + 1) % 3
                 self.is_consigne = False
         
-            if self.error_line > 100:
+            if self.error_line > constant.DISTANCE_ERROR_CORRECTION:
                 self.robot.send_stop()
                 self.consigne_queue.insert(0,self.step_consigne)
                 self.actual_type_consigne = 0
