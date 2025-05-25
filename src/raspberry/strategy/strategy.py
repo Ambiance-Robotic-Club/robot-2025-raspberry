@@ -115,6 +115,8 @@ class Strategy:
             alignment_theta = modulo((self.step_consigne[2] - self.theta_degrees), 360)
             if abs(alignment_theta) > 90:
                 self.direction = constant.BACKWARD
+                if abs(self.theta_degrees) < 10:
+                    pass
                 if self.theta_degrees <= 0:
                     self.theta_degrees += 180
                 else:
