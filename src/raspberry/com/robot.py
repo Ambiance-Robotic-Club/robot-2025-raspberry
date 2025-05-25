@@ -1046,7 +1046,7 @@ class RobotSerial:
             motor_communication.send_read_command(self.serial, 2, "PERR")
             perr_2 = motor_communication.rcv_read_command(self.serial, 2, "PERR")
 
-            if ((perr_1 <= -self.p_error or perr_1 >= self.p_error) or (perr_2 <= -self.p_error or perr_2 >= self.p_error)) and abs(int(self.get_speed(1))) < 1 or abs(int(self.get_speed(2)) < 1):
+            if ((perr_1 <= -self.p_error or perr_1 >= self.p_error) or (perr_2 <= -self.p_error or perr_2 >= self.p_error)) and (abs(int(self.get_speed(1))) < 1 or abs(int(self.get_speed(2)) < 1)):
                 counter += 1
 
         return nb == counter
