@@ -126,7 +126,7 @@ class Strategy:
                 self.actual_type_consigne = 1
 
         if self.actual_type_consigne == 1:
-            distance = get_distance(self.actual_x, self.step_consigne[0], self.actual_y, self.step_consigne[1])
+            distance = get_distance(self.actual_x, self.actual_y, self.step_consigne[0], self.step_consigne[1])
             if self.direction == constant.BACKWARD:
                 distance = - distance
             if abs(distance) > constant.CONSIGNE_MIN_POS:
