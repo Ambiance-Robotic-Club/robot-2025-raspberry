@@ -93,7 +93,7 @@ class Strategy:
                 self.consigne_queue.insert(0,self.step_consigne)                
                 self.robot.send_position_consigne(30)
                 self.actual_type_consigne = 0
-                self.is_consigne = False
+                self.update_robot()
                 print("------- Recalcul consigne -------")
     
     def process_step(self):
