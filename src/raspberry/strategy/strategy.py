@@ -91,10 +91,11 @@ class Strategy:
         
             if abs(self.error_line) > constant.DISTANCE_ERROR_CORRECTION:
                 self.consigne_queue.insert(0,self.step_consigne)                
-                self.robot.send_position_consigne(30)
+                self.robot.send_stop()
+                print("------- Recalcul consigne -------")
+                time.sleep(3)
                 self.actual_type_consigne = 0
                 self.update_robot()
-                print("------- Recalcul consigne -------")
     
     def process_step(self):
         if self.actual_type_consigne == 0:
