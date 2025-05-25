@@ -1,21 +1,17 @@
+from utils.constant import pos_objects, pos_zone
+
 class Map:
     def __init__(self, color):
         
-        self.blue_areas = []
-        self.yellow_areas = []
-
-        self.blue_objects = []
-        self.yellow_objects = []
-
 
         self.color = color
 
-    def get_objects(self):
-        return self.yellow_objects if self.color == "Yellow" else self.blue_objects
+        if self.color == "Yellow":
+            self.our_zones = [pos_zone[i] for i in [0, 2, 4, 7, 8]] if self.color == "Yellow" else [pos_zone[i] for i in [1, 3, 5, 6, 9]]
+            self.adv_zones = [pos_zone[i] for i in [1, 3, 5, 6, 9]] if self.color == "Yellow" else [pos_zone[i] for i in [0, 2, 4, 7, 8]]
 
-    def get_areas(self):
-        return self.yellow_areas if self.color == "Yellow" else self.blue_areas
-    
+            self.objects = [pos_objects[i] for i in [0, 1, 2, 3, 4, 6, 7, 8, 9]] if self.color == "Yellow" else [pos_zone[i] for i in [1, 2, 3, 4, 5, 6, 7, 8, 9]]
+
     #TO DO
     def moove_object_to_areas(self, area, object):
         pass

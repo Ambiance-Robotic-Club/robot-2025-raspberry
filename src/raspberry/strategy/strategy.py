@@ -2,10 +2,7 @@ import math
 import time
 import utils.constant as constant
 import numpy as np
-
-def modulo(a, b):
-    return a - int(a / b) * b
-
+from utils.utils import modulo, get_distance
 class Strategy:
     def __init__(self, robot, servos):
 
@@ -49,7 +46,7 @@ class Strategy:
 
             #### Path correction ####
             if self.actual_type_consigne == 2:
-                line = math.sqrt((self.actual_x - self.line_start_x) ** 2 + (self.actual_y - self.line_start_y) ** 2)
+                line = get_distance(self.actual_x, self.line_start_x, self.actual_y, self.line_start_y)
                 self.error_line = abs(math.sin(self.theoric_theta - self.actual_theta)*line)
             else:
                 self.error_line = 0
@@ -128,7 +125,7 @@ class Strategy:
                 self.actual_type_consigne = 1
 
         if self.actual_type_consigne == 1:
-            distance = math.sqrt((self.actual_x - self.step_consigne[0]) ** 2 + (self.actual_y - self.step_consigne[1]) ** 2)
+            distance = get_distance(self.actual_x, self.step_consigne[0], self.actual_y, self.step_consigne[1])
             if self.direction == constant.BACKWARD:
                 distance = - distance
             if abs(distance) > constant.CONSIGNE_MIN_POS:

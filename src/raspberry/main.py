@@ -4,6 +4,7 @@ from strategy.obstacle import find_safe_place
 from strategy.strategy import Strategy
 from strategy.map import Map
 import utils.constant as constant
+from utils.utils import modulo
 
 import threading
 import time
@@ -70,7 +71,7 @@ if __name__ == "__main__":
                 print(f"Robot datas")
                 print("Zone de départ : ", zone_start, "| Couleur : ", color)
                 print("Timer : ", timer)
-                print("Position robot : x :", strategy.actual_x, "| y :", strategy.actual_y, "| θ :", strategy.actual_theta - int(strategy.actual_theta/360)*360)
+                print("Position robot : x :", strategy.actual_x, "| y :", strategy.actual_y, "| θ :", modulo(strategy.actual_theta))
                 print("Position robot adverse : x :", lidar.robot_adv_positions[-1][0], "| y :", lidar.robot_adv_positions[-1][1])
                 if strategy.step_consigne != None :
                     print("Consigne robot : x :", strategy.step_consigne[0], "| y :", strategy.step_consigne[1], "| θ :", strategy.step_consigne[2])
