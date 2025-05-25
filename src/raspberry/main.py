@@ -91,15 +91,14 @@ if __name__ == "__main__":
                 robot.stop()
                 
             if timer >= constant.TIME_RETURN_ZONE:
-                # TO DO : mettre position finale (x,y,O) du robot
                 robot.stop()
                 map.objects = []
                 strategy.consigne_queue = []
-                strategy.consigne_queue.insert(0,map.pos_zone[0])
+                strategy.consigne_queue.insert(0,map.zone_end[0])
                 strategy.actual_type_consigne = 0
                 strategy.robot_busy = False
                 strategy.update_robot()
-                
+
                 
             screen.set_timer(int(timer))
 
