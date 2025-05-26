@@ -106,5 +106,5 @@ DEPOSE_CAN = [
     #POS_ROBOT -100
     [30, 120,  55,   90,   155,   0, 0, 0, 0, 0,  0,  30,  90, 140,   55,  125]]
 
-DISTANCE_CAN_1 = 150
+DISTANCE_CAN_1 = 50
 DISTANCE_CAN_2 = 100
