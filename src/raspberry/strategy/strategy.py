@@ -225,6 +225,7 @@ class Strategy:
             elif pos_consigne_1[2] == -90:
                 pos_consigne_2 = [pos_consigne_1[0], pos_consigne_1[1]-20, pos_consigne_1[2]]
 
+            self.consigne_queue.append(pos_consigne_2)
 
             depose_can = constant.DEPOSE_CAN
             
