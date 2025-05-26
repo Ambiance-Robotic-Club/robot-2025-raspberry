@@ -30,7 +30,7 @@ if __name__ == "__main__":
 
     map = Map(color)
     robot.init_zone_start(zone_start)
-    
+
     timerStart = time.time()
     timer = 0
     
@@ -77,7 +77,7 @@ if __name__ == "__main__":
                 print("Timer : ", timer)
                 print("Position robot : x :", strategy.actual_x, "| y :", strategy.actual_y, "| θ :", modulo(strategy.actual_theta, 360))
                 print("Position robot adverse : x :", lidar.robot_adv_positions[-1][0], "| y :", lidar.robot_adv_positions[-1][1])
-                if strategy.step_consigne != None :
+                if strategy.step_consigne != None and len(strategy.step_consigne) == 3:
                     print("Consigne robot : x :", strategy.step_consigne[0], "| y :", strategy.step_consigne[1], "| θ :", strategy.step_consigne[2])
                 print("Distance erreur :",strategy.error_line , " mm")
                 print("\nObstacle : ", "Oui" if not lidar.is_free else "Non", "| Bloqué : ", "Oui" if lidar.f_stop else "Non")
