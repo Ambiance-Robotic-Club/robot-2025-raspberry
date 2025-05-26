@@ -214,17 +214,17 @@ class Strategy:
             depose_can = constant.DEPOSE_CAN
             
             if pos_consigne_1[2] == 0:
-                depose_can.insert(2,[self.actual_x+150,self.actual_y, self.actual_theta])
-                depose_can.insert(8,[self.actual_x-100,self.actual_y, self.actual_theta])
+                depose_can.insert(2,[self.actual_x+constant.DISTANCE_CAN_1,self.actual_y, self.actual_theta])
+                depose_can.insert(8,[self.actual_x-constant.DISTANCE_CAN_2,self.actual_y, self.actual_theta])
             elif pos_consigne_1[2] == 180:
-                depose_can.insert(2,[self.actual_x-150,self.actual_y, self.actual_theta])
-                depose_can.insert(8,[self.actual_x+100,self.actual_y, self.actual_theta]) 
+                depose_can.insert(2,[self.actual_x-constant.DISTANCE_CAN_1,self.actual_y, self.actual_theta])
+                depose_can.insert(8,[self.actual_x+constant.DISTANCE_CAN_2,self.actual_y, self.actual_theta]) 
             elif pos_consigne_1[2] == 90:
-                depose_can.insert(2,[self.actual_x,self.actual_y+150, self.actual_theta])
-                depose_can.insert(8,[self.actual_x,self.actual_y-100, self.actual_theta]) 
+                depose_can.insert(2,[self.actual_x,self.actual_y+constant.DISTANCE_CAN_1, self.actual_theta])
+                depose_can.insert(8,[self.actual_x,self.actual_y-constant.DISTANCE_CAN_2, self.actual_theta]) 
             elif pos_consigne_1[2] == -90:
-                depose_can.insert(2,[self.actual_x,self.actual_y-150, self.actual_theta])
-                depose_can.insert(8,[self.actual_x,self.actual_y+100, self.actual_theta])
+                depose_can.insert(2,[self.actual_x,self.actual_y-constant.DISTANCE_CAN_1, self.actual_theta])
+                depose_can.insert(8,[self.actual_x,self.actual_y+constant.DISTANCE_CAN_2, self.actual_theta])
 
             self.consigne_queue.append(consign for consign in depose_can)                   
 
