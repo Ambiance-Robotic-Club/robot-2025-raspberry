@@ -190,7 +190,52 @@ class Strategy:
 
             self.consigne_queue.append(constant.TABLE_SERVOS)
             self.consigne_queue.append(constant.TABLE_STS3215)
+            
+            #Go to zone
+            distance, num_zone = min_distance(self.actual_x, self.actual_y, self.map.our_zones)
+
+            pos_zone = self.map.our_zones[num_zone]
+            if pos_zone[2] == 0:
+                positions = [[pos_zone[0]-constant.DISTANCE_ZONE, pos_zone[1], 0],[pos_zone[0]+constant.DISTANCE_ZONE, pos_zone[1], 180]]
+            else:
+                positions = [[pos_zone[0], pos_zone[1]-constant.DISTANCE_ZONE, 90],[pos_zone[0], pos_zone[1]+constant.DISTANCE_ZONE, -90]]
+            
+            for pos in positions:
+                if pos[1] < 200:
+                    positions.remove(pos)
+            
+            _, index = min_distance(self.actual_x, self.actual_y, positions)
+            
+            pos_consigne_1 = positions[index]
+
+            self.consigne_queue.append(pos_consigne_1)
+
+            if pos_consigne_1[2] == 0:
+                pos_consigne_2 = [pos_consigne_1[0]+constant.DISTANCE_QUALIB_ZONE, pos_consigne_1[1], pos_consigne_1[2]]
+            elif pos_consigne_1[2] == 180:
+                pos_consigne_2 = [pos_consigne_1[0]-constant.DISTANCE_QUALIB_ZONE, pos_consigne_1[1], pos_consigne_1[2]]
+            elif pos_consigne_1[2] == 90:
+                pos_consigne_2 = [pos_consigne_1[0], pos_consigne_1[1]+constant.DISTANCE_QUALIB_ZONE, pos_consigne_1[2]]
+            elif pos_consigne_1[2] == -90:
+                pos_consigne_2 = [pos_consigne_1[0], pos_consigne_1[1]-constant.DISTANCE_QUALIB_ZONE, pos_consigne_1[2]]
+
+            self.consigne_queue.append(pos_consigne_2)
                         
+            if pos_consigne_1[2] == 0:
+                pos_consigne_3 = [pos_consigne_2[0]+constant.DISTANCE_FINAL_ZONE, pos_consigne_2[1], pos_consigne_2[2]]
+            elif pos_consigne_1[2] == 180:
+                pos_consigne_3 = [pos_consigne_2[0]-constant.DISTANCE_FINAL_ZONE, pos_consigne_2[1], pos_consigne_2[2]]
+            elif pos_consigne_1[2] == 90:
+                pos_consigne_3 = [pos_consigne_2[0], pos_consigne_2[1]+constant.DISTANCE_FINAL_ZONE, pos_consigne_2[2]]
+            elif pos_consigne_1[2] == -90:
+                pos_consigne_3 = [pos_consigne_2[0], pos_consigne_2[1]-constant.DISTANCE_FINAL_ZONE, pos_consigne_2[2]]
+
+            self.consigne_queue.append(pos_consigne_3)
+            self.map.our_zones.remove(pos_zone)
+
+            
+            self.consigne_queue.append(constant.TABLE_SERVOS)
+            self.consigne_queue.append(constant.TABLE_STS3215)                   
 
     def robot_theta_degree(self):
         theta_radians = math.atan2(self.step_consigne[1] - self.actual_y, self.step_consigne[0] - self.actual_x)
