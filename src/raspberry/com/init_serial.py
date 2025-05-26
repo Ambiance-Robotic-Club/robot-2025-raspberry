@@ -91,7 +91,7 @@ def init_coms_robot():
     pca.frequency = 50
     servos = [servo.Servo(pca.channels[i]) for i in range(16)]
 
-    init_servo = [30, 120,  55,   90,   155,   0, 0, 0, 0, 0,  0,  30,  90, 140,   55,  125]
+    init_servo = [30, 120,  55,   90,   155,   0, 0, 0, 0, 0,  0,  30,  90, 140,   55,  145]
     for servo_id in range(16):
         servos[servo_id].angle = init_servo[servo_id]
 
