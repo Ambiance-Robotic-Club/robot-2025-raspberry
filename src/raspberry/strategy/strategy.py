@@ -210,27 +210,6 @@ class Strategy:
 
             self.consigne_queue.append(pos_consigne_1)
 
-            if pos_consigne_1[2] == 0:
-                pos_consigne_2 = [pos_consigne_1[0]+constant.DISTANCE_QUALIB_ZONE, pos_consigne_1[1], pos_consigne_1[2]]
-            elif pos_consigne_1[2] == 180:
-                pos_consigne_2 = [pos_consigne_1[0]-constant.DISTANCE_QUALIB_ZONE, pos_consigne_1[1], pos_consigne_1[2]]
-            elif pos_consigne_1[2] == 90:
-                pos_consigne_2 = [pos_consigne_1[0], pos_consigne_1[1]+constant.DISTANCE_QUALIB_ZONE, pos_consigne_1[2]]
-            elif pos_consigne_1[2] == -90:
-                pos_consigne_2 = [pos_consigne_1[0], pos_consigne_1[1]-constant.DISTANCE_QUALIB_ZONE, pos_consigne_1[2]]
-
-            self.consigne_queue.append(pos_consigne_2)
-                        
-            if pos_consigne_1[2] == 0:
-                pos_consigne_3 = [pos_consigne_2[0]+constant.DISTANCE_FINAL_ZONE, pos_consigne_2[1], pos_consigne_2[2]]
-            elif pos_consigne_1[2] == 180:
-                pos_consigne_3 = [pos_consigne_2[0]-constant.DISTANCE_FINAL_ZONE, pos_consigne_2[1], pos_consigne_2[2]]
-            elif pos_consigne_1[2] == 90:
-                pos_consigne_3 = [pos_consigne_2[0], pos_consigne_2[1]+constant.DISTANCE_FINAL_ZONE, pos_consigne_2[2]]
-            elif pos_consigne_1[2] == -90:
-                pos_consigne_3 = [pos_consigne_2[0], pos_consigne_2[1]-constant.DISTANCE_FINAL_ZONE, pos_consigne_2[2]]
-
-            self.consigne_queue.append(pos_consigne_3)
             self.map.our_zones.remove(pos_zone)
 
             
