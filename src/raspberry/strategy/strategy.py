@@ -217,13 +217,13 @@ class Strategy:
             self.map.our_zones.remove(pos_zone)
 
             if pos_consigne_1[2] == 0:
-                pos_consigne_2 = [pos_consigne_1[0]+20, pos_consigne_1[1], pos_consigne_1[2]]
+                pos_consigne_2 = [pos_consigne_1[0]+10, pos_consigne_1[1], pos_consigne_1[2]]
             elif pos_consigne_1[2] == 180:
-                pos_consigne_2 = [pos_consigne_1[0]-20, pos_consigne_1[1], pos_consigne_1[2]]
+                pos_consigne_2 = [pos_consigne_1[0]-10, pos_consigne_1[1], pos_consigne_1[2]]
             elif pos_consigne_1[2] == 90:
-                pos_consigne_2 = [pos_consigne_1[0], pos_consigne_1[1]+20, pos_consigne_1[2]]
+                pos_consigne_2 = [pos_consigne_1[0], pos_consigne_1[1]+10, pos_consigne_1[2]]
             elif pos_consigne_1[2] == -90:
-                pos_consigne_2 = [pos_consigne_1[0], pos_consigne_1[1]-20, pos_consigne_1[2]]
+                pos_consigne_2 = [pos_consigne_1[0], pos_consigne_1[1]-10, pos_consigne_1[2]]
 
             self.consigne_queue.append(pos_consigne_2)
 
