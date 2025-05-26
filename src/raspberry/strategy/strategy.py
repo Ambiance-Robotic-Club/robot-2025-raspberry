@@ -193,7 +193,7 @@ class Strategy:
 
 
             #Go to zone
-            distance, num_zone = min_distance(self.actual_x, self.actual_y, self.map.our_zones)
+            distance, num_zone = min_distance(pos_object[0], pos_object[1], self.map.our_zones)
 
             pos_zone = self.map.our_zones[num_zone]
             if pos_zone[2] == 0:
@@ -205,7 +205,7 @@ class Strategy:
                 if pos[1] < 200:
                     positions.remove(pos)
             
-            _, index = min_distance(self.actual_x, self.actual_y, positions)
+            _, index = min_distance(pos_object[0], pos_object[1], positions)
             
             pos_consigne_1 = positions[index]
 
@@ -216,17 +216,17 @@ class Strategy:
             depose_can = constant.DEPOSE_CAN
             
             if pos_consigne_1[2] == 0:
-                depose_can.insert(2,[self.actual_x+constant.DISTANCE_CAN_1,self.actual_y, self.actual_theta])
-                depose_can.insert(8,[self.actual_x-constant.DISTANCE_CAN_2,self.actual_y, self.actual_theta])
+                depose_can.insert(2,[pos_zone[0]+constant.DISTANCE_CAN_1,pos_zone[1], pos_consigne_1[2]])
+                depose_can.insert(8,[pos_zone[0]-constant.DISTANCE_CAN_2,pos_zone[1], pos_consigne_1[2]])
             elif pos_consigne_1[2] == 180:
-                depose_can.insert(2,[self.actual_x-constant.DISTANCE_CAN_1,self.actual_y, self.actual_theta])
-                depose_can.insert(8,[self.actual_x+constant.DISTANCE_CAN_2,self.actual_y, self.actual_theta]) 
+                depose_can.insert(2,[pos_zone[0]-constant.DISTANCE_CAN_1,pos_zone[1], pos_consigne_1[2]])
+                depose_can.insert(8,[pos_zone[0]+constant.DISTANCE_CAN_2,pos_zone[1], pos_consigne_1[2]]) 
             elif pos_consigne_1[2] == 90:
-                depose_can.insert(2,[self.actual_x,self.actual_y+constant.DISTANCE_CAN_1, self.actual_theta])
-                depose_can.insert(8,[self.actual_x,self.actual_y-constant.DISTANCE_CAN_2, self.actual_theta]) 
+                depose_can.insert(2,[pos_zone[0],pos_zone[1]+constant.DISTANCE_CAN_1, pos_consigne_1[2]])
+                depose_can.insert(8,[pos_zone[0],pos_zone[1]-constant.DISTANCE_CAN_2, pos_consigne_1[2]]) 
             elif pos_consigne_1[2] == -90:
-                depose_can.insert(2,[self.actual_x,self.actual_y-constant.DISTANCE_CAN_1, self.actual_theta])
-                depose_can.insert(8,[self.actual_x,self.actual_y+constant.DISTANCE_CAN_2, self.actual_theta])
+                depose_can.insert(2,[pos_zone[0],pos_zone[1]-constant.DISTANCE_CAN_1, pos_consigne_1[2]])
+                depose_can.insert(8,[pos_zone[0],pos_zone[1]+constant.DISTANCE_CAN_2, pos_consigne_1[2]])
 
             for consign in depose_can:
                 self.consigne_queue.append(consign)   
