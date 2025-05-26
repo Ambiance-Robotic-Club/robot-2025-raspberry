@@ -216,17 +216,17 @@ class Strategy:
             depose_can = constant.DEPOSE_CAN
             
             if pos_consigne_1[2] == 0:
-                depose_can.insert(2,[pos_zone[0]+constant.DISTANCE_CAN_1,pos_zone[1], pos_consigne_1[2]])
-                depose_can.insert(8,[pos_zone[0]-constant.DISTANCE_CAN_2,pos_zone[1], pos_consigne_1[2]])
+                depose_can.insert(2,[pos_consigne_1[0]+constant.DISTANCE_CAN_1,pos_consigne_1[1], pos_consigne_1[2]])
+                depose_can.insert(8,[pos_consigne_1[0]-constant.DISTANCE_CAN_2,pos_consigne_1[1], pos_consigne_1[2]])
             elif pos_consigne_1[2] == 180:
-                depose_can.insert(2,[pos_zone[0]-constant.DISTANCE_CAN_1,pos_zone[1], pos_consigne_1[2]])
-                depose_can.insert(8,[pos_zone[0]+constant.DISTANCE_CAN_2,pos_zone[1], pos_consigne_1[2]]) 
+                depose_can.insert(2,[pos_consigne_1[0]-constant.DISTANCE_CAN_1,pos_consigne_1[1], pos_consigne_1[2]])
+                depose_can.insert(8,[pos_consigne_1[0]+constant.DISTANCE_CAN_2,pos_consigne_1[1], pos_consigne_1[2]]) 
             elif pos_consigne_1[2] == 90:
-                depose_can.insert(2,[pos_zone[0],pos_zone[1]+constant.DISTANCE_CAN_1, pos_consigne_1[2]])
-                depose_can.insert(8,[pos_zone[0],pos_zone[1]-constant.DISTANCE_CAN_2, pos_consigne_1[2]]) 
+                depose_can.insert(2,[pos_consigne_1[0],pos_consigne_1[1]+constant.DISTANCE_CAN_1, pos_consigne_1[2]])
+                depose_can.insert(8,[pos_consigne_1[0],pos_consigne_1[1]-constant.DISTANCE_CAN_2, pos_consigne_1[2]]) 
             elif pos_consigne_1[2] == -90:
-                depose_can.insert(2,[pos_zone[0],pos_zone[1]-constant.DISTANCE_CAN_1, pos_consigne_1[2]])
-                depose_can.insert(8,[pos_zone[0],pos_zone[1]+constant.DISTANCE_CAN_2, pos_consigne_1[2]])
+                depose_can.insert(2,[pos_consigne_1[0],pos_consigne_1[1]-constant.DISTANCE_CAN_1, pos_consigne_1[2]])
+                depose_can.insert(8,[pos_consigne_1[0],pos_consigne_1[1]+constant.DISTANCE_CAN_2, pos_consigne_1[2]])
 
             for consign in depose_can:
                 self.consigne_queue.append(consign)   
