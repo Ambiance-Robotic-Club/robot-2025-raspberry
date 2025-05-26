@@ -26,6 +26,8 @@ class STS3215Servo:
         self.packet_handler = packet_handler
         self.servo_id = servo_id
 
+        self.is_init = False
+
         self.zero = 0
         self.range = 0
 
@@ -155,3 +157,4 @@ class STS3215Servo:
         self.set_mode("servo")
 
         self.set_position_limit(self.zero + 300, self.zero + self.range - 300)  
+        self.is_init = True

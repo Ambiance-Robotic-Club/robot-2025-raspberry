@@ -4,12 +4,13 @@ import utils.constant as constant
 import numpy as np
 from utils.utils import modulo, get_distance, min_distance
 class Strategy:
-    def __init__(self, robot, servos, map):
+    def __init__(self, robot, sts3215, servos, map):
 
         self.init = True
         self.robot = robot
         self.servos = servos
         self.map = map
+        self.sts3215 = sts3215
 
         self.consigne_queue = [(1225,1600,90)]
         self.step_consigne = None
@@ -107,6 +108,10 @@ class Strategy:
             elif len(self.step_consigne) == 16:
                 for servo_id in range(16):
                     self.servos[servo_id].angle = self.step_consigne[servo_id]
+            elif len(self.step_consigne) == 2:
+                if self.sts3215[0].is_init and self.sts3215[1].is_init:
+                    self.sts3215[0].set_position_calib(self.step_consigne[0])
+                    self.sts3215[1].set_position_calib(self.step_consigne[1])
 
         if self.actual_type_consigne == 1:
             if len(self.step_consigne) == 3:
@@ -184,6 +189,7 @@ class Strategy:
             self.map.objects.remove(pos_object)
 
             self.consigne_queue.append(constant.TABLE_SERVOS)
+            self.consigne_queue.append([0,0])
                         
 
     def robot_theta_degree(self):

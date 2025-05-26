@@ -28,8 +28,6 @@ if __name__ == "__main__":
     zone_start = screen.get_zone()
     color = screen.get_color()
 
-    robot.init_zone_start(zone_start)
-
     map = Map(color)
     
     timerStart = time.time()
@@ -40,7 +38,7 @@ if __name__ == "__main__":
     pami_stop = True
     stop = True
 
-    strategy = Strategy(robot, servos, map)
+    strategy = Strategy(robot, sts3215, servos, map)
 
     try:
         while(timer < 100):
