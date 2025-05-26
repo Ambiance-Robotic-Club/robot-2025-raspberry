@@ -11,7 +11,7 @@ class Strategy:
         self.servos = servos
         self.map = map
 
-        self.consigne_queue = [] #[(200,0,90), (200,200,0), (0,500,0)]
+        self.consigne_queue = [(1225,1600,90)]
         self.step_consigne = None
         self.actual_type_consigne = 0
         self.consigne = 0
