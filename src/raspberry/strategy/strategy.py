@@ -105,9 +105,11 @@ class Strategy:
 
             if len(self.step_consigne) == 3:
                 self.robot_theta_degree()
-            elif len(self.step_consigne) == 16:
+            elif len(self.step_consigne) == 17:
                 for servo_id in range(16):
                     self.servos[servo_id].angle = self.step_consigne[servo_id]
+                time.sleep(self.step_consigne[16])
+                
             elif len(self.step_consigne) == 2:
                 if self.sts3215[0].is_init and self.sts3215[1].is_init:
                     self.sts3215[0].set_position_calib(self.step_consigne[0])
