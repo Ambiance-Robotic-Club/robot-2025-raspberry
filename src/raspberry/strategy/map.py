@@ -6,14 +6,13 @@ class Map:
 
         self.color = color
 
-        if self.color == "Yellow":
-            self.our_zones = [pos_zone[i] for i in [0, 2, 4, 7, 8]] if self.color == "Yellow" else [pos_zone[i] for i in [1, 3, 5, 6, 9]]
-            self.adv_zones = [pos_zone[i] for i in [1, 3, 5, 6, 9]] if self.color == "Yellow" else [pos_zone[i] for i in [0, 2, 4, 7, 8]]
+        self.our_zones = [pos_zone[i] for i in [0, 2, 4, 7, 8]] if self.color == "Yellow" else [pos_zone[i] for i in [1, 3, 5, 6, 9]]
+        self.adv_zones = [pos_zone[i] for i in [1, 3, 5, 6, 9]] if self.color == "Yellow" else [pos_zone[i] for i in [0, 2, 4, 7, 8]]
 
-            self.objects = [pos_objects[i] for i in [0, 1, 2, 3, 4, 6, 7, 8, 9]] if self.color == "Yellow" else [pos_zone[i] for i in [1, 2, 3, 4, 5, 6, 7, 8, 9]]
+        self.objects = [pos_objects[i] for i in [0, 1, 2, 3, 4, 6, 7, 8, 9]] if self.color == "Yellow" else [pos_zone[i] for i in [1, 2, 3, 4, 5, 6, 7, 8, 9]]
 
-            #self.objects = [[1225,1600,-90]]
-            self.zone_end = pos_zone[0] if self.color == "Yellow" else pos_zone[3]
+        #self.objects = [[1225,1600,-90]]
+        self.zone_end = pos_zone[0] if self.color == "Yellow" else pos_zone[3]
     #TO DO
     def moove_object_to_areas(self, area, object):
         pass
