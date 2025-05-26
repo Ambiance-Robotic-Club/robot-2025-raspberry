@@ -189,7 +189,7 @@ class Strategy:
             self.map.objects.remove(pos_object)
 
             self.consigne_queue.append(constant.TABLE_SERVOS)
-            self.consigne_queue.append([0,0])
+            self.consigne_queue.append(constant.TABLE_STS3215)
                         
 
     def robot_theta_degree(self):
