@@ -188,7 +188,9 @@ class Strategy:
             self.consigne_queue.append(pos_consigne_3)
             self.map.objects.remove(pos_object)
 
-            self.consigne_queue.append(consign for consign in constant.SERVOS_GET_CAN)                   
+            for consign in constant.SERVOS_GET_CAN:
+                self.consigne_queue.append(consign)                   
+
 
             #Go to zone
             distance, num_zone = min_distance(self.actual_x, self.actual_y, self.map.our_zones)
@@ -226,7 +228,8 @@ class Strategy:
                 depose_can.insert(2,[self.actual_x,self.actual_y-constant.DISTANCE_CAN_1, self.actual_theta])
                 depose_can.insert(8,[self.actual_x,self.actual_y+constant.DISTANCE_CAN_2, self.actual_theta])
 
-            self.consigne_queue.append(consign for consign in depose_can)                   
+            for consign in depose_can:
+                self.consigne_queue.append(consign)   
 
     def robot_theta_degree(self):
         theta_radians = math.atan2(self.step_consigne[1] - self.actual_y, self.step_consigne[0] - self.actual_x)
