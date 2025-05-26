@@ -42,7 +42,7 @@ DISTANCE_ERROR_CORRECTION = 100
 
 #Distance objects
 DISTANCE_OBJECT = 200
-DISTANCE_QUALIB_OBJECT = 50
+DISTANCE_QUALIB_OBJECT = 100
 DISTANCE_FINAL_OBJECT = 50
 
 #Distance zones
@@ -91,8 +91,7 @@ pos_objects = [
             [2225,1750,-90]]
 
 SERVOS_GET_CAN = [[30, 120,  55,   90,   155,   0, 0, 0, 0, 0,  0,  30,  90, 140,   55,  125, 0],
-                [10, 120,  30,   90,   155,   0, 0, 0, 0, 0,  0,  30,  90, 165,   55,  145, 0],
-                [700, 700]]   
+                [10, 120,  30,   90,   155,   0, 0, 0, 0, 0,  0,  30,  90, 165,   55,  145, 0]]   
 
 DEPOSE_CAN = [ 
     [10, 120,  55,   90,   155,   0, 0, 0, 0, 0,  0,  30,  90, 140,   55,  145, 0],
@@ -108,5 +107,5 @@ DEPOSE_CAN = [
     #POS_ROBOT -100
     [30, 120,  55,   90,   155,   0, 0, 0, 0, 0,  0,  30,  90, 140,   55,  125, 0]]
 
-DISTANCE_CAN_1 = 150
+DISTANCE_CAN_1 = 50
 DISTANCE_CAN_2 = 100
