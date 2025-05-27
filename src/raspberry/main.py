@@ -79,6 +79,8 @@ if __name__ == "__main__":
                 print("Position robot adverse : x :", lidar.robot_adv_positions[-1][0], "| y :", lidar.robot_adv_positions[-1][1])
                 if strategy.step_consigne != None and len(strategy.step_consigne) == 3:
                     print("Consigne robot : x :", strategy.step_consigne[0], "| y :", strategy.step_consigne[1], "| θ :", strategy.step_consigne[2])
+                else:
+                    print("Taille step consigne :", len(strategy.step_consigne))
                 print("Distance erreur :",strategy.error_line , " mm")
                 print("\nObstacle : ", "Oui" if not lidar.is_free else "Non", "| Bloqué : ", "Oui" if lidar.f_stop else "Non")
                 print("Busy : ", "Oui" if strategy.robot_busy else "Non", " | Direction : ", direction)
