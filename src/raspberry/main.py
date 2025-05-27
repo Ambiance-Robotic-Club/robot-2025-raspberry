@@ -19,9 +19,6 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../'
 if __name__ == "__main__":
     sts3215, robot, lidar, servos, screen, pami, pca = init_coms_robot()
 
-    while True:
-        sts3215[0].set_position_calib(8000)
-        sts3215[1].set_position_calib(8000)
 
     wait_tirette(17, screen, servos, sts3215)
 
