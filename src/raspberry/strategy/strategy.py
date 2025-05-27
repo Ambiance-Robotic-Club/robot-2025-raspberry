@@ -233,16 +233,16 @@ class Strategy:
             
             if pos_consigne_1[2] == 0:
                 depose_can.insert(6,[pos_consigne_1[0]+constant.DISTANCE_CAN_1,pos_consigne_1[1], pos_consigne_1[2]])
-                depose_can.insert(14,[pos_consigne_1[0]-constant.DISTANCE_CAN_2,pos_consigne_1[1], pos_consigne_1[2]])
+                depose_can.insert(12,[pos_consigne_1[0]-constant.DISTANCE_CAN_2,pos_consigne_1[1], pos_consigne_1[2]])
             elif pos_consigne_1[2] == 180:
                 depose_can.insert(6,[pos_consigne_1[0]-constant.DISTANCE_CAN_1,pos_consigne_1[1], pos_consigne_1[2]])
-                depose_can.insert(14,[pos_consigne_1[0]+constant.DISTANCE_CAN_2,pos_consigne_1[1], pos_consigne_1[2]]) 
+                depose_can.insert(12,[pos_consigne_1[0]+constant.DISTANCE_CAN_2,pos_consigne_1[1], pos_consigne_1[2]]) 
             elif pos_consigne_1[2] == 90:
                 depose_can.insert(6,[pos_consigne_1[0],pos_consigne_1[1]+constant.DISTANCE_CAN_1, pos_consigne_1[2]])
-                depose_can.insert(14,[pos_consigne_1[0],pos_consigne_1[1]-constant.DISTANCE_CAN_2, pos_consigne_1[2]]) 
+                depose_can.insert(12,[pos_consigne_1[0],pos_consigne_1[1]-constant.DISTANCE_CAN_2, pos_consigne_1[2]]) 
             elif pos_consigne_1[2] == -90:
                 depose_can.insert(6,[pos_consigne_1[0],pos_consigne_1[1]-constant.DISTANCE_CAN_1, pos_consigne_1[2]])
-                depose_can.insert(14,[pos_consigne_1[0],pos_consigne_1[1]+constant.DISTANCE_CAN_2, pos_consigne_1[2]])
+                depose_can.insert(12,[pos_consigne_1[0],pos_consigne_1[1]+constant.DISTANCE_CAN_2, pos_consigne_1[2]])
 
             for consign in depose_can:
                 self.consigne_queue.append(consign)   
