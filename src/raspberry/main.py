@@ -21,8 +21,8 @@ if __name__ == "__main__":
 
     wait_tirette(17, screen, servos, sts3215)
 
-
-    t_lidar = threading.Thread(target=lidar.read_lidar_data)
+    stop_lidar = threading.Event()
+    t_lidar = threading.Thread(target=lidar.read_lidar_data, args=(stop_lidar,))
     t_lidar.start()
 
     zone_start = screen.get_zone()
@@ -114,6 +114,7 @@ if __name__ == "__main__":
         print(e)
     finally:
         print("Stop")
+        stop_lidar.set()
         t_lidar.join()
         lidar.serial.close()
         robot.send_reset()

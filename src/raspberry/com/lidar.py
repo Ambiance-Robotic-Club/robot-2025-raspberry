@@ -121,11 +121,11 @@ class Lidar:
         return points
 
 
-    def read_lidar_data(self):
+    def read_lidar_data(self, stop_event):
         """Lit et traite les trames LiDAR en continu"""
         buffer = b""
 
-        while True:
+        while not stop_event.is_set():
             buffer += self.serial.read(50)  # Lire plus que 47 octets pour gérer les coupures de trame
 
             while len(buffer) >= 47:
