@@ -120,7 +120,7 @@ class Strategy:
 
                 self.consigne_queue = self.consigne_queue[1:]
 
-            elif len(self.step_consigne) == 1:
+            elif len(self.step_consigne) == 1 and not(self.sts3215[0].is_busy()) and not(self.sts3215[1].is_busy()):
                 self.robot.send_position_consigne(self.step_consigne[0])
                 self.consigne_queue = self.consigne_queue[1:]
 
