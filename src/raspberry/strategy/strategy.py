@@ -106,7 +106,7 @@ class Strategy:
                 self.robot_theta_degree()
                 self.consigne_queue = self.consigne_queue[1:]
 
-            elif len(self.step_consigne) == 17 and not(self.sts3215[0].is_busy) and not(self.sts3215[1].is_busy):
+            elif len(self.step_consigne) == 17 and not(self.sts3215[0].is_busy()) and not(self.sts3215[1].is_busy()):
     
                 for servo_id in range(16):
                     self.servos[servo_id].angle = self.step_consigne[servo_id]
