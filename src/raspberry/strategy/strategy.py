@@ -110,10 +110,12 @@ class Strategy:
                     self.servos[servo_id].angle = self.step_consigne[servo_id]
                 time.sleep(self.step_consigne[16])
 
-            elif len(self.step_consigne) == 2:
+            elif len(self.step_consigne) == 4:
                 if self.sts3215[0].is_init and self.sts3215[1].is_init:
                     self.sts3215[0].set_position_calib(self.step_consigne[0])
                     self.sts3215[1].set_position_calib(self.step_consigne[1])
+
+                    time.sleep(self.step_consigne[2])
 
         if self.actual_type_consigne == 1:
             if len(self.step_consigne) == 3:
