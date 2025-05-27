@@ -63,8 +63,9 @@ STOP_ANGLE = 3
 
 TIME_RETURN_ZONE = 90
 TIME_STOP = 97
-TIME_PAMI_GO = 90
+TIME_PAMI_GO = 85
 TIME_PAMI_STOP = 99
+
 #Init Zone positions
 pos_zone = [
             [375,225,90],

@@ -8,52 +8,52 @@ class Pami:
         self.serial = serial
 
     def get_color_pami(self, address):
-        motor_communication.send_read_command(self.serial, address, "C")
-        return motor_communication.rcv_read_command_pami(self.serial, address, "C")
+        motor_communication.send_read_command(self.serial, address+";0", "C")
+        return motor_communication.rcv_read_command_pami(self.serial, address+";0", "C")
 
     def get_actual_x_pami(self, address):
-        motor_communication.send_read_command(self.serial, address, "X")
-        return motor_communication.rcv_read_command_pami(self.serial, address, "X")
+        motor_communication.send_read_command(self.serial, address+";0", "X")
+        return motor_communication.rcv_read_command_pami(self.serial, address+";0", "X")
 
     def get_actual_x_pami(self, address):
-        motor_communication.send_read_command(self.serial, address, "Y")
-        return motor_communication.rcv_read_command_pami(self.serial, address, "Y")
+        motor_communication.send_read_command(self.serial, address+";0", "Y")
+        return motor_communication.rcv_read_command_pami(self.serial, address+";0", "Y")
     
     def get_actual_x_pami(self, address):
-        motor_communication.send_read_command(self.serial, address, "THETA")
-        return motor_communication.rcv_read_command_pami(self.serial, address, "THETA")
+        motor_communication.send_read_command(self.serial, address+";0", "THETA")
+        return motor_communication.rcv_read_command_pami(self.serial, address+";0", "THETA")
     
     def send_stop_pami(self, address):
-        motor_communication.send_write_command(self.serial, address, "STOP", None)
-        if not(motor_communication.rcv_write_command_pami(self.serial, address, "STOP", None)):
+        motor_communication.send_write_command(self.serial, address+";0", "STOP", None)
+        if not(motor_communication.rcv_write_command_pami(self.serial, address+";0", "STOP", None)):
             return constant.ERROR
         else:
             return constant.SUCCES
 
-    def send_color_pami(self, address, value):
-        motor_communication.send_write_command(self.serial, address, "C", value)
-        if not(motor_communication.rcv_write_command_pami(self.serial, address, "C", value)):
+    def send_color_pami(self, address, value): # 1 Yellow, 0 Blue
+        motor_communication.send_write_command(self.serial, address+";0", "C", value)
+        if not(motor_communication.rcv_write_command_pami(self.serial, address+";0", "C", value)):
             return constant.ERROR
         else:
             return constant.SUCCES
 
     def send_x_pami(self, address, value):
-        motor_communication.send_write_command(self.serial, address, "X", value)
-        if not(motor_communication.rcv_write_command_pami(self.serial, address, "X", value)):
+        motor_communication.send_write_command(self.serial, address+";0", "X", value)
+        if not(motor_communication.rcv_write_command_pami(self.serial, address+";0", "X", value)):
             return constant.ERROR
         else:
             return constant.SUCCES
 
     def send_y_pami(self, address, value):
-        motor_communication.send_write_command(self.serial, address, "Y", value)
-        if not(motor_communication.rcv_write_command_pami(self.serial, address, "Y", value)):
+        motor_communication.send_write_command(self.serial, address+";0", "Y", value)
+        if not(motor_communication.rcv_write_command_pami(self.serial, address+";0", "Y", value)):
             return constant.ERROR
         else:
             return constant.SUCCES
         
     def send_theta_pami(self, address, value):
-        motor_communication.send_write_command(self.serial, address, "THETA", value)
-        if not(motor_communication.rcv_write_command_pami(self.serial, address, "THETA", value)):
+        motor_communication.send_write_command(self.serial, address+";0", "THETA", value)
+        if not(motor_communication.rcv_write_command_pami(self.serial, address+";0", "THETA", value)):
             return constant.ERROR
         else:
             return constant.SUCCES

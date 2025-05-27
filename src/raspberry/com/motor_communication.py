@@ -155,7 +155,7 @@ def accept_rcv_pami(serial):
 
     try:
         frame = read_serial(serial)
-        frame_split = frame[:17] + frame[20:].split(":")
+        frame_split = frame[18:].split(":")
         frame_split[-1] = re.sub(r'\r\n', '', frame_split[-1])
 
         if len(frame_split)  != 5:
@@ -299,7 +299,7 @@ def rcv_read_command_pami(serial, num_motor, command_send):
         0
     """
     
-    frame = accept_rcv(serial)
+    frame = accept_rcv_pami(serial)
     if frame == None or frame[0] != str(num_motor) or frame[1] != "R" or frame[2] != command_send or frame[4] != "OK":
         return 0
     
@@ -357,7 +357,7 @@ def rcv_write_command_pami(serial, num_motor, command_send, value):
         False
     """
 
-    frame = accept_rcv(serial)
+    frame = accept_rcv_pami(serial)
 
     if frame == None or frame[0] != str(num_motor) or frame[1] != "W" or frame[3] != str(value) or frame[2] != command_send or frame[4] != "OK":
         return False
