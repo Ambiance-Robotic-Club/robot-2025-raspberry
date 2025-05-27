@@ -158,3 +158,6 @@ class STS3215Servo:
 
         self.set_position_limit(self.zero + 300, self.zero + self.range - 300)  
         self.is_init = True
+    
+    def is_busy(self):
+        return True if self.read_speed() > 0 else False

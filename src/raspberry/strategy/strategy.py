@@ -101,38 +101,45 @@ class Strategy:
         if self.actual_type_consigne == 0:
 
             self.step_consigne = self.consigne_queue[0]
-            self.consigne_queue = self.consigne_queue[1:]
 
             if len(self.step_consigne) == 3:
                 self.robot_theta_degree()
-            elif len(self.step_consigne) == 17:
+                self.consigne_queue = self.consigne_queue[1:]
+
+            elif len(self.step_consigne) == 17 and not(self.sts3215[0].is_busy) and not(self.sts3215[1].is_busy):
+    
                 for servo_id in range(16):
                     self.servos[servo_id].angle = self.step_consigne[servo_id]
                 time.sleep(self.step_consigne[16])
+                self.consigne_queue = self.consigne_queue[1:]
 
-            elif len(self.step_consigne) == 4:
+            elif len(self.step_consigne) == 2:
                 if self.sts3215[0].is_init and self.sts3215[1].is_init:
                     self.sts3215[0].set_position_calib(self.step_consigne[0])
                     self.sts3215[1].set_position_calib(self.step_consigne[1])
 
-                    time.sleep(self.step_consigne[2])
+                self.consigne_queue = self.consigne_queue[1:]
+
+            elif len(self.step_consigne) == 1:
+                self.robot.send_position_consigne(self.step_consigne[0])
+                self.consigne_queue = self.consigne_queue[1:]
 
         if self.actual_type_consigne == 1:
             if len(self.step_consigne) == 3:
                 self.robot_distance()
+            self.consigne_queue = self.consigne_queue[1:]
 
         if self.actual_type_consigne == 2:
             if len(self.step_consigne) == 3:
-                self.robot_theta_alignment()          
+                self.robot_theta_alignment()
+            self.consigne_queue = self.consigne_queue[1:]         
             
         
     def path_correction(self):
         if self.actual_type_consigne == 1:
-            try:
-                print("OK")
-             
+            try:             
                 ref_point = np.array([self.actual_x, self.actual_y])
-                print("OK")
+
                 dist = np.linalg.norm(self.theoric_line - ref_point, axis=1)
                 closest_index = np.argmin(dist)
 
@@ -169,33 +176,12 @@ class Strategy:
 
             self.consigne_queue.append(pos_consigne_1)
 
-            if pos_consigne_1[2] == 0:
-                pos_consigne_2 = [pos_consigne_1[0]+(constant.DISTANCE_QUALIB_OBJECT+constant.DISTANCE_FINAL_OBJECT), pos_consigne_1[1], pos_consigne_1[2]]
-            elif pos_consigne_1[2] == 180:
-                pos_consigne_2 = [pos_consigne_1[0]-(constant.DISTANCE_QUALIB_OBJECT+constant.DISTANCE_FINAL_OBJECT), pos_consigne_1[1], pos_consigne_1[2]]
-            elif pos_consigne_1[2] == 90:
-                pos_consigne_2 = [pos_consigne_1[0], pos_consigne_1[1]+(constant.DISTANCE_QUALIB_OBJECT+constant.DISTANCE_FINAL_OBJECT), pos_consigne_1[2]]
-            elif pos_consigne_1[2] == -90:
-                pos_consigne_2 = [pos_consigne_1[0], pos_consigne_1[1]-(constant.DISTANCE_QUALIB_OBJECT+constant.DISTANCE_FINAL_OBJECT), pos_consigne_1[2]]
+            self.consigne_queue.append([constant.DISTANCE_QUALIB_OBJECT+constant.DISTANCE_FINAL_OBJECT])
 
-            self.consigne_queue.append(pos_consigne_2)
-            """            
-            if pos_consigne_1[2] == 0:
-                pos_consigne_3 = [pos_consigne_2[0]+constant.DISTANCE_FINAL_OBJECT, pos_consigne_2[1], pos_consigne_2[2]]
-            elif pos_consigne_1[2] == 180:
-                pos_consigne_3 = [pos_consigne_2[0]-constant.DISTANCE_FINAL_OBJECT, pos_consigne_2[1], pos_consigne_2[2]]
-            elif pos_consigne_1[2] == 90:
-                pos_consigne_3 = [pos_consigne_2[0], pos_consigne_2[1]+constant.DISTANCE_FINAL_OBJECT, pos_consigne_2[2]]
-            elif pos_consigne_1[2] == -90:
-                pos_consigne_3 = [pos_consigne_2[0], pos_consigne_2[1]-constant.DISTANCE_FINAL_OBJECT, pos_consigne_2[2]]
-
-            self.consigne_queue.append(pos_consigne_3)
-            """
             self.map.objects.remove(pos_object)
 
             for consign in constant.SERVOS_GET_CAN:
-                self.consigne_queue.append(consign)                   
-
+                self.consigne_queue.append(consign)    
 
             #Go to zone
             distance, num_zone = min_distance(pos_object[0], pos_object[1], self.map.our_zones)
@@ -217,34 +203,8 @@ class Strategy:
             self.consigne_queue.append(pos_consigne_1)
 
             self.map.our_zones.remove(pos_zone)
-
-            if pos_consigne_1[2] == 0:
-                pos_consigne_2 = [pos_consigne_1[0]+10, pos_consigne_1[1], pos_consigne_1[2]]
-            elif pos_consigne_1[2] == 180:
-                pos_consigne_2 = [pos_consigne_1[0]-10, pos_consigne_1[1], pos_consigne_1[2]]
-            elif pos_consigne_1[2] == 90:
-                pos_consigne_2 = [pos_consigne_1[0], pos_consigne_1[1]+10, pos_consigne_1[2]]
-            elif pos_consigne_1[2] == -90:
-                pos_consigne_2 = [pos_consigne_1[0], pos_consigne_1[1]-10, pos_consigne_1[2]]
-
-            self.consigne_queue.append(pos_consigne_2)
-
-            depose_can = constant.DEPOSE_CAN
             
-            if pos_consigne_1[2] == 0:
-                depose_can.insert(6,[pos_consigne_1[0]+constant.DISTANCE_CAN_1,pos_consigne_1[1], pos_consigne_1[2]])
-                depose_can.insert(12,[pos_consigne_1[0]-constant.DISTANCE_CAN_2,pos_consigne_1[1], pos_consigne_1[2]])
-            elif pos_consigne_1[2] == 180:
-                depose_can.insert(6,[pos_consigne_1[0]-constant.DISTANCE_CAN_1,pos_consigne_1[1], pos_consigne_1[2]])
-                depose_can.insert(12,[pos_consigne_1[0]+constant.DISTANCE_CAN_2,pos_consigne_1[1], pos_consigne_1[2]]) 
-            elif pos_consigne_1[2] == 90:
-                depose_can.insert(6,[pos_consigne_1[0],pos_consigne_1[1]+constant.DISTANCE_CAN_1, pos_consigne_1[2]])
-                depose_can.insert(12,[pos_consigne_1[0],pos_consigne_1[1]-constant.DISTANCE_CAN_2, pos_consigne_1[2]]) 
-            elif pos_consigne_1[2] == -90:
-                depose_can.insert(6,[pos_consigne_1[0],pos_consigne_1[1]-constant.DISTANCE_CAN_1, pos_consigne_1[2]])
-                depose_can.insert(12,[pos_consigne_1[0],pos_consigne_1[1]+constant.DISTANCE_CAN_2, pos_consigne_1[2]])
-
-            for consign in depose_can:
+            for consign in constant.DEPOSE_CAN:
                 self.consigne_queue.append(consign)   
 
     def robot_theta_degree(self):
