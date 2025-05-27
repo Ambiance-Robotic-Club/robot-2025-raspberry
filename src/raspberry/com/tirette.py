@@ -35,8 +35,8 @@ def wait_tirette(pin, screen, servos, sts3215):
             sts3215[1].homing()
 
             # Set position départ
-            sts3215[0].set_position_calib(6000)
-            sts3215[1].set_position_calib(6000)
+            sts3215[0].set_position_calib(8000)
+            sts3215[1].set_position_calib(8000)
 
             while(sts3215[0].read_speed() > 10 or sts3215[1].read_speed() > 10):
                     pass
