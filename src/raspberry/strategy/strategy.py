@@ -127,12 +127,10 @@ class Strategy:
         if self.actual_type_consigne == 1:
             if len(self.step_consigne) == 3:
                 self.robot_distance()
-            self.consigne_queue = self.consigne_queue[1:]
-
+            
         if self.actual_type_consigne == 2:
             if len(self.step_consigne) == 3:
-                self.robot_theta_alignment()
-            self.consigne_queue = self.consigne_queue[1:]         
+                self.robot_theta_alignment()        
             
         
     def path_correction(self):
