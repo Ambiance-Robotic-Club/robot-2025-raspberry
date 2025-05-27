@@ -31,8 +31,10 @@ class Pami:
             return constant.SUCCES
 
     def send_color_pami(self, address, value): # 1 Yellow, 0 Blue
-        motor_communication.send_write_command(self.serial, address+";0", "C", value)
-        if not(motor_communication.rcv_write_command_pami(self.serial, address+";0", "C", value)):
+        color = 1 if value == "Yellow" else 0
+        
+        motor_communication.send_write_command(self.serial, address+";0", "C", color)
+        if not(motor_communication.rcv_write_command_pami(self.serial, address+";0", "C", color)):
             return constant.ERROR
         else:
             return constant.SUCCES
