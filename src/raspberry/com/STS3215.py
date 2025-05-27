@@ -160,4 +160,4 @@ class STS3215Servo:
         self.is_init = True
     
     def is_busy(self):
-        return True if self.read_speed() > 0 else False
+        return True if self.read_speed() > 10 else False
