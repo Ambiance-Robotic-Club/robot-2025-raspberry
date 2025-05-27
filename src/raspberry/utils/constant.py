@@ -110,5 +110,8 @@ DEPOSE_CAN = [
     [0, 0]]
     
 
+SERVOS_BANNIERE = [30, 170,  55,   90,   155,   0, 0, 0, 0, 0,  0,  30,  90, 140,   10,  125]
+
+
 DISTANCE_CAN_1 = 150
 DISTANCE_CAN_2 = 100

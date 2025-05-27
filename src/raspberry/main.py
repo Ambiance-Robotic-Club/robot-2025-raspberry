@@ -5,6 +5,7 @@ from strategy.strategy import Strategy
 from strategy.map import Map
 import utils.constant as constant
 from utils.utils import modulo
+from strategy.strategy import banniere
 
 import threading
 import time
@@ -40,9 +41,12 @@ if __name__ == "__main__":
     pami_stop = True
     stop = True
 
+    
     strategy = Strategy(robot, sts3215, servos, map)
 
     try:
+        banniere(robot, sts3215, servos)
+
         while(timer < 100):
             if not lidar.is_free and lidar.f_stop:
                 find_safe_place(robot)

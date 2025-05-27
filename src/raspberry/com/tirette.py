@@ -18,19 +18,7 @@ def wait_tirette(pin, screen, servos, sts3215):
     
             for servo_id in range(16):
                 servos[servo_id].angle = servo_positions_init[1][servo_id]
-            """
-            time.sleep(1)
-            for step in constant.SERVOS_GET_CAN:
-                for servo_id in range(16):
-                    servos[servo_id].angle = step[servo_id]
-                time.sleep(0.5)
 
-            time.sleep(3)
-            for step in constant.DEPOSE_CAN:
-                for servo_id in range(16):
-                    servos[servo_id].angle = step[servo_id]
-                time.sleep(0.5)  
-            """
             sts3215[0].homing()
             sts3215[1].homing()
 
