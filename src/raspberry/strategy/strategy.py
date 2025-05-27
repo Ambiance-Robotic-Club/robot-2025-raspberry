@@ -174,7 +174,7 @@ class Strategy:
 
             self.consigne_queue.append(pos_consigne_1)
 
-            self.consigne_queue.append([100])
+            self.consigne_queue.append([constant.DISTANCE_QUALIB_OBJECT+constant.DISTANCE_FINAL_OBJECT])
 
             self.map.objects.remove(pos_object)
 
