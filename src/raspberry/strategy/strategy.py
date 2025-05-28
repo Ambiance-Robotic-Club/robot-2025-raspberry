@@ -282,7 +282,7 @@ class Strategy:
 def banniere(robot, sts3215, servos):
     if sts3215[0].is_init and sts3215[1].is_init:
         robot.send_position_consigne(100)
-        time.sleep(1)
+        time.sleep(1.5)
       
         sts3215[0].set_position_calib(4000)
         sts3215[1].set_position_calib(4000)
