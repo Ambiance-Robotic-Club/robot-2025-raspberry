@@ -153,69 +153,95 @@ class Strategy:
 
     
     def process_queue(self):
-        if len(self.consigne_queue) == 0 and len(self.map.objects) > 0:
+        if len(self.consigne_queue) == 0:
+            if len(self.map.objects) > 0:
 
-            distance, num_object = min_distance(self.actual_x, self.actual_y, self.map.objects)
+                distance, num_object = min_distance(self.actual_x, self.actual_y, self.map.objects)
 
-            print("Debug distance plus court objet :  ", distance)
-            pos_object = self.map.objects[num_object]
-            if pos_object[2] == 0:
-                positions = [[pos_object[0]-constant.DISTANCE_OBJECT, pos_object[1], 0],[pos_object[0]+constant.DISTANCE_OBJECT, pos_object[1], 180]]
-            else:
-                positions = [[pos_object[0], pos_object[1]-constant.DISTANCE_OBJECT, 90],[pos_object[0], pos_object[1]+constant.DISTANCE_OBJECT, -90]]
+                print("Debug distance plus court objet :  ", distance)
+                pos_object = self.map.objects[num_object]
+                if pos_object[2] == 0:
+                    positions = [[pos_object[0]-constant.DISTANCE_OBJECT, pos_object[1], 0],[pos_object[0]+constant.DISTANCE_OBJECT, pos_object[1], 180]]
+                else:
+                    positions = [[pos_object[0], pos_object[1]-constant.DISTANCE_OBJECT, 90],[pos_object[0], pos_object[1]+constant.DISTANCE_OBJECT, -90]]
+                
+                for pos in positions:
+                    if pos[1] < 200:
+                        positions.remove(pos)
+                
+                _, index = min_distance(self.actual_x, self.actual_y, positions)
+                
+                pos_consigne_1 = positions[index]
+
+                self.consigne_queue.append(pos_consigne_1)
+
+
+                if pos_consigne_1[2] == 0:
+                    pos_consigne_2 = [pos_consigne_1[0]+(constant.DISTANCE_QUALIB_OBJECT), pos_consigne_1[1], pos_consigne_1[2]]
+                elif pos_consigne_1[2] == 180:
+                    pos_consigne_2 = [pos_consigne_1[0]-(constant.DISTANCE_QUALIB_OBJECT), pos_consigne_1[1], pos_consigne_1[2]]
+                elif pos_consigne_1[2] == 90:
+                    pos_consigne_2 = [pos_consigne_1[0], pos_consigne_1[1]+(constant.DISTANCE_QUALIB_OBJECT), pos_consigne_1[2]]
+                elif pos_consigne_1[2] == -90:
+                    pos_consigne_2 = [pos_consigne_1[0], pos_consigne_1[1]-(constant.DISTANCE_QUALIB_OBJECT), pos_consigne_1[2]]
+
+                self.consigne_queue.append(pos_consigne_2)
+
+                self.consigne_queue.append([constant.DISTANCE_FINAL_OBJECT])
+
+                self.map.objects.remove(pos_object)
+
+                for consign in constant.SERVOS_GET_CAN:
+                    self.consigne_queue.append(consign)    
+
+                #Go to zone
+                distance, num_zone = min_distance(pos_object[0], pos_object[1], self.map.our_zones)
+
+                pos_zone = self.map.our_zones[num_zone]
+                if pos_zone[2] == 0:
+                    positions = [[pos_zone[0]-constant.DISTANCE_ZONE, pos_zone[1], 0],[pos_zone[0]+constant.DISTANCE_ZONE, pos_zone[1], 180]]
+                else:
+                    positions = [[pos_zone[0], pos_zone[1]-constant.DISTANCE_ZONE, 90],[pos_zone[0], pos_zone[1]+constant.DISTANCE_ZONE, -90]]
+                
+                for pos in positions:
+                    if pos[1] < 200:
+                        positions.remove(pos)
+                
+                _, index = min_distance(pos_object[0], pos_object[1], positions)
+                
+                pos_consigne_1 = positions[index]
+
+                self.consigne_queue.append(pos_consigne_1)
+
+                self.map.our_zones.remove(pos_zone)
+                
+                for consign in constant.DEPOSE_CAN:
+                    self.consigne_queue.append(consign)   
             
-            for pos in positions:
-                if pos[1] < 200:
-                    positions.remove(pos)
-            
-            _, index = min_distance(self.actual_x, self.actual_y, positions)
-            
-            pos_consigne_1 = positions[index]
+            elif len(self.map.objects_a_pousser) > 0:
 
-            self.consigne_queue.append(pos_consigne_1)
+                distance, num_object = min_distance(self.actual_x, self.actual_y, self.map.objects_a_pousser)
 
+                print("Debug distance plus court objet :  ", distance)
+                pos_object = self.map.objects_a_pousser[num_object]
+                if pos_object[2] == 0:
+                    positions = [[pos_object[0]-constant.DISTANCE_OBJECT_POUSSER, pos_object[1], 0],[pos_object[0]+constant.DISTANCE_OBJECT_POUSSER, pos_object[1], 180]]
+                else:
+                    positions = [[pos_object[0], pos_object[1]-constant.DISTANCE_OBJECT_POUSSER, 90],[pos_object[0], pos_object[1]+constant.DISTANCE_OBJECT_POUSSER, -90]]
+                
+                for pos in positions:
+                    if pos[1] < 200:
+                        positions.remove(pos)
+                
+                _, index = min_distance(self.actual_x, self.actual_y, positions)
+                
+                pos_consigne_1 = positions[index]
 
-            if pos_consigne_1[2] == 0:
-                pos_consigne_2 = [pos_consigne_1[0]+(constant.DISTANCE_QUALIB_OBJECT), pos_consigne_1[1], pos_consigne_1[2]]
-            elif pos_consigne_1[2] == 180:
-                pos_consigne_2 = [pos_consigne_1[0]-(constant.DISTANCE_QUALIB_OBJECT), pos_consigne_1[1], pos_consigne_1[2]]
-            elif pos_consigne_1[2] == 90:
-                pos_consigne_2 = [pos_consigne_1[0], pos_consigne_1[1]+(constant.DISTANCE_QUALIB_OBJECT), pos_consigne_1[2]]
-            elif pos_consigne_1[2] == -90:
-                pos_consigne_2 = [pos_consigne_1[0], pos_consigne_1[1]-(constant.DISTANCE_QUALIB_OBJECT), pos_consigne_1[2]]
+                self.consigne_queue.append(pos_consigne_1)
 
-            self.consigne_queue.append(pos_consigne_2)
+                self.consigne_queue.append([-200])
+                self.consigne_queue.append([200])
 
-            self.consigne_queue.append([constant.DISTANCE_FINAL_OBJECT])
-
-            self.map.objects.remove(pos_object)
-
-            for consign in constant.SERVOS_GET_CAN:
-                self.consigne_queue.append(consign)    
-
-            #Go to zone
-            distance, num_zone = min_distance(pos_object[0], pos_object[1], self.map.our_zones)
-
-            pos_zone = self.map.our_zones[num_zone]
-            if pos_zone[2] == 0:
-                positions = [[pos_zone[0]-constant.DISTANCE_ZONE, pos_zone[1], 0],[pos_zone[0]+constant.DISTANCE_ZONE, pos_zone[1], 180]]
-            else:
-                positions = [[pos_zone[0], pos_zone[1]-constant.DISTANCE_ZONE, 90],[pos_zone[0], pos_zone[1]+constant.DISTANCE_ZONE, -90]]
-            
-            for pos in positions:
-                if pos[1] < 200:
-                    positions.remove(pos)
-            
-            _, index = min_distance(pos_object[0], pos_object[1], positions)
-            
-            pos_consigne_1 = positions[index]
-
-            self.consigne_queue.append(pos_consigne_1)
-
-            self.map.our_zones.remove(pos_zone)
-            
-            for consign in constant.DEPOSE_ONE_STAGE:
-                self.consigne_queue.append(consign)   
 
     def robot_theta_degree(self):
         theta_radians = math.atan2(self.step_consigne[1] - self.actual_y, self.step_consigne[0] - self.actual_x)
