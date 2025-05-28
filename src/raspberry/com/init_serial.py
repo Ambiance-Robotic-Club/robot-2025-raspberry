@@ -70,7 +70,7 @@ def find_ports():
 
 
 def init_coms_robot():
-    init_success = True
+    init_success = "OUI"
     try:
         sts3215_port, robot_port, screen_port, lidar_port = find_ports()
         sts3215 = []
@@ -96,6 +96,6 @@ def init_coms_robot():
         screen = Screen(screen_port)
 
     except Exception as e:
-        init_success = False
-    screen.serial.write((init_success).encode('utf-8'))
+        init_success = "NON"
+    screen.serial.write(("Serial init : "+init_success).encode('utf-8'))
     return sts3215, robot, Lidar(lidar_port), servos, screen, Pami(screen.serial), pca
