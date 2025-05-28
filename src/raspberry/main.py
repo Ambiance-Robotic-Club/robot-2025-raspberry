@@ -35,6 +35,7 @@ if __name__ == "__main__":
 
 
     print(color, zone_start)
+    exit()
     timerStart = time.time()
     timer = 0
     
