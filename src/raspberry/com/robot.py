@@ -1051,12 +1051,12 @@ class RobotSerial:
         return not(nb == counter)
 
     def init_zone_start(self, zone):
-        zone = int(zone)
+        zone_int = int(zone)
         
         
-        self.set_x(constant.pos_zone[zone-1][0])
-        self.set_y(constant.pos_zone[zone-1][1])
-        self.set_theta(constant.pos_zone[zone-1][2])
+        self.set_x(constant.pos_zone[zone_int-1][0])
+        self.set_y(constant.pos_zone[zone_int-1][1])
+        self.set_theta(constant.pos_zone[zone_int-1][2])
 
 
     def stop(self):
