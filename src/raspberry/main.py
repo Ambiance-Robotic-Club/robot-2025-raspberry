@@ -20,7 +20,6 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../'
 if __name__ == "__main__":
     sts3215, robot, lidar, servos, screen, pami, pca = init_coms_robot()
 
-    pami.send_color_pami("F8:B3:B7:22:24:34", "Blue")
     wait_tirette(17, screen, servos, sts3215)
 
     stop_lidar = threading.Event()
@@ -112,7 +111,8 @@ if __name__ == "__main__":
                 strategy.update_robot()
 
             if timer >= constant.TIME_PAMI_GO:
-                pami.send_color_pami("F8:B3:B7:22:24:34")
+                pami.send_color_pami(constant.MAC_PAMI, color)
+
             screen.set_timer(int(timer))
 
             time.sleep(0.01)
