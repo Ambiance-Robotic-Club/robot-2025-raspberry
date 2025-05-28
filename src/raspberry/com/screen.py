@@ -28,7 +28,9 @@ class Screen:
         
     def get_zone(self):
         motor_communication.send_read_command(self.serial, self.id, "Z")
-        return motor_communication.rcv_read_command(self.serial, self.id, "Z")
+        ret = motor_communication.rcv_read_command(self.serial, self.id, "Z")
+        print("Zone : ", ret)
+        return ret
 
     def get_timer(self):
         motor_communication.send_read_command(self.serial, self.id, "T")
