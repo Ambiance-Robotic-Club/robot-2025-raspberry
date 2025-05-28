@@ -174,7 +174,19 @@ class Strategy:
 
             self.consigne_queue.append(pos_consigne_1)
 
-            self.consigne_queue.append([constant.DISTANCE_QUALIB_OBJECT+constant.DISTANCE_FINAL_OBJECT])
+
+            if pos_consigne_1[2] == 0:
+                pos_consigne_2 = [pos_consigne_1[0]+(constant.DISTANCE_QUALIB_OBJECT+constant.DISTANCE_FINAL_OBJECT), pos_consigne_1[1], pos_consigne_1[2]]
+            elif pos_consigne_1[2] == 180:
+                pos_consigne_2 = [pos_consigne_1[0]-(constant.DISTANCE_QUALIB_OBJECT+constant.DISTANCE_FINAL_OBJECT), pos_consigne_1[1], pos_consigne_1[2]]
+            elif pos_consigne_1[2] == 90:
+                pos_consigne_2 = [pos_consigne_1[0], pos_consigne_1[1]+(constant.DISTANCE_QUALIB_OBJECT+constant.DISTANCE_FINAL_OBJECT), pos_consigne_1[2]]
+            elif pos_consigne_1[2] == -90:
+                pos_consigne_2 = [pos_consigne_1[0], pos_consigne_1[1]-(constant.DISTANCE_QUALIB_OBJECT+constant.DISTANCE_FINAL_OBJECT), pos_consigne_1[2]]
+
+            self.consigne_queue.append(pos_consigne_2)
+
+            #self.consigne_queue.append([constant.DISTANCE_QUALIB_OBJECT+constant.DISTANCE_FINAL_OBJECT])
 
             self.map.objects.remove(pos_object)
 
