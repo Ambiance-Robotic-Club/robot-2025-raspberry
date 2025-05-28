@@ -32,7 +32,12 @@ def wait_tirette(pin, screen, robot, servos, sts3215):
             time.sleep(3)
             servos[0].angle = 0
             servos[15].angle = 160
+        else:
+            time.sleep(0.2)
+    
+    
+    screen.serial.reset_output_buffer()
+    screen.serial.reset_input_buffer()
 
-        time.sleep(0.1)
 
     return 1

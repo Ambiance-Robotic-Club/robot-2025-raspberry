@@ -93,9 +93,5 @@ def init_coms_robot():
     servos = [servo.Servo(pca.channels[i]) for i in range(16)]
 
     screen = Screen(screen_port)
-    
-    time.sleep(0.5)
-    screen.serial.reset_output_buffer()
-    screen.serial.reset_input_buffer()
 
     return sts3215, robot, Lidar(lidar_port), servos, screen, Pami(screen.serial), pca
