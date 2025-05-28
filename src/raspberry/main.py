@@ -34,8 +34,6 @@ if __name__ == "__main__":
     robot.init_zone_start(zone_start)
 
 
-    print(color, zone_start)
-    exit()
     timerStart = time.time()
     timer = 0
     
