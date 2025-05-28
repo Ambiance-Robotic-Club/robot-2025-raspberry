@@ -295,7 +295,7 @@ def banniere(robot, sts3215, servos):
         servos[0].angle = 90
         servos[15].angle = 90
 
-        robot.send_position_consigne(-100)
+        robot.send_position_consigne(-200)
         time.sleep(1)
 
         servos[0].angle = 30
