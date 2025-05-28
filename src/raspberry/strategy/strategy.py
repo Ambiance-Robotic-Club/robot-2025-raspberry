@@ -12,7 +12,7 @@ class Strategy:
         self.map = map
         self.sts3215 = sts3215
 
-        self.consigne_queue = [[1000,900,-90]]
+        self.consigne_queue = []
         self.step_consigne = None
         self.actual_type_consigne = 0
         self.consigne = 0
