@@ -15,11 +15,11 @@ class Pami:
         motor_communication.send_read_command(self.serial, address+";0", "X")
         return motor_communication.rcv_read_command_pami(self.serial, address+";0", "X")
 
-    def get_actual_x_pami(self, address):
+    def get_actual_y_pami(self, address):
         motor_communication.send_read_command(self.serial, address+";0", "Y")
         return motor_communication.rcv_read_command_pami(self.serial, address+";0", "Y")
     
-    def get_actual_x_pami(self, address):
+    def get_actual_theta_pami(self, address):
         motor_communication.send_read_command(self.serial, address+";0", "THETA")
         return motor_communication.rcv_read_command_pami(self.serial, address+";0", "THETA")
     
