@@ -18,9 +18,9 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../'
 
 
 if __name__ == "__main__":
-    sts3215, robot, lidar, servos, screen, pami, pca = init_coms_robot()
 
-    wait_tirette(17, screen, robot, servos, sts3215)
+    sts3215, robot, lidar, servos, screen, pami, pca = wait_tirette(17)
+
     time.sleep(0.05)
 
     stop_lidar = threading.Event()
