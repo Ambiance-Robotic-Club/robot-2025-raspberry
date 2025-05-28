@@ -94,4 +94,5 @@ def init_coms_robot():
 
     screen = Screen(screen_port)
 
+    screen.serial.write(("Serial init success : ", sts3215, robot, lidar_port, servos).encode('utf-8'))
     return sts3215, robot, Lidar(lidar_port), servos, screen, Pami(screen.serial), pca
