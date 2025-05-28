@@ -62,7 +62,7 @@ STOP_DISTANCE_IDLE = 200#450
 STOP_DISTANCE = 30
 STOP_ANGLE = 3
 
-TIME_RETURN_ZONE = 90
+TIME_RETURN_ZONE = 85
 TIME_STOP = 97
 TIME_PAMI_GO = 10
 TIME_PAMI_STOP = 99
@@ -92,7 +92,6 @@ pos_objects = [
             [1900,1050,-90],
             [2925,1600,0],
             [2225,1750,-90]]
-
 
 SERVOS_INIT = [
     [10, 120, 55, 180, 155, 0, 0, 0, 0, 0,  0, 30, 0, 140, 55, 140],  
