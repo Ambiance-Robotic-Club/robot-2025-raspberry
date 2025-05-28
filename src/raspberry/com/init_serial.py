@@ -94,6 +94,7 @@ def init_coms_robot():
         servos = [servo.Servo(pca.channels[i]) for i in range(16)]
 
         screen = Screen(screen_port)
+        time.sleep(0.5)
         screen.serial.reset_input_buffer()
         screen.serial.reset_output_buffer()
     except Exception as e:
