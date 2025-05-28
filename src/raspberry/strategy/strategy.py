@@ -269,6 +269,7 @@ class Strategy:
 
 def banniere(robot, sts3215, servos):
     if sts3215[0].is_init and sts3215[1].is_init:
+        
         sts3215[0].set_position_calib(4000)
         sts3215[1].set_position_calib(4000)
 
@@ -284,7 +285,7 @@ def banniere(robot, sts3215, servos):
         time.sleep(1)
 
         servos[0].angle = 30
-        servos[15].angle = 140
+        servos[15].angle = 125
         #for id in range(16):
         #    servos[id].angle = constant.SERVOS_INIT[1][id]
 
