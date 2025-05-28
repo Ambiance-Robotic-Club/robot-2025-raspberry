@@ -33,7 +33,7 @@ if __name__ == "__main__":
     map = Map(color)
     robot.init_zone_start(zone_start)
 
-    robot.init_zone_start([1000,1000,-90])
+    robot.init_zone_start(10)
     timerStart = time.time()
     timer = 0
     
