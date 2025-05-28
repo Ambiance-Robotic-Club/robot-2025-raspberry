@@ -11,8 +11,8 @@ class Map:
 
         self.objects = [pos_objects[i] for i in [0, 1, 2, 3, 4, 6, 7, 8, 9]] if self.color == "Yellow" else [pos_zone[i] for i in [1, 2, 3, 4, 5, 6, 7, 8, 9]]
 
-        self.objects = [[1100,1050,-90]]
-        self.our_zones = [[1225,1775,-90]]
+        self.objects = [[2200,1125,0]]
+        self.our_zones = [[2775,1125,0]]
         self.zone_end = pos_zone[3] if self.color == "Yellow" else pos_zone[0]
     #TO DO
     def moove_object_to_areas(self, area, object):
