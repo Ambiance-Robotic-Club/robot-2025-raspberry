@@ -8,6 +8,7 @@ def wait_tirette(pin, screen, robot, servos, sts3215):
     GPIO.setmode(GPIO.BCM)
     GPIO.setup(pin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
     print("\n")
+    time.sleep(1)
     while(GPIO.input(pin)):   
          print(GPIO.input(pin))
          pass
