@@ -21,6 +21,7 @@ if __name__ == "__main__":
     sts3215, robot, lidar, servos, screen, pami, pca = init_coms_robot()
 
     wait_tirette(17, screen, robot, servos, sts3215)
+    time.sleep(0.05)
 
     stop_lidar = threading.Event()
     t_lidar = threading.Thread(target=lidar.read_lidar_data, args=(stop_lidar,))
