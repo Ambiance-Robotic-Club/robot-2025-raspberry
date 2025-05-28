@@ -73,7 +73,7 @@ class Strategy:
                 self.robot_busy = False  
              
             # Process part
-            #self.process_queue()
+            self.process_queue()
             if not self.robot_busy and (len(self.consigne_queue) > 0 or self.actual_type_consigne != 0):
                 self.process_step()
             
