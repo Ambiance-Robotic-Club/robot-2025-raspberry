@@ -5,6 +5,7 @@ from adafruit_motor import servo
 import board
 import busio
 import serial as ser
+import time
 
 from com.motor_communication import init_serial
 from com.robot import RobotSerial
@@ -93,5 +94,7 @@ def init_coms_robot():
 
     screen = Screen(screen_port)
     
-
+    time.sleep(0.1)
+    screen.serial.reset_input_buffer()
+    
     return sts3215, robot, Lidar(lidar_port), servos, screen, Pami(screen.serial), pca
