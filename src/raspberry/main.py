@@ -42,6 +42,8 @@ if __name__ == "__main__":
 
     banniere(robot, sts3215, servos)
 
+    exit()
+
     strategy = Strategy(robot, sts3215, servos, map)
 
     try:
