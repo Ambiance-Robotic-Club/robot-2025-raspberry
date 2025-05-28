@@ -112,7 +112,7 @@ if __name__ == "__main__":
                 strategy.update_robot()
 
             if timer >= constant.TIME_PAMI_GO:
-                pami.send_color_pami("F8:B3:B7:22:24:34")
+                pami.send_color_pami("F8:B3:B7:22:24:34", )
             screen.set_timer(int(timer))
 
             time.sleep(0.01)
