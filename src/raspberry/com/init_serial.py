@@ -70,29 +70,32 @@ def find_ports():
 
 
 def init_coms_robot():
-    
-    sts3215_port, robot_port, screen_port, lidar_port = find_ports()
-    sts3215 = []
-    port_handler = PortHandler(sts3215_port)
-    packet_handler = PacketHandler(0)
+    init_success = True
+    try:
+        sts3215_port, robot_port, screen_port, lidar_port = find_ports()
+        sts3215 = []
+        port_handler = PortHandler(sts3215_port)
+        packet_handler = PacketHandler(0)
 
-    port_handler.openPort()
-    port_handler.setBaudRate(1000000)
+        port_handler.openPort()
+        port_handler.setBaudRate(1000000)
 
-    ser = init_serial(robot_port, 115200)
+        ser = init_serial(robot_port, 115200)
 
-    robot = RobotSerial(ser)
-    robot.get_actual_x()
+        robot = RobotSerial(ser)
+        robot.get_actual_x()
 
-    sts3215.append(STS3215Servo(port_handler, packet_handler, servo_id=1))
-    sts3215.append(STS3215Servo(port_handler, packet_handler, servo_id=2))
+        sts3215.append(STS3215Servo(port_handler, packet_handler, servo_id=1))
+        sts3215.append(STS3215Servo(port_handler, packet_handler, servo_id=2))
 
-    i2c = busio.I2C(board.SCL, board.SDA)
-    pca = PCA9685(i2c)
-    pca.frequency = 50
-    servos = [servo.Servo(pca.channels[i]) for i in range(16)]
+        i2c = busio.I2C(board.SCL, board.SDA)
+        pca = PCA9685(i2c)
+        pca.frequency = 50
+        servos = [servo.Servo(pca.channels[i]) for i in range(16)]
 
-    screen = Screen(screen_port)
+        screen = Screen(screen_port)
 
-    screen.serial.write(("Serial init success : " + str(sts3215)).encode('utf-8'))
+    except Exception as e:
+        init_success = False
+    screen.serial.write((init_success).encode('utf-8'))
     return sts3215, robot, Lidar(lidar_port), servos, screen, Pami(screen.serial), pca
