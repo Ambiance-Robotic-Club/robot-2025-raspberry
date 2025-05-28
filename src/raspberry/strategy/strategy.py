@@ -268,26 +268,27 @@ class Strategy:
             self.actual_type_consigne = 0
 
 def banniere(robot, sts3215, servos):
-    sts3215[0].set_position_calib(4000)
-    sts3215[1].set_position_calib(4000)
+    if sts3215[0].is_init and sts3215[1].is_init:
+        sts3215[0].set_position_calib(4000)
+        sts3215[1].set_position_calib(4000)
 
-    time.sleep(0.5)
-    while sts3215[0].is_busy() or sts3215[1].is_busy():
-        pass
-    
-    
-    servos[0].angle = 90
-    servos[15].angle = 90
+        time.sleep(0.5)
+        while sts3215[0].is_busy() or sts3215[1].is_busy():
+            pass
+        
+        
+        servos[0].angle = 90
+        servos[15].angle = 90
 
-    robot.send_position_consigne(-100)
-    time.sleep(1)
+        robot.send_position_consigne(-100)
+        time.sleep(1)
 
-    for id in range(16):
-        servos[id].angle = constant.SERVOS_INIT[1][id]
+        for id in range(16):
+            servos[id].angle = constant.SERVOS_INIT[1][id]
 
-    sts3215[0].set_position_calib(0)
-    sts3215[1].set_position_calib(0) 
+        sts3215[0].set_position_calib(0)
+        sts3215[1].set_position_calib(0) 
 
-    time.sleep(0.5)
-    while sts3215[0].is_busy() or sts3215[1].is_busy():
-        pass
+        time.sleep(0.5)
+        while sts3215[0].is_busy() or sts3215[1].is_busy():
+            pass
