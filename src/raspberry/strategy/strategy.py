@@ -242,6 +242,8 @@ class Strategy:
                 self.consigne_queue.append([-200])
                 self.consigne_queue.append([200])
 
+                self.map.objects_a_pousser.remove(pos_object)
+
 
     def robot_theta_degree(self):
         theta_radians = math.atan2(self.step_consigne[1] - self.actual_y, self.step_consigne[0] - self.actual_x)
