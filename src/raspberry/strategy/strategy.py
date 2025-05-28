@@ -215,7 +215,7 @@ class Strategy:
 
                 self.map.our_zones.remove(pos_zone)
                 
-                for consign in constant.DEPOSE_ONE_STAGE:
+                for consign in constant.DEPOSE_CAN:
                     self.consigne_queue.append(consign)   
             
             elif len(self.map.objects_a_pousser) > 0:
