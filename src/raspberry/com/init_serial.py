@@ -47,6 +47,7 @@ def find_ports():
         else:
             print("Port sts3215 : ", port)
             sts3215_port = port
+
         serial.close()
 
     for port in CP210_port:
@@ -70,7 +71,7 @@ def find_ports():
 
 
 def init_coms_robot():
-    init_success = "OUI"
+    init_success = "OUI\n"
     try:
         sts3215_port, robot_port, screen_port, lidar_port = find_ports()
         sts3215 = []
@@ -94,10 +95,8 @@ def init_coms_robot():
         servos = [servo.Servo(pca.channels[i]) for i in range(16)]
 
         screen = Screen(screen_port)
-        time.sleep(0.5)
-        screen.serial.reset_input_buffer()
-        screen.serial.reset_output_buffer()
+        
     except Exception as e:
-        init_success = "NON"
+        init_success = "NON\n"
     screen.serial.write(("Serial init : "+init_success).encode('utf-8'))
     return sts3215, robot, Lidar(lidar_port), servos, screen, Pami(screen.serial), pca
