@@ -268,8 +268,8 @@ class Strategy:
             self.actual_type_consigne = 0
 
 def banniere(robot, sts3215, servos):
-    sts3215[0].set_position_calib(6000)
-    sts3215[1].set_position_calib(6000)
+    sts3215[0].set_position_calib(4000)
+    sts3215[1].set_position_calib(4000)
 
     time.sleep(0.5)
     while sts3215[0].is_busy() or sts3215[1].is_busy():
