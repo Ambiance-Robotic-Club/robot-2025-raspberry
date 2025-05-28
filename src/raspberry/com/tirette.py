@@ -10,9 +10,11 @@ def wait_tirette(pin, screen, robot, servos, sts3215):
     print("\n")
     while(GPIO.input(pin)):   
          pass
+    
+    sts3215, robot, lidar, servos, screen, pami, pca = init_coms_robot()
+
     while(not GPIO.input(pin)):
         if init and screen.get_init_act() == 1:
-            sts3215, robot, lidar, servos, screen, pami, pca = init_coms_robot()
             """
             for servo_id in range(16):
                 servos[servo_id].angle = constant.SERVOS_INIT[0][servo_id]
