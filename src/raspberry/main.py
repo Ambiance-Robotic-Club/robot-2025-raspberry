@@ -20,7 +20,7 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../'
 if __name__ == "__main__":
     sts3215, robot, lidar, servos, screen, pami, pca = init_coms_robot()
 
-    wait_tirette(17, screen, servos, sts3215)
+    wait_tirette(17, screen, robot, servos, sts3215)
 
     stop_lidar = threading.Event()
     t_lidar = threading.Thread(target=lidar.read_lidar_data, args=(stop_lidar,))
@@ -44,7 +44,6 @@ if __name__ == "__main__":
     strategy = Strategy(robot, sts3215, servos, map)
 
     try:
-        banniere(robot, sts3215, servos)
 
         while(timer < 100):
             if not lidar.is_free and lidar.f_stop:
