@@ -7,7 +7,9 @@ def wait_tirette(pin, screen, robot, servos, sts3215):
     init = True
     GPIO.setmode(GPIO.BCM)
     GPIO.setup(pin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-    print("\n")   
+    print("\n")
+    while(GPIO.input(pin)):   
+         pass
     while(not GPIO.input(pin)):
         if init and screen.get_init_act() == 1:
             """

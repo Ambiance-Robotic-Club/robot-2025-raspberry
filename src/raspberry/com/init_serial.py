@@ -98,4 +98,4 @@ def init_coms_robot():
     except Exception as e:
         init_success = "NON"
     screen.serial.write(("Serial init : "+init_success).encode('utf-8'))
-    return sts3215, robot, Lidar(lidar_port), servos, screen, Pami(screen.serial), pca
+    return sts3215, robot, Lidar(lidar_port), servos, screen, Pami(screen.serial), pca, init_success
