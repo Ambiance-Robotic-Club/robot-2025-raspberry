@@ -40,7 +40,8 @@ if __name__ == "__main__":
     pami_stop = True
     stop = True
 
-    
+    banniere(robot, sts3215, servos)
+
     strategy = Strategy(robot, sts3215, servos, map)
 
     try:
