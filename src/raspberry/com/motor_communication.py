@@ -126,7 +126,6 @@ def accept_rcv(serial):
 
     try:
         frame_split = read_serial(serial).split(":")
-        print(frame_split)
         frame_split[-1] = re.sub(r'\r\n', '', frame_split[-1])
 
         if len(frame_split)  != 5:
