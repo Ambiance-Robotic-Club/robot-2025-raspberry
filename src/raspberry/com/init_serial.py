@@ -94,7 +94,7 @@ def init_coms_robot():
 
     screen = Screen(screen_port)
     
-    time.sleep(0.1)
+    time.sleep(0.5)
     screen.serial.reset_output_buffer()
     screen.serial.reset_input_buffer()
 
