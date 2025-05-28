@@ -202,7 +202,7 @@ class Strategy:
 
             self.map.our_zones.remove(pos_zone)
             
-            for consign in constant.DEPOSE_CAN:
+            for consign in constant.DEPOSE_ONE_STAGE:
                 self.consigne_queue.append(consign)   
 
     def robot_theta_degree(self):
