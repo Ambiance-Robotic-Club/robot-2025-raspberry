@@ -96,5 +96,6 @@ def init_coms_robot():
     
     time.sleep(0.1)
     screen.serial.reset_output_buffer()
+    screen.serial.reset_input_buffer()
 
     return sts3215, robot, Lidar(lidar_port), servos, screen, Pami(screen.serial), pca
