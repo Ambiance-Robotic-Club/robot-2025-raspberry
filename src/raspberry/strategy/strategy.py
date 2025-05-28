@@ -283,8 +283,8 @@ def banniere(robot, sts3215, servos):
         robot.send_position_consigne(-100)
         time.sleep(1)
 
-        for id in range(16):
-            servos[id].angle = constant.SERVOS_INIT[1][id]
+        #for id in range(16):
+        #    servos[id].angle = constant.SERVOS_INIT[1][id]
 
         sts3215[0].set_position_calib(0)
         sts3215[1].set_position_calib(0) 
