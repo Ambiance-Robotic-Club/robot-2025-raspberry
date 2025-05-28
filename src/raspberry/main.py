@@ -112,7 +112,8 @@ if __name__ == "__main__":
                 strategy.update_robot()
 
             if timer >= constant.TIME_PAMI_GO:
-                pami.send_color_pami(constant.MAC_PAMI, color)
+                for mac in constant.MAC_PAMI:
+                    pami.send_color_pami(mac, color)
 
             screen.set_timer(int(timer))
 

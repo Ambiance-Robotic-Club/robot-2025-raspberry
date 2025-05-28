@@ -2,7 +2,7 @@ import RPi.GPIO as GPIO
 import time
 import utils.constant as constant
 from strategy.strategy import banniere 
-
+from com.init_serial import init_coms_robot
 def wait_tirette(pin, screen, robot, servos, sts3215):
     init = True
     GPIO.setmode(GPIO.BCM)
@@ -12,6 +12,7 @@ def wait_tirette(pin, screen, robot, servos, sts3215):
          pass
     while(not GPIO.input(pin)):
         if init and screen.get_init_act() == 1:
+            sts3215, robot, lidar, servos, screen, pami, pca = init_coms_robot()
             """
             for servo_id in range(16):
                 servos[servo_id].angle = constant.SERVOS_INIT[0][servo_id]
@@ -42,4 +43,4 @@ def wait_tirette(pin, screen, robot, servos, sts3215):
     screen.serial.reset_input_buffer()
 
 
-    return 1
+    return sts3215, robot, lidar, servos, screen, pami, pca
