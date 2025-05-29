@@ -10,7 +10,7 @@ class Screen:
     
     def get_color(self):
         motor_communication.send_read_command(self.serial, self.id, "C")
-        return "Yellow" if motor_communication.rcv_read_command(self.serial, self.id, "C") == 1 else "Blue"
+        return "Blue" if motor_communication.rcv_read_command(self.serial, self.id, "C") == 1 else "Yellow"
 
 
     def get_current(self):
