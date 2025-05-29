@@ -8,7 +8,9 @@ def wait_tirette(pin):
     GPIO.setmode(GPIO.BCM)
     GPIO.setup(pin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
     print("\n")
+    print(GPIO.input(pin))
     while GPIO.input(pin) == 1:   
+         
          pass
     
     sts3215, robot, lidar, servos, screen, pami, pca = init_coms_robot()
