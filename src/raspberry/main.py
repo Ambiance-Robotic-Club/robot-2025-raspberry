@@ -29,6 +29,7 @@ if __name__ == "__main__":
 
     zone_start = screen.get_zone()
     color = screen.get_color()
+    print(zone_start, color)
 
     map = Map(color)
     robot.init_zone_start(zone_start)
