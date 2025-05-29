@@ -18,7 +18,7 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../'
 
 
 if __name__ == "__main__":
-
+    time.sleep(3)
     sts3215, robot, lidar, servos, screen, pami, pca = wait_tirette(17)
 
     time.sleep(0.05)
