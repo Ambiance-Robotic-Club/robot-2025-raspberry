@@ -98,7 +98,7 @@ if __name__ == "__main__":
 
             if stop and timer >= constant.TIME_STOP:
                 stop = False
-                screen.set_score(45)
+                screen.set_score(24)
                 # TO DO (1 ligne par pami avec adresse mac en argument)
                 pami.send_stop_pami(0)
                 robot.stop()
