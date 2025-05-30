@@ -36,7 +36,6 @@ def wait_tirette(pin):
                     pass
             init = False
 
-            time.sleep(3)
             servos[0].angle = 0
             servos[15].angle = 160
         else:
